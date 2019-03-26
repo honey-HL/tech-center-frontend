@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Route, Switch, BrowserRouter} from 'react-router-dom';
+import Loadable from "react-loadable";
+import { basePath } from "./app-config/config.js";
+
+const Home = Loadable({
+  loader: () => import('./pages/Home'),
+  loading: () => <div></div>
+})
+
+const Encyclopedia= Loadable({
+  loader: () => import('./pages/Question_Encyclopedia/Encyclopedia'),
+  loading: () => <div></div>
+})
 
 class App extends Component {
+  componentDidMount () {
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter basename={basePath}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/encyclopedia" component={Encyclopedia} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
