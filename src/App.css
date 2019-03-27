@@ -1,7 +1,6 @@
 @import '~antd/dist/antd.css';
 
 *  html{font-size: 100px;}
-body{font-size: 0.14rem;/*实际相当于14px*/}
 body{
     padding:0;
     margin:0;

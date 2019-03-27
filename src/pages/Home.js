@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import '../assets/styles/Home.css';
 import { http } from "../common/http.js";
-import banner1 from '../assets/images/1.jpg';
 import ask from '../assets/images/home/ask.png';
 import search_icon from '../assets/images/home/search.png';
-
+import eye from '../assets/images/home/eye.png';
+import heart from '../assets/images/home/heart.png';
 
 
 class TabsCard extends React.Component {
@@ -18,6 +18,20 @@ class TabsCard extends React.Component {
             style_obj: {
                 color:'#666'
             },
+            data: [
+                {
+                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../assets/images/1.jpg')
+                },
+                {
+                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../assets/images/1.jpg')
+                },
+                {
+                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../assets/images/1.jpg')
+                }
+            ],
             types: [
                 {name: '推荐'},
                 {name: '最新'},
@@ -27,7 +41,7 @@ class TabsCard extends React.Component {
             ]
         }
     }
-    changeTab = () => {}
+    changeTab = (e) => {}
     componentDidMount () {}
     render(){
         const TabPane = Tabs.TabPane;
@@ -37,11 +51,39 @@ class TabsCard extends React.Component {
                     {
                         this.state.types.map((item, index) => {
                             return(
-                                <TabPane tab={item.name} size='small' key={index}>{item.name}</TabPane>
+                                <TabPane tab={item.name} size='small' key={index}>
+                                    {
+                                        this.state.data.map((info, index1) => {
+                                            return(
+                                                <Row className='tab_info_item' key={index1} type="flex" justify="space-between" align="middle">
+                                                    <Col span={14}>
+                                                        <div className='info_content' style={{"WebkitBoxOrient": "vertical"}}>{info.content}</div>
+                                                        <div className="view_like">
+                                                            <div className='in_block'>
+                                                                <div className='eye'><img className="banner_img" src={eye} alt="banner" /></div>
+                                                                <span className='in_block view_num'>72</span>
+                                                            </div>
+                                                            <div className='heart_box in_block'>
+                                                                <div className='eye'><img className="banner_img" src={heart} alt="banner" /></div>
+                                                                <span className='in_block praise_num'>72</span>
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={10}>
+                                                        <div className="right_img">
+                                                            <img className="banner_img" src={info.src} alt="banner" />
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            )
+                                        })
+                                    }
+                                </TabPane>
                             )
                         })
                     }
                 </Tabs>
+
             </div>
         )
     }
@@ -169,12 +211,6 @@ class Home extends Component {
                             </div>
                         </Col>
                         <Col className='expert_btn' span={7}>
-                            {/* <Row gutter={0} justify="center">
-                                <Col className="search_expert_icon" xs={{ span: 5, offset: 2 }} lg={{ span: 6, offset: 2 }}>
-                                    <img className="consulting" src={ask} alt="咨询专家" />
-                                </Col>
-                                <Col className="consulting_title" xs={{ span: 16, offset: 1 }} lg={{ span: 6, offset: 2 }}> 咨询专家</Col>
-                            </Row> */}
                             <div className="search_expert_icon">
                                 <img className="consulting" src={ask} alt="咨询专家" />
                             </div>
@@ -183,11 +219,10 @@ class Home extends Component {
                             </div>
                         </Col>
                     </Row>
+                    <BannerAds/>
                 </div>
-                <BannerAds/>
                 <FourTypes/>
                 <TabsCard/>
-                {/* <div className='buttom'>buttom</div> */}
             </div>
         );
     }
