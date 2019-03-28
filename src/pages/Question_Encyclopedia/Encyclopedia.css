@@ -1,0 +1,136 @@
+
+
+
+
+
+
+/****************Article************/
+
+
+
+.article_content{
+    margin-top: 12px;
+    color: #666666;
+    font-size: 12px/22px;
+    font-family:PingFangSC-Regular;
+}
+.article_title {
+    color: #333333;
+    font-size: 12px/22px;
+    font-family:PingFangSC-Regular;
+}
+.right_article {
+    height: 100%;
+    padding: 20px;
+}
+.memu_item_kid:hover{
+    color: #E46713;
+    background:rgba(228,103,19, .2);
+}
+.memu_item_kid{
+    color: #999;
+    height: 30px;
+    line-height: 30px;
+}
+.active_menu {
+    transition:all .3s;
+    display: block;
+}
+.height_0{
+    transition:all .3s;
+    height: 0;
+    display: none;
+}
+.jiao {
+    width: 13px;
+    height: 8px;
+    display: inline-block;
+    margin-right: 8px;
+}
+.jiao_up{
+    transition:all .3s;
+    transform:rotate(180deg);
+}
+.menu_title {
+    font-size: 12px/22px;
+    color: #333;
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 1px solid #E0E0E0;
+}
+.menu_title,.memu_item_kid {
+    text-align: center;
+}
+.memu_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.inherit{
+    height: inherit;
+}
+.left_menu {
+    height: inherit;
+    border-right: 1px solid #E0E0E0;
+}
+.Article {
+    height: 100%;
+    background:rgba(250,250,250,1);
+    margin-top: 13px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+/****************Article************/
+
+
+/**********Header**********/
+
+
+
+.img {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+.back  {
+    width: 11px;
+    height: 20px;
+}
+.search_question {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height:100%;
+    background:rgba(252,252,252,0.95);
+    box-shadow:0px 0px 11px 0px rgba(0,0,0,0.15);
+    opacity:0.9;
+    border-radius:19px;
+}
+.search_col {
+    height: 100%;
+}
+.back_search {
+    width: 100%;
+    padding: 0 12px;
+    margin-top: 12px;
+    height: 35px;
+    overflow: hidden;
+}
+.title_ea {
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    padding-top: 36px;
+}
+.Header {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background:linear-gradient(180deg,rgba(248,175,126,1),rgba(228,103,19,1));
+}
+/**********Header**********/

@@ -7,6 +7,7 @@ import ask from '../assets/images/home/ask.png';
 import search_icon from '../assets/images/home/search.png';
 import eye from '../assets/images/home/eye.png';
 import heart from '../assets/images/home/heart.png';
+import Banner from '../components/banner/banner';
 
 
 class TabsCard extends React.Component {
@@ -65,7 +66,7 @@ class TabsCard extends React.Component {
                                                             </div>
                                                             <div className='heart_box in_block'>
                                                                 <div className='eye'><img className="banner_img" src={heart} alt="banner" /></div>
-                                                                <span className='in_block praise_num'>72</span>
+                                                                <span className='in_block'>72</span>
                                                             </div>
                                                         </div>
                                                     </Col>
@@ -97,11 +98,11 @@ class FourTypes extends React.Component {
                 {
                     src: require('../assets/images/question_icon.png'),
                     title: '问问百科',
-                    path: 'question_encyclopedia'
+                    path: 'encyclopedia'
                 },{
                     src: require('../assets/images/video_icon.png'),
                     title: '教学视频',
-                    path: ''
+                    path: 'video'
                 }, {
                     src: require('../assets/images/knowleage_icon.png'),
                     title: '知识库',
@@ -145,7 +146,7 @@ class FourTypes extends React.Component {
     }
 }
 
-class BannerAds extends React.Component {
+class Home extends Component {
     constructor (props) {
         super(props)
         this.state = {
@@ -158,46 +159,12 @@ class BannerAds extends React.Component {
         }
     }
     getBannerList () {
-        this.setState({
-            bannrArr:[
-                {
-                    path: require('../assets/images/1.jpg')
-                },
-                {
-                    path: require('../assets/images/2.jpg')
-                }
-            ] 
-        })
-        console.log(this.state.bannrArr);
+        // console.log(this.state.bannrArr);
         // this.setState({bannerArr: arr});
         // let res = await http('/User/GetImgValidCode', params, (cancel) => {
         //     this.cancelValidate = cancel;
         // })
     }
-    componentDidMount () {
-      // this.getBannerList()
-    }
-    render () {
-        return(
-            <div className="banner">
-                <Carousel>
-                {this.state.bannerArr.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        <div>
-                            <img className="banner_img" src={item.path} alt="banner" />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </Carousel>
-            </div>
-        )
-    }
-}
-
-
-class Home extends Component {
     render() {
         return(
             <div className="home_header">
@@ -219,7 +186,7 @@ class Home extends Component {
                             </div>
                         </Col>
                     </Row>
-                    <BannerAds/>
+                    <Banner data={this.state.bannerArr}/>
                 </div>
                 <FourTypes/>
                 <TabsCard/>

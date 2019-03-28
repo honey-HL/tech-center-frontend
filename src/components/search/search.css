@@ -1,0 +1,40 @@
+
+
+
+
+.ant-input:hover {
+    border-color: #fbefe8 !important;
+}
+.img_search {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.search_icon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+}
+.search_question::placeholder {
+    font-size:13px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:#999999;
+}
+.search_question {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height:100%;
+    background:rgba(252,252,252,0.95);
+    box-shadow:0px 0px 11px 0px rgba(0,0,0,0.15);
+    opacity:0.9;
+    border-radius:19px;
+    outline: none;
+}
+.Search {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
