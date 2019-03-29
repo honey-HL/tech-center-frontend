@@ -7,6 +7,7 @@ import { triangle } from '../../assets/images/encyclopedia/triangle.png';
 import { video } from '../../assets/images/home/ask.png';
 import Search from '../../components/search/search'
 import Banner from '../../components/banner/banner'
+import CardVertical from '../../components/card_vertical/card_vertical';
 
 
 
@@ -29,7 +30,7 @@ class Header extends Component {
                     <Col span={1}>
                         <Link to="/" className="home-server-item link">
                             <div className='back'>
-                                <img className="img" src={require('../../assets/images/encyclopedia/back.png')}  alt="返回"/>
+                                <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>
                         </Link>
                     </Col>
@@ -43,6 +44,57 @@ class Header extends Component {
                         </div>
                     </Col>
                 </Row>
+            </div>
+        )
+    }
+}
+
+class VideoStream extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: [
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                }
+            ]
+        }
+    }
+    componentDidMount() {}
+    render() {
+        return(
+            <div className="VideoStream">
+                <div className="VideoStream_inner">
+                {
+                    this.state.data.map((item, index) => {
+                        return(
+                            <CardVertical key={index} data={item}/>
+                        )
+                    })
+                }
+                </div>
             </div>
         )
     }
@@ -68,6 +120,7 @@ class Video extends Component {
             <div className="Video">
                 <Header/>
                 <Banner data={this.state.bannerArr}/>
+                <VideoStream/>
             </div>
         )
     }

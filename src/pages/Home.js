@@ -8,6 +8,7 @@ import search_icon from '../assets/images/home/search.png';
 import eye from '../assets/images/home/eye.png';
 import heart from '../assets/images/home/heart.png';
 import Banner from '../components/banner/banner';
+import CardHorizontal from '../components/card_horizontal/card_horizontal'
 
 
 class TabsCard extends React.Component {
@@ -22,15 +23,39 @@ class TabsCard extends React.Component {
             data: [
                 {
                     content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg')
+                    src: require('../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
                 },
                 {
                     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg')
+                    src: require('../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
                 },
                 {
                     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg')
+                    src: require('../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
+                },
+                {
+                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
+                },
+                {
+                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
+                },
+                {
+                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
                 }
             ],
             types: [
@@ -56,26 +81,7 @@ class TabsCard extends React.Component {
                                     {
                                         this.state.data.map((info, index1) => {
                                             return(
-                                                <Row className='tab_info_item' key={index1} type="flex" justify="space-between" align="middle">
-                                                    <Col span={14}>
-                                                        <div className='info_content' style={{"WebkitBoxOrient": "vertical"}}>{info.content}</div>
-                                                        <div className="view_like">
-                                                            <div className='in_block'>
-                                                                <div className='eye'><img className="banner_img" src={eye} alt="banner" /></div>
-                                                                <span className='in_block view_num'>72</span>
-                                                            </div>
-                                                            <div className='heart_box in_block'>
-                                                                <div className='eye'><img className="banner_img" src={heart} alt="banner" /></div>
-                                                                <span className='in_block'>72</span>
-                                                            </div>
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={10}>
-                                                        <div className="right_img">
-                                                            <img className="banner_img" src={info.src} alt="banner" />
-                                                        </div>
-                                                    </Col>
-                                                </Row>
+                                                <CardHorizontal key={index1} info={info}/>
                                             )
                                         })
                                     }
@@ -84,7 +90,6 @@ class TabsCard extends React.Component {
                         })
                     }
                 </Tabs>
-
             </div>
         )
     }
@@ -106,7 +111,7 @@ class FourTypes extends React.Component {
                 }, {
                     src: require('../assets/images/knowleage_icon.png'),
                     title: '知识库',
-                    path: ''
+                    path: 'knowledge'
                 },{
                     src: require('../assets/images/share_icon.png'),
                     title: '大师分享',

@@ -123,7 +123,7 @@ class Header extends Component {
                         <Col span={2}>
                             <Link to="/" className="home-server-item link">
                                 <div className='back'>
-                                    <img className="img" src={require('../../assets/images/encyclopedia/back.png')}  alt="返回"/>
+                                    <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                                 </div>
                             </Link>
                         </Col>
