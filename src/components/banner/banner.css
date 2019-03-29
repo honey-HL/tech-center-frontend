@@ -1,3 +1,16 @@
+
+
+
+
+.ant-carousel .slick-list .slick-slide div{
+    /* height: inherit !important; */
+}
+.ant-carousel .slick-track {
+    height: inherit !important;
+}
+.ant-carousel .slick-list {
+    height: inherit !important;
+}
 .ant-carousel .slick-dots li button {
     background: #C2C2C2;
 }
@@ -19,6 +32,9 @@
     height: 100% !important;
     line-height: 100% !important;
     overflow: auto;
+}
+.banner_box{
+    height: inherit !important;
 }
 .banner {
     width: 100%;

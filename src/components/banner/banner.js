@@ -19,7 +19,7 @@ class Banner extends Component {
                 {this.props.data.map((item, index) => {
                     return (
                       <div key={index}>
-                        <div>
+                        <div className="banner_box">
                             <img className="banner_img" src={item.path} alt="banner" />
                         </div>
                       </div>

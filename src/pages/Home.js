@@ -5,10 +5,9 @@ import '../assets/styles/Home.css';
 import { http } from "../common/http.js";
 import ask from '../assets/images/home/ask.png';
 import search_icon from '../assets/images/home/search.png';
-import eye from '../assets/images/home/eye.png';
-import heart from '../assets/images/home/heart.png';
 import Banner from '../components/banner/banner';
 import CardHorizontal from '../components/card_horizontal/card_horizontal'
+import Search from '../components/search/search'
 
 
 class TabsCard extends React.Component {
@@ -78,13 +77,13 @@ class TabsCard extends React.Component {
                         this.state.types.map((item, index) => {
                             return(
                                 <TabPane tab={item.name} size='small' key={index}>
-                                    {
-                                        this.state.data.map((info, index1) => {
-                                            return(
-                                                <CardHorizontal key={index1} info={info}/>
-                                            )
-                                        })
-                                    }
+                                {
+                                    this.state.data.map((info, index1) => {
+                                        return(
+                                            <CardHorizontal key={index1} info={info}/>
+                                        )
+                                    })
+                                }
                                 </TabPane>
                             )
                         })
@@ -115,7 +114,7 @@ class FourTypes extends React.Component {
                 },{
                     src: require('../assets/images/share_icon.png'),
                     title: '大师分享',
-                    path: ''
+                    path: 'sharing'
                 }
             ]
         }
@@ -155,6 +154,7 @@ class Home extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            search_value: '',
             bannerArr: [ {
                 path: require('../assets/images/1.jpg')
             },
@@ -170,6 +170,10 @@ class Home extends Component {
         //     this.cancelValidate = cancel;
         // })
     }
+    getValue (event) {
+        this.setState({search_value: event.target.value});
+        console.log(this.state.search_value);
+    }
     render() {
         return(
             <div className="home_header">
@@ -177,7 +181,7 @@ class Home extends Component {
                     <div className='title'>技术中心</div>
                     <Row className="search_box" type="flex" justify="space-around" align="middle">
                         <Col className="search_left" span={16}>
-                            <Input className='search_question' placeholder="搜索问题" />
+                            <Search getValue={this.getValue.bind(this)} />
                             <div className="search_icon">
                                 <img className="consulting" src={search_icon} alt="搜索" />
                             </div>

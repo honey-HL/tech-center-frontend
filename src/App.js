@@ -19,12 +19,17 @@ class App extends Component {
           <Route exact path="/encyclopedia" onEnter={()=>{document.title="问问百科"}} component={Encyclopedia} />
           <Route exact path="/video" onEnter={()=>{document.title="教学视频"}} component={Video} />
           <Route exact path="/knowledge" onEnter={()=>{document.title="知识库"}} component={Knowledge} />
+          <Route exact path="/sharing" onEnter={()=>{document.title="大师分享"}} component={Sharing} />
         </Switch>
       </BrowserRouter>
     );
   }
 }
 
+const Sharing =  Loadable({
+  loader: () => import('./pages/Master_Sharing/Sharing'),
+  loading: () => <div></div>
+})
 
 const Knowledge =  Loadable({
   loader: () => import('./pages/Knowledge_Base/Knowledge'),
