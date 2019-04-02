@@ -10,21 +10,24 @@ class Com_Header extends Component {
         super(props)
         this.state = {}
     }
+    handleBack = (e) => {
+        // console.log('this.location.query', this.location.query);
+        // this.props.history.push({pathname: '/'});
+    }
+    componentDidMount () {
+        console.log(this.props.from)
+    }
     render(){
         return(
             <div className='Com_Header'>
-                <Row className="Com_Header_row" type="flex" justify="center" align="middle">
-                    <Col span={1}>
-                        <Link to="/" className="">
-                            <div className='back'>
-                                <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
-                            </div>
-                        </Link>
-                    </Col>
-                    <Col className="title_box" span={22}>
+                <div className="Com_Header_row">
+                    <Link to={this.props.from} className='back'>
+                        <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                    </Link>
+                    <div className="title_box">
                         {this.props.title}
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         )
     }

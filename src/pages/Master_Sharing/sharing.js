@@ -44,7 +44,7 @@ class Sharing extends Component {
     render(){
         return(
             <div className='background_orange'>
-                <ComHeader title={this.state.title}/>
+                <ComHeader  from='/' title={this.state.title}/>
                 <div className="Redius_Blank">
                 {
                 this.state.data.map((item, index) => {

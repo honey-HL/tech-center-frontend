@@ -15,12 +15,15 @@
     font-family:PingFangSC-Regular;
     font-weight:400;
     color:rgba(255,255,255,1);
+    flex-grow: 1;
 }
 .Com_Header_row {
     height: 35px;
+    display: flex;
+    align-items: center;
 }
 .Com_Header {
-    width: 100%;
+    width: calc(100% - 24px);
     padding: 39px 12px 13px;
 }
 .back {

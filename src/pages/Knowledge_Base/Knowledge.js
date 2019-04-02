@@ -56,7 +56,7 @@ class Knowledge extends Component {
         const TabPane = Tabs.TabPane;
         return(
             <div className='Knowledge'>
-                <ComHeader title={this.state.title}/>
+                <ComHeader from='/' title={this.state.title}/>
                 <div className="Redius_Blank">
                     <Tabs tabBarStyle={this.state.style_obj} defaultActiveKey="0" onChange={this.changeTab()}>
                         {

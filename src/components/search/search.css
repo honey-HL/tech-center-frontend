@@ -2,6 +2,14 @@
 
 
 
+
+.link {
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+}
+.ant-input{
+    padding: 4px 32px 4px 12px !important; 
+}
 .ant-input:hover {
     border-color: #fbefe8 !important;
 }
@@ -15,12 +23,13 @@
     height: 20px;
     position: absolute;
     right: 10px;
+    cursor: pointer;
 }
-.search_question::placeholder {
+.search_question::placeholder, .search_question {
     font-size:13px;
     font-family:PingFangSC-Regular;
     font-weight:400;
-    color:#999999;
+    color:#999;
 }
 .search_question {
     display: flex;
@@ -32,10 +41,15 @@
     opacity:0.9;
     border-radius:19px;
     outline: none;
+    width: inherit;
+    border: none;
+    padding: 0 32px 0 12px;
+    text-decoration: none;
 }
 .Search {
     display: flex;
     align-items: center;
     width: 100%;
     height: 100%;
+    position: relative;
 }

@@ -58,15 +58,27 @@ class TabsCard extends React.Component {
                 }
             ],
             types: [
-                {name: '推荐'},
-                {name: '最新'},
-                {name: '最热'},
-                {name: '专题'},
-                {name: '技巧'}
+                {name: '推荐', active: true, id: 1},
+                {name: '最新', active: false, id: 2},
+                {name: '最热', active: false, id: 3},
+                {name: '专题', active: false, id: 4},
+                {name: '技巧', active: false, id: 5}
             ]
         }
     }
-    changeTab = (e) => {}
+    changeActiveTab = (info) => {
+        const items = this.state.types;
+        items.forEach((item) => {
+            item.active = false;
+            if (info.id == item.id) {
+                item.active = true;
+            }
+        })
+        this.setState({types: items})
+    }
+    changeTab = () => {
+
+    }
     componentDidMount () {}
     render(){
         const TabPane = Tabs.TabPane;
@@ -89,6 +101,26 @@ class TabsCard extends React.Component {
                         })
                     }
                 </Tabs>
+                {/* <div className="tab_bar">
+                    <div className="tab_bar_box">
+                    {
+                        this.state.types.map((item, index) => {
+                            return(
+                                <div onClick={() => this.changeActiveTab(item)} className={`tab_item ${item.active?'active':''}`} key={index}>{item.name}</div>
+                            )
+                        })
+                    }
+                    </div>
+                    <div className="tab_content">
+                    {
+                        this.state.data.map((info, index1) => {
+                            return(
+                                <CardHorizontal key={index1} info={info}/>
+                            )
+                        })
+                    }
+                    </div>
+                </div> */}
             </div>
         )
     }
@@ -125,12 +157,12 @@ class FourTypes extends React.Component {
             <div className='four_types'>
                 <div className="bar"></div>
                 <div className="types_container">
-                    <Row className="types_row" type="flex" justify="center">
+                    <div className="types_row">
                         {
                             this.state.icons.map((item, index) => {
                                 return (
-                                    <Col key={index} span={6}>
-                                        <Link to={item.path} className="home-server-item link">
+                                    <div key={index}>
+                                        <Link history={this.props.history} to={item.path} className="home-server-item link">
                                             <div className="types_items">
                                                 <div className="types_img">
                                                     <img className="banner_img" src={item.src} alt="banner" />
@@ -138,11 +170,11 @@ class FourTypes extends React.Component {
                                                 <div className='types_title'>{item.title}</div>
                                             </div>
                                         </Link>
-                                    </Col>
+                                    </div>
                                 )
                             })
                         }
-                    </Row>
+                </div>
                 </div>
                 <div className="bar"></div>
             </div>
@@ -172,29 +204,27 @@ class Home extends Component {
     }
     getValue (event) {
         this.setState({search_value: event.target.value});
-        console.log(this.state.search_value);
+        // debugger
+        console.log('from home', this.state.search_value);
     }
     render() {
         return(
-            <div className="home_header">
+            <div className="Home">
                 <div className="header_box">
                     <div className='title'>技术中心</div>
-                    <Row className="search_box" type="flex" justify="space-around" align="middle">
-                        <Col className="search_left" span={16}>
-                            <Search getValue={this.getValue.bind(this)} />
-                            <div className="search_icon">
-                                <img className="consulting" src={search_icon} alt="搜索" />
+                    <div className="search_box" type="flex" justify="space-around" align="middle">
+                        <div className="search_left" span={16}>
+                            <Search history={this.props.history} back="/" pass={this.getValue.bind(this)} />
                             </div>
-                        </Col>
-                        <Col className='expert_btn' span={7}>
+                        <div className='expert_btn' span={7}>
                             <div className="search_expert_icon">
                                 <img className="consulting" src={ask} alt="咨询专家" />
                             </div>
                             <div className="consulting_title">
                                 咨询专家
                             </div>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     <Banner data={this.state.bannerArr}/>
                 </div>
                 <FourTypes/>

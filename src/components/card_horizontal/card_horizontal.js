@@ -14,8 +14,8 @@ class Card_Horizontal extends Component {
     render(){
         return(
             <div className='Card_Horizontal'>
-                <Row className='tab_info_item' type="flex" justify="space-between" align="middle">
-                    <Col span={14}>
+                <div className='Card_Horizontal_item'>
+                    <div className="Card_Horizontal_left">
                         <div className='info_content' style={{"WebkitBoxOrient": "vertical"}}>{this.props.info.content}</div>
                         <div className="view_like">
                             <div className='in_block'>
@@ -27,13 +27,11 @@ class Card_Horizontal extends Component {
                                 <span className='in_block'>{this.props.info.heart}</span>
                             </div>
                         </div>
-                    </Col>
-                    <Col span={10}>
-                        <div className="right_img">
+                    </div>
+                    <div className="Card_Horizontal_right_img">
                             <img className="banner_img" src={this.props.info.src} alt="banner" />
                         </div>
-                    </Col>
-                </Row>
+                </div>
             </div>
         )
     }

@@ -16,6 +16,7 @@ class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            search_value: ''
         }
     }
     getValue (event){

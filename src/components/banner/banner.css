@@ -3,7 +3,7 @@
 
 
 .ant-carousel .slick-list .slick-slide div{
-    /* height: inherit !important; */
+    height: inherit !important;
 }
 .ant-carousel .slick-track {
     height: inherit !important;
