@@ -8,6 +8,7 @@ import search_icon from '../assets/images/home/search.png';
 import Banner from '../components/banner/banner';
 import CardHorizontal from '../components/card_horizontal/card_horizontal'
 import Search from '../components/search/search'
+import Consulting from '../components/consulting/consulting'
 
 
 class TabsCard extends React.Component {
@@ -215,15 +216,16 @@ class Home extends Component {
                     <div className="search_box" type="flex" justify="space-around" align="middle">
                         <div className="search_left" span={16}>
                             <Search history={this.props.history} back="/" pass={this.getValue.bind(this)} />
-                            </div>
-                        <div className='expert_btn' span={7}>
+                        </div>
+                        <Consulting/>
+                        {/* <div className='expert_btn' span={7}>
                             <div className="search_expert_icon">
                                 <img className="consulting" src={ask} alt="咨询专家" />
                             </div>
                             <div className="consulting_title">
                                 咨询专家
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <Banner data={this.state.bannerArr}/>
                 </div>

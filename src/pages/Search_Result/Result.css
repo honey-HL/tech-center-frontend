@@ -1,6 +1,9 @@
 
 
 /*****fix_bar*****/
+.consulting_box {
+    height: 35px;
+}
 .bar_tip{
     font-size: 14px;
     color: #333;
@@ -11,7 +14,6 @@
     background:rgba(255,255,255,0.95);
     box-shadow:0px 0px 10px 0px rgba(0,0,0,0.15);
     opacity:0.9;
-    border-radius:10px;
     position: fixed;
     left:0;
     bottom: 0;
@@ -64,6 +66,8 @@
 }
 .List {
     margin-bottom: 67px;
+    display: none;
+    transition: all .2s;
 }
 /****List*****/
 

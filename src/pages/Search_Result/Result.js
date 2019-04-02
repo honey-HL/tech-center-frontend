@@ -8,6 +8,7 @@ import hot_icon from '../../assets/images/hot.png';
 import clean from '../../assets/images/clean.png';
 import eye from '../../assets/images/home/eye.png';
 import ComEye from '../../components/com_eye/com_eye';
+import Cosulting from '../../components/consulting/consulting';
 
 
 
@@ -123,7 +124,7 @@ class ResultList extends Component {
     }
     render () {
         return(
-            <div className="List">
+            <div className={`List ${this.props.display?'show_hot':'hide_hot'}`}>
                 <div className="list_main">
                 {
                     this.state.data.map((item, index) => {
@@ -147,7 +148,9 @@ class ResultList extends Component {
                 </div>
                 <div className="fix_bar">
                     <div className='bar_tip'>没有找到答案？您可以</div>
-                    <div className=''>ddsad</div>
+                    <div className='consulting_box'>
+                        <Cosulting/>
+                    </div>
                 </div>
             </div>
         )
@@ -178,6 +181,14 @@ class Result extends Component {
             this.setState({show_clean: false})
         }
     }
+    handleEnterKey = (e) => {
+        if(e.nativeEvent.keyCode === 13){
+            this.submitQuestion(this.state.key);
+        }
+    }
+    getResults = (key) => {
+        console.log('key ', key);
+    }
     changeTab = (e) => {}
     componentWillMount(){
 
@@ -197,14 +208,11 @@ class Result extends Component {
                         <div className='Result_Search'>
                             <input
                                 ref="search"
-                                      value={this.state.key}
+                                value={this.state.key}
                                 type='text'
                                 maxLength="40"
                                 onChange={(event) => this.handleVal(event)}
-                                // onKeyDown={(event) => this.validateValue(event)}
-                                // onKeyUp={(e) => this.handleKeyUp(e)}
-                                // onBlur={this.blurSearch}
-                                // onFocus={this.focusInput}
+                                onKeyPress={(e) => this.handleEnterKey(e)}
                                 className='result_search'
                                 placeholder="搜索问题" />
                             <div onClick={() => this.submitQuestion(this.state.search_key)} className="result_magnifier">
@@ -216,7 +224,7 @@ class Result extends Component {
                         </div>
                     </div>
                    <Hot display={this.state.show_hot} />
-                   <ResultList/>
+                   <ResultList display={!this.state.show_hot}/>
                 </div>
             </div>
         )

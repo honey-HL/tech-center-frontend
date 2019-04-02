@@ -1,0 +1,33 @@
+.search_expert_icon {
+    display: inline-block;
+    float: left;
+    width: 20%;
+    margin-left: 8px;
+}
+.consulting {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.consulting_title {
+    text-align: right;
+    float: right;
+    width: 63%;
+    /* margin-right: 8px; */
+    display: inline-block;
+}
+.expert_btn {
+    position: relative;
+    height: 100%;
+    background:rgba(252,252,252,0.95);
+    box-shadow:0px 0px 11px 0px rgba(0,0,0,0.15);
+    opacity:0.9;
+    border-radius:19px;
+    color: #E46713;
+    display: flex;
+    /* flex-grow: 1; */
+    align-items: center;
+    /* padding: 0 1% 0 1%; */
+    float: left;
+    margin-left: 10px;
+}
