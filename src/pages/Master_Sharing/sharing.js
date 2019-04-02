@@ -34,6 +34,30 @@ class Sharing extends Component {
                     src: require('../../assets/images/1.jpg'),
                     view: 72,
                     heart: 134
+                },
+                {
+                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
+                },
+                {
+                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
+                },
+                {
+                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
+                },
+                {
+                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                    src: require('../../assets/images/1.jpg'),
+                    view: 72,
+                    heart: 134
                 }
             ],
             title: '大师分享'

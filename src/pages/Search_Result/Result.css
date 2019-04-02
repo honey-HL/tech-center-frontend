@@ -62,7 +62,7 @@
 }
 .list_main{
     padding: 0 19px;
-    width: calc(100% - 38px);
+    /* width: calc(100% - 38px); */
 }
 .List {
     margin-bottom: 67px;

@@ -218,19 +218,13 @@ class Home extends Component {
                             <Search history={this.props.history} back="/" pass={this.getValue.bind(this)} />
                         </div>
                         <Consulting/>
-                        {/* <div className='expert_btn' span={7}>
-                            <div className="search_expert_icon">
-                                <img className="consulting" src={ask} alt="咨询专家" />
-                            </div>
-                            <div className="consulting_title">
-                                咨询专家
-                            </div>
-                        </div> */}
                     </div>
-                    <Banner data={this.state.bannerArr}/>
                 </div>
-                <FourTypes/>
-                <TabsCard/>
+                <div className="home_container">
+                    <Banner data={this.state.bannerArr}/>
+                    <FourTypes/>
+                    <TabsCard/>
+                </div>
             </div>
         );
     }

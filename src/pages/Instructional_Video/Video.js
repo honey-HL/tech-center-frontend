@@ -8,53 +8,39 @@ import { video } from '../../assets/images/home/ask.png';
 import Search from '../../components/search/search'
 import Banner from '../../components/banner/banner'
 import CardVertical from '../../components/card_vertical/card_vertical';
+import BaikeHeader from '../../components/baike_header/baike_header';
 
-
-
-
-class Header extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            search_value: ''
-        }
-    }
-    getValue (event){
-        this.setState({search_value: event.target.value});
-        console.log(this.state.search_value);
-    }
-    render() {
-        return(
-            <div className="">
-                <div className='title_ea'>教学视频</div>
-                <Row className="back_search" type="flex" justify="space-around" align="middle">
-                    <Col span={1}>
-                        <Link to="/" className="home-server-item link">
-                            <div className='back'>
-                                <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
-                            </div>
-                        </Link>
-                    </Col>
-                    <Col className="search_col" span={19}>
-                        <Search getValue={this.getValue.bind(this)} />
-                        {/* <Input className='search_question' placeholder="搜索问题" /> */}
-                    </Col>
-                    <Col className="menu_box" span={2}>
-                         <div className='menu_icon'>
-                            <img className="img" src={require('../../assets/images/video/menu_icon.png')}  alt="返回"/>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
-}
 
 class VideoStream extends Component {
     constructor(props) {
         super(props)
         this.state = {
             data: [
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
+                {
+                    title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
+                    view: 72,
+                    src: require('../../assets/images/video/cover.png')
+                },
                 {
                     title: '3123213iPhone 6系列更换 34672387435674836582342083721030屏幕总成 教程verfreergreg',
                     view: 72,
@@ -119,9 +105,11 @@ class Video extends Component {
     render() {
         return(
             <div className="Video">
-                <Header/>
-                <Banner data={this.state.bannerArr}/>
-                <VideoStream/>
+                <BaikeHeader history={this.props.history}/>
+                <div className="Video_container">
+                    <Banner data={this.state.bannerArr}/>
+                    <VideoStream/>
+                </div>
             </div>
         )
     }

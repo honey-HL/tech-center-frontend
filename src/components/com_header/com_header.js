@@ -28,6 +28,7 @@ class Com_Header extends Component {
                         {this.props.title}
                     </div>
                 </div>
+                <div className="white"></div>
             </div>
         )
     }
