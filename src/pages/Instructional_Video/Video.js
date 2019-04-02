@@ -105,7 +105,7 @@ class Video extends Component {
     render() {
         return(
             <div className="Video">
-                <BaikeHeader history={this.props.history}/>
+                <BaikeHeader title='视频教学' history={this.props.history}/>
                 <div className="Video_container">
                     <Banner data={this.state.bannerArr}/>
                     <VideoStream/>

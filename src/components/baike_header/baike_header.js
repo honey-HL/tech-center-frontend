@@ -25,7 +25,7 @@ class Baike_Header extends Component {
     render(){
         return(
             <div className='Baike_Header'>
-               <div className='title_ea'>问问百科</div>
+               <div className='title_ea'>{this.props.title}</div>
                 <div className="back_search">
                     <Link to="/" className="home-server-item link">
                         <div className='back'>

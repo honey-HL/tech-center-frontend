@@ -111,7 +111,7 @@
     font-size:15px;
     text-align: center;
     font-family:PingFangSC-Regular;
-    padding-top: 20px;
+    padding-top: 25px;
 }
 .header_box {
     width:100%;
@@ -120,7 +120,7 @@
 }
 /*******home_header*********/
 .home_container{
-    height: calc(100% - 97px);
+    height: calc(100% - 102px);
     margin-top: 10px;
     overflow: auto;
     border-top-left-radius: 13px;
