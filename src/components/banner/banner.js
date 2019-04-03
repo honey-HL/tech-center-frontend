@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './banner.css';
 import { http } from "../../common/http.js";
+import { imgPrefix } from '../../../src/app-config/config.js';
 
 
 
@@ -12,16 +13,27 @@ class Banner extends Component {
         this.state = {
         }
     }
+    filterLink = (link) => {
+        if (link.indexOf('http') > -1) {
+            return link
+        } else {
+            return 'https://'+link
+        }
+    }
+    bannerView = async (bannerId) => {
+        let res = await http('/jszx/bannerview', {bannerId: bannerId});
+    }
     render() {
+        const http = 'https://';
         return(
             <div className="banner">
                 <Carousel>
                 {this.props.data.map((item, index) => {
                     return (
                       <div key={index}>
-                        <div className="banner_box">
-                            <img className="banner_img" src={item.path} alt="banner" />
-                        </div>
+                        <a onClick={() => this.bannerView(item.jbId)} href={this.filterLink(item.jbLink)} className="banner_box">
+                            <img className="banner_img" src={imgPrefix + item.jbImage} alt="banner" />
+                        </a>
                       </div>
                     )
                 })}

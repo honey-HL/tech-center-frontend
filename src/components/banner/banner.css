@@ -4,6 +4,8 @@
 
 .ant-carousel .slick-list .slick-slide div{
     height: inherit !important;
+    background: gray !important;
+    transition: all .2s;
 }
 .ant-carousel .slick-track {
     height: inherit !important;
@@ -35,6 +37,8 @@
 }
 .banner_box{
     height: inherit !important;
+    width: 100%;
+    display: inline-block;
 }
 .banner {
     width: 100%;

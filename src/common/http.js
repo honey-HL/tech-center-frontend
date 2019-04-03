@@ -26,13 +26,13 @@ export const http = async(url, params) => {
         const config = {
             baseURL: baseUrl, 
             url: url, 
-            method: params.type ? params.type : 'get',
+            method: params.method ? params.method : 'get',
             timeout: 10000,
-            params: params.param ? params.param : {},
-            data: params.body ? params.body : {},
-            headers: {
-              'content-type': 'application/json',
-            }
+            params: params ? params : {}
+            // data: params.body ? params.body : {}
+            // headers: {
+            //   'Access-Control-Allow-Origin': '*',
+            // }
         }
         axios(config).then((response) => {
             console.log(response);

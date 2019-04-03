@@ -188,25 +188,34 @@ class Home extends Component {
         super(props)
         this.state = {
             search_value: '',
-            bannerArr: [ {
-                path: require('../assets/images/1.jpg')
-            },
-            {
-                path: require('../assets/images/2.jpg')
-            }]
+            bannerArr: [
+                // {
+                //     path: require('../assets/images/1.jpg')
+                // },
+                // {
+                //     path: require('../assets/images/2.jpg')
+                // }
+            ]
         }
     }
-    getBannerList () {
+    getBannerList = async () => {
         // console.log(this.state.bannrArr);
         // this.setState({bannerArr: arr});
-        // let res = await http('/User/GetImgValidCode', params, (cancel) => {
-        //     this.cancelValidate = cancel;
-        // })
+        // const params = {
+        //     type: 1
+        // }
+        let res = await http('/jszx/banner', {type: 1});
+        console.log('res ', res);
+        this.setState({bannerArr: res.data});
+        console.log(this.state.bannrArr);
     }
     getValue (event) {
         this.setState({search_value: event.target.value});
         // debugger
         console.log('from home', this.state.search_value);
+    }
+    componentDidMount () {
+        this.getBannerList()
     }
     render() {
         return(
