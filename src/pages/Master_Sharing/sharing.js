@@ -64,7 +64,9 @@ class Sharing extends Component {
         }
     }
     changeTab = (e) => {}
-    componentDidMount(){}
+    componentDidMount(){
+        window.$mobile.navigationShow(false);
+    }
     render(){
         return(
             <div className='background_orange'>

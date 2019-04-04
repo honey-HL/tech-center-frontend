@@ -9,61 +9,71 @@ import Banner from '../components/banner/banner';
 import CardHorizontal from '../components/card_horizontal/card_horizontal'
 import Search from '../components/search/search'
 import Consulting from '../components/consulting/consulting'
+import loading_img from '../assets/images/loading.png';
+// import * as MobileApi from './common/MobileApi.js';
+
 
 
 class TabsCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            active_item: '',
+            open: false,
+            pageIndex: 1,
+            total: '',
+            pageSize: 10,
+            no_data: false,
+            show_loading: false,
             hideAdd: false,
             gutter: 0,
             style_obj: {
                 color:'#666'
             },
             data: [
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                }
+                // {
+                //     content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                //     src: require('../assets/images/1.jpg'),
+                //     view: 72,
+                //     heart: 134
+                // },
+                // {
+                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                //     src: require('../assets/images/1.jpg'),
+                //     view: 72,
+                //     heart: 134
+                // },
+                // {
+                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                //     src: require('../assets/images/1.jpg'),
+                //     view: 72,
+                //     heart: 134
+                // },
+                // {
+                //     content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
+                //     src: require('../assets/images/1.jpg'),
+                //     view: 72,
+                //     heart: 134
+                // },
+                // {
+                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                //     src: require('../assets/images/1.jpg'),
+                //     view: 72,
+                //     heart: 134
+                // },
+                // {
+                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
+                //     src: require('../assets/images/1.jpg'),
+                //     view: 72,
+                //     heart: 134
+                // }
             ],
-            types: [
-                {name: '推荐', active: true, id: 1},
-                {name: '最新', active: false, id: 2},
-                {name: '最热', active: false, id: 3},
-                {name: '专题', active: false, id: 4},
-                {name: '技巧', active: false, id: 5}
+            types: [ // 0推荐 1发布时间 2热度
+                {name: '推荐', active: true, id: 0},
+                {name: '最新', active: false, id: 1},
+                {name: '最热', active: false, id: 2}
+                // {name: '专题', active: false, id: 4},
+                // {name: '技巧', active: false, id: 5}
             ]
         }
     }
@@ -71,38 +81,89 @@ class TabsCard extends React.Component {
         const items = this.state.types;
         items.forEach((item) => {
             item.active = false;
-            if (info.id == item.id) {
+            if (info.id !== undefined) {
+                if ((info.id+'') === (item.id +'')) {
                 item.active = true;
+                    return
+            }
+            } else {
+                if ((info.jacId === item.jacId)) {
+                    item.active = true;
+                    return
+                }
             }
         })
-        this.setState({types: items})
+        this.setState({
+            types: items,
+            active_item: info
+        })
+        this.searchList(info)
+        // console.log(this.state.types);
     }
-    changeTab = () => {
-
+    getTabsNav = async () => {
+        let res = await http('/jszx/classify', {type: 1});
+        let new_types = this.state.types;
+        res.data.forEach((item) => {
+            new_types.push({name: item.jacName, jacId: item.jacId, active: false})
+        })
+        this.setState({types: new_types})
+        this.searchList(this.state.types[0])
     }
-    componentDidMount () {}
+    searchList = async (item) => {
+        let list = this.state.data;
+        let params = {
+            title: '',
+            pageSize: this.state.pageSize,
+            pageIndex: this.state.pageIndex,
+            orderBy: item.id !== undefined ? item.id:'',
+            classifyId: item.jacId !== undefined ? item.jacId: '',
+            type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
+        }
+        let res = await http('/jszx/search', params);
+        console.log(res.data);
+        let data = res.data.data;
+        if (data.length > 0) {
+            for (let i = 0; i < data.length;i++) {
+                list.push(data[i])
+            } 
+            this.setState({
+                data: list,  
+                total: res.data.total
+            })
+        } else {
+            this.setState({data: [], no_data: true})
+        }
+        this.setState({open: true})
+    }
+    loadMore = () => {
+       if (this.state.open) {
+        if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+            this.setState({
+                no_data: true,
+                show_loading: false
+            })
+        } else {
+            this.setState({
+                no_data: false,
+                show_loading: true
+            })
+            this.searchList(this.state.active_item);
+        //   setTimeout(() => {
+        //     this.state.pageIndex++;
+        //     this.searchList();
+        //   }, 300);
+        }
+        this.setState({open: false})
+      }
+    }
+    componentDidMount () {
+        window.$mobile.navigationShow(true);
+        this.getTabsNav()
+    }
     render(){
-        const TabPane = Tabs.TabPane;
         return(
             <div className="TabsCard">
-                <Tabs tabBarStyle={this.state.style_obj} defaultActiveKey="0" onChange={this.changeTab()}>
-                    {
-                        this.state.types.map((item, index) => {
-                            return(
-                                <TabPane tab={item.name} size='small' key={index}>
-                                {
-                                    this.state.data.map((info, index1) => {
-                                        return(
-                                            <CardHorizontal key={index1} info={info}/>
-                                        )
-                                    })
-                                }
-                                </TabPane>
-                            )
-                        })
-                    }
-                </Tabs>
-                {/* <div className="tab_bar">
+                <div className="tab_bar">
                     <div className="tab_bar_box">
                     {
                         this.state.types.map((item, index) => {
@@ -121,7 +182,10 @@ class TabsCard extends React.Component {
                         })
                     }
                     </div>
-                </div> */}
+                    <div className={`loading ${this.state.show_loading?'show_loading':'hide_loading'}`}>
+                        <div className="loading_img"><img className="banner_img" src={loading_img} alt="loading" /></div>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -187,23 +251,12 @@ class Home extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            availHeight: '',
             search_value: '',
-            bannerArr: [
-                // {
-                //     path: require('../assets/images/1.jpg')
-                // },
-                // {
-                //     path: require('../assets/images/2.jpg')
-                // }
-            ]
+            bannerArr: []
         }
     }
     getBannerList = async () => {
-        // console.log(this.state.bannrArr);
-        // this.setState({bannerArr: arr});
-        // const params = {
-        //     type: 1
-        // }
         let res = await http('/jszx/banner', {type: 1});
         console.log('res ', res);
         this.setState({bannerArr: res.data});
@@ -211,15 +264,34 @@ class Home extends Component {
     }
     getValue (event) {
         this.setState({search_value: event.target.value});
-        // debugger
         console.log('from home', this.state.search_value);
     }
+    onScrollHandle = () => {
+        console.log('出发了')
+        // eslint-disable-next-line
+        const scrollTop = this.scrollRef.scrollTop;
+        console.log(scrollTop)
+        // eslint-disable-next-line
+        const clientHeight = this.scrollRef.clientHeight;
+        // eslint-disable-next-line
+        const scrollHeight = this.scrollRef.scrollHeight;
+        // const isBottom = scrollTop + clientHeight === scrollHeight;
+        if (scrollHeight-clientHeight-scrollTop <= 120) {
+            // debugger
+            this.refs.tabsCard.loadMore()
+        }
+      };
     componentDidMount () {
+        this.setState({availHeight: window.screen.availHeight + 'px'})
         this.getBannerList()
     }
     render() {
         return(
-            <div className="Home">
+            <div 
+            style={{ maxHeight: this.state.availHeight, overflowY: 'scroll' }}
+            ref={c => {this.scrollRef = c;}}
+            onScrollCapture={() => this.onScrollHandle()}
+            className="Home">
                 <div className="header_box">
                     <div className='title'>技术中心</div>
                     <div className="search_box" type="flex" justify="space-around" align="middle">
@@ -232,7 +304,7 @@ class Home extends Component {
                 <div className="home_container">
                     <Banner data={this.state.bannerArr}/>
                     <FourTypes/>
-                    <TabsCard/>
+                    <TabsCard ref="tabsCard"/>
                 </div>
             </div>
         );

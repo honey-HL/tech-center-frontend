@@ -38,6 +38,10 @@
 }
 .Card_Horizontal_right_img img {
     border-radius:5px;
+    object-fit: cover;
+    background: #e6e6e6;
+    background-size: cover !important;
+    background-position: center !important;
 }
 .Card_Horizontal_right_img {
     width:140px;

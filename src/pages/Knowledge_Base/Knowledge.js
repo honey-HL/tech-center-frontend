@@ -51,7 +51,9 @@ class Knowledge extends Component {
         }
     }
     changeTab = (e) => {}
-    componentDidMount(){}
+    componentDidMount(){
+        window.$mobile.navigationShow(false);
+    }
     render(){
         const TabPane = Tabs.TabPane;
         return(

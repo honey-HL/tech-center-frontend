@@ -194,6 +194,7 @@ class Result extends Component {
 
     }
     componentDidMount(){
+        window.$mobile.navigationShow(false);
         console.log('this.props.location.pathname', this.props);
     }
     submitQuestion = (search_key) => {

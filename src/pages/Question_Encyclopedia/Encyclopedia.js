@@ -62,7 +62,9 @@ class Article extends Component {
         this.setState({list: items})
         console.log('end',this.state.list)
     }
-    componentDidMount () {}
+    componentDidMount () {
+        window.$mobile.navigationShow(false);
+    }
     render () {
         return(
             <div className='Article'>

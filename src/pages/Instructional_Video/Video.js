@@ -92,16 +92,24 @@ class Video extends Component {
         super(props)
         this.state = {
             bannerArr: [
-                {
-                    path: require('../../assets/images/1.jpg')
-                },
-                {
-                    path: require('../../assets/images/2.jpg')
-                }
+                // {
+                //     path: require('../../assets/images/1.jpg')
+                // },
+                // {
+                //     path: require('../../assets/images/2.jpg')
+                // }
             ]
         }
     }
-    componentDidMount() {}
+    getBanner = async () => {
+        let res = await http('/video/videocenter/api/getRecommend',{}, true);
+        this.setState({bannerArr: res.data});
+        console.log(res.data)
+    }
+    componentDidMount() {
+        window.$mobile.navigationShow(false);
+        this.getBanner()
+    }
     render() {
         return(
             <div className="Video">

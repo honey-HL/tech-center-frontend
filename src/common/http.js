@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl, Messages } from "../app-config/config.js";
+import { baseUrl, onlinePrefix, Messages } from "../app-config/config.js";
 
 const checkErrorMessage = (error) => {
     if (error && error.response) {
@@ -21,10 +21,10 @@ const checkErrorMessage = (error) => {
     return '连接服务器失败!'
   }
 
-export const http = async(url, params) => {
+export const http = async(url, params, production) => {
     return new Promise (async (resolve, reject) => {
         const config = {
-            baseURL: baseUrl, 
+            baseURL: production? onlinePrefix: baseUrl, 
             url: url, 
             method: params.method ? params.method : 'get',
             timeout: 10000,

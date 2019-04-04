@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './banner.css';
 import { http } from "../../common/http.js";
-import { imgPrefix } from '../../../src/app-config/config.js';
+import { imgPrefix, onlinePrefix } from '../../../src/app-config/config.js';
 
 
 
@@ -14,17 +14,20 @@ class Banner extends Component {
         }
     }
     filterLink = (link) => {
-        if (link.indexOf('http') > -1) {
-            return link
+        if (link) {
+            if (link.indexOf('http') > -1) {
+                return link
+            } else {
+                return 'https://'+link
+            }
         } else {
-            return 'https://'+link
+            return
         }
     }
     bannerView = async (bannerId) => {
         let res = await http('/jszx/bannerview', {bannerId: bannerId});
     }
     render() {
-        const http = 'https://';
         return(
             <div className="banner">
                 <Carousel>
@@ -32,7 +35,7 @@ class Banner extends Component {
                     return (
                       <div key={index}>
                         <a onClick={() => this.bannerView(item.jbId)} href={this.filterLink(item.jbLink)} className="banner_box">
-                            <img className="banner_img" src={imgPrefix + item.jbImage} alt="banner" />
+                            <img className="banner_img" src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:imgPrefix + item.jbImage} alt="banner" />
                         </a>
                       </div>
                     )
