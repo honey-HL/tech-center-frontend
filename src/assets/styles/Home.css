@@ -38,6 +38,7 @@
 }
 .four_types {
     width: 100%;
+    background: #fff;
     /* height: 17.5%; */
 }
 
@@ -120,13 +121,15 @@
 }
 /*******home_header*********/
 .home_container{
-    height: calc(100% - 102px);
+    /* height: calc(100% - 102px); */
     margin-top: 10px;
     /****overflow****/
     /* overflow: auto;  */
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
     background: rgba(250,250,250,1);
+    opacity: 1;
+    transition: all .2s;
     margin-top: 10px;
 }
   .Home {

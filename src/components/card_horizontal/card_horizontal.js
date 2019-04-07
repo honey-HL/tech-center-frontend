@@ -30,7 +30,8 @@ class Card_Horizontal extends Component {
                         </div>
                     </div>
                     <div className="Card_Horizontal_right_img">
-                        <img className="banner_img" src={imgPrefix + this.props.info.jaImage} alt="banner" />
+                    <img className="banner_img" src={this.props.info.jaImage} alt="banner" />
+                        {/* <img className="banner_img" src={imgPrefix + this.props.info.jaImage} alt="banner" /> */}
                     </div>
                 </div>
             </div>

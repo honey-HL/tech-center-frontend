@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Result.css';
-import { http } from "../../common/http.js";
+import { http } from "../../common/http";
 import ComHeader from '../../components/com_header/com_header';
 import search_icon from '../../assets/images/home/search.png';
 import hot_icon from '../../assets/images/hot.png';

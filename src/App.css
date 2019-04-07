@@ -1,5 +1,6 @@
 @import '~antd/dist/antd.css';
 
+-webkit-overflow-scrolling:touch
 *  html{font-size: 100px;}
 body, html{
     padding:0;
@@ -30,7 +31,7 @@ body, html{
 #root{
   width: 100%;
   height: 100%;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .App-link {
