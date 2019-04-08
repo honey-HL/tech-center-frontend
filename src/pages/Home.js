@@ -12,6 +12,9 @@ import Consulting from '../components/consulting/consulting'
 import loading_img from '../assets/images/loading.png';
 import { ListView } from 'antd-mobile';
 import axios from 'axios'
+import eye from '../assets/images/home/eye.png';
+import heart from '../assets/images/home/heart.png';
+import { imgPrefix } from '../../src/app-config/config.js';
 
 
 
@@ -101,119 +104,114 @@ class TabsCard extends React.Component {
             }
         })
         this.setState({
+            isLoading: true,
+            pageIndex: 1,
+            data: [],
             types: items,
             active_item: info
         })
-        // this.searchList(info)
-        // console.log(this.state.types);
+        let self = this
+        this.timer = setTimeout(() => {
+            self.loadData(info)
+        }, 100);
+        console.log(this.state);
+        console.log(this.state.pageIndex);
     }
     getTabsNav = async () => {
-        // let res = await http('/jszx/classify', {type: 1});
-        // let new_types = this.state.types;
-        // res.data.forEach((item) => {
-        //     new_types.push({name: item.jacName, jacId: item.jacId, active: false})
-        // })
-        // this.setState({types: new_types})
+        let res = await http('/jszx/classify', {type: 1});
+        let new_types = this.state.types;
+        res.data.forEach((item) => {
+            new_types.push({name: item.jacName, jacId: item.jacId, active: false})
+        })
+        this.setState({
+            pageIndex:1,
+            types: new_types
+        })
+        console.log(this.state.types)
+        this.loadData(this.state.types[0])
         // this.searchList(this.state.types[0])
     }
-    // searchList = async (item) => {
-    //     let list = this.state.data;
-    //     let params = {
-    //         title: '',
-    //         pageSize: this.state.pageSize,
-    //         pageIndex: this.state.pageIndex,
-    //         orderBy: item.id !== undefined ? item.id:'',
-    //         classifyId: item.jacId !== undefined ? item.jacId: '',
-    //         type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
-    //     }
-    //     let res = await http('/jszx/search', params);
-    //     console.log(res.data);
-    //     let data = res.data.data;
-    //     if (data.length > 0) {
-    //         for (let i = 0; i < data.length;i++) {
-    //             list.push(data[i])
-    //         } 
-    //         this.setState({
-    //             data: list,  
-    //             total: res.data.total
-    //         })
-    //     } else {
-    //         this.setState({data: [], no_data: true})
-    //     }
-    //     this.setState({open: true})
-    // }
 
-    loadData () {
-        // let response = await http('/jszx/search', params);
-        axios.get('https://jszx.3ceasy.com/video/videocenter/api/search',{
-          params:{
-            brandId: '',
-            typeId: '',
-            modelId: '',
-            pageIndex: this.state.pageIndex,
-            pageSize: 10,
-            title: ''
-          }
-        })
-        .then((response)=>{
-          let new_data = this.state.data;
-          response.data.data.data.forEach(element => {
-            new_data.push(element);
-          });
-          this.setState({ 
-            total: response.data.data.total,
-            isLoading: false,
+    loadData = async (item, pageIndex) => {
+        let params = {
+            title: '',
+            pageSize: this.state.pageSize,
+            pageIndex: !pageIndex?this.state.pageIndex:pageIndex,
+            orderBy: item.id !== undefined ? item.id:'',
+            classifyId: item.jacId !== undefined ? item.jacId: '',
+            type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
+        }
+        let response = await http('/jszx/search', params);
+        console.log(response);
+        let new_data = this.state.data;
+        response.data.data.forEach(element => {
+          new_data.push(element);
+        });
+        this.setState({ 
+            total: response.data.total,
             pageIndex: this.state.pageIndex + 1,
             data: new_data,
             dataSource: this.state.dataSource.cloneWithRows(new_data),
-          })
-          console.log(response.data.data.total);
         })
-        .catch(function(err){
-          console.log(err);
-        });
+        if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+            this.setState({isLoading: false})
+        }
     }
     
     onEndReached = (event) => {
-        // debugger
         console.log(this.state.data.length)
         if (this.state.data.length < this.state.total) {
-            // debugger
-            if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
-                this.setState({isLoading: false})
-            } else {
-                this.setState({isLoading: true})
-                this.loadData()
-            }
+            this.setState({isLoading: true})
+            this.loadData(this.state.active_item)
+        }
+        if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+            this.setState({isLoading: false})
+        } 
+    }
+
+    goArticleDetail = (item) => {
+        debugger
+        this.props.history.push({
+            pathname: 'detail'
+        })
+    }
+
+    componentWillUnmount() {
+        if (this.timer) {
+            clearTimeout(this.timer);
         }
     }
     
     componentDidMount () {
         window.$mobile.navigationShow(true);
         this.getTabsNav()
-        this.setState({isLoading: true})
-        this.loadData()
     }
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
-              <div key={rowID} style={{ padding: '0 15px' }}>
-                <div
-                  style={{
-                    lineHeight: '50px',
-                    color: '#888',
-                    fontSize: 18,
-                    borderBottom: '1px solid #F6F6F6',
-                  }}
-                >{rowData.viTitle}</div>
-                <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                  {/* <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" /> */}
-                  <div style={{ lineHeight: 1 }}>
-                    <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{rowData.viTitle}</div>
-                    <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>35</span>¥ {rowID}</div>
-                  </div>
-                </div>
-              </div>
+                <Link 
+                to={{pathname: 'detail',state:{id: rowData.jaId}}} 
+                key={rowID} 
+                className='Card_Horizontal'>
+                    <div className='Card_Horizontal_item'>
+                        <div className="Card_Horizontal_left">
+                            <div className='info_content' style={{"WebkitBoxOrient": "vertical"}}>{rowData.jaTitle}</div>
+                            <div className="view_like">
+                                <div className='in_block'>
+                                    <div className='eye'><img className="banner_img" src={eye} alt="banner" /></div>
+                                    <span className='in_block view_num'>{rowData.jaView}</span>
+                                </div>
+                                <div className='heart_box in_block'>
+                                    <div className='eye'><img className="banner_img" src={heart} alt="banner" /></div>
+                                    <span className='in_block'>{rowData.jaLike}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="Card_Horizontal_right_img">
+                            <img className="banner_img" src={imgPrefix + rowData.jaImage} alt="banner" />
+                        </div>
+                    </div>
+                </Link>
             );
         };
         return(
@@ -229,13 +227,6 @@ class TabsCard extends React.Component {
                     }
                     </div>
                     <div className="tab_content">
-                    {/* {
-                        this.state.data.map((info, index1) => {
-                            return(
-                                <CardHorizontal key={index1} info={info}/>
-                            )
-                        })
-                    } */}
                      <ListView
                         ref={el => this.lv = el}
                         dataSource={this.state.dataSource}
@@ -258,9 +249,6 @@ class TabsCard extends React.Component {
                         onEndReachedThreshold={10}
                     />
                     </div>
-                    {/* <div className={`loading ${this.state.show_loading?'show_loading':'hide_loading'}`}>
-                        <div className="loading_img"><img className="banner_img" src={loading_img} alt="loading" /></div>
-                    </div> */}
                 </div>
             </div>
         )
@@ -296,7 +284,7 @@ class FourTypes extends React.Component {
     render () {
         return (
             <div className='four_types'>
-                <div className="bar"></div>
+                <div className="section_bar"></div>
                 <div className="types_container">
                     <div className="types_row">
                         {
@@ -317,7 +305,7 @@ class FourTypes extends React.Component {
                         }
                 </div>
                 </div>
-                <div className="bar"></div>
+                <div className="section_bar"></div>
             </div>
         )
     }

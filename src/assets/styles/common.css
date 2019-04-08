@@ -1,4 +1,83 @@
 
+.section_bar {
+    width: 100%;
+    height: 10px;
+    background: #fafafa;
+}
+
+/**********card_horizontal*********/
+.info_content {
+    color: #333;
+    font-size:14px;
+    word-break: break-all !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}
+.ant-tabs-bar {
+    margin: 0 !important;
+}
+.in_block {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+.heart_box {
+    margin-left:20px;
+}
+.praise_num .view_num {
+    float: left;
+}
+.eye {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-top:1px;
+    font-size: 13px;
+    color:#666666;
+}
+.view_like{
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+    color:#666666;
+}
+.Card_Horizontal_right_img img {
+    border-radius:5px;
+    object-fit: cover;
+    background: #e6e6e6;
+    background-size: cover !important;
+    background-position: center !important;
+}
+.Card_Horizontal_right_img {
+    width:140px;
+    height: 80px;
+    border:1px solid rgba(224,224,224,1);
+    border-radius:5px;
+    padding: 2px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.Card_Horizontal_left {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    width: 60%;
+}
+.Card_Horizontal_item {
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px;
+    padding: 15px 0;
+    width: calc(100% - 40px);
+    border-bottom: 1px solid rgba(224,224,224,1);
+}
+/**********card_horizontal*********/
 
 
 /***loading_img***/
@@ -76,6 +155,9 @@
 /******ensyclopedia_header*****/
 
 /***tab_bar**/
+.tab_content {
+    height: 100%;
+}
 .tab_item{
     padding: 0 12px;
     color: #666;
@@ -103,6 +185,7 @@
     justify-content: space-around;
     box-sizing: border-box;
     cursor: pointer;
+    border-bottom:1px solid #e0e0e0;
 }
 .tab_bar{
     width: 100%;
@@ -135,7 +218,7 @@
 .Redius_Blank{
     height: calc(100% - 78px);
     overflow: auto;
-    background: rgba(250,250,250,1);
+    background: #fff;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
 }

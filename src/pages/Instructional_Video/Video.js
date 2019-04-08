@@ -9,6 +9,7 @@ import Search from '../../components/search/search'
 import Banner from '../../components/banner/banner'
 import CardVertical from '../../components/card_vertical/card_vertical';
 import BaikeHeader from '../../components/baike_header/baike_header';
+import menu_icon from '../../assets/images/video/menu_icon.png'
 
 
 class VideoStream extends Component {
@@ -106,6 +107,10 @@ class Video extends Component {
         this.setState({bannerArr: res.data});
         console.log(res.data)
     }
+    getValue (event){
+        this.setState({search_value: event.target.value});
+        console.log(this.state.search_value);
+    }
     componentDidMount() {
         window.$mobile.navigationShow(false);
         this.getBanner()
@@ -113,7 +118,23 @@ class Video extends Component {
     render() {
         return(
             <div className="Video">
-                <BaikeHeader title='视频教学' history={this.props.history}/>
+                {/* <BaikeHeader title='视频教学' history={this.props.history}/> */}
+                <div className='Baike_Header'>
+                    <div className='title_ea'>{this.props.title}</div>
+                    <div className="back_search">
+                        <Link to="/" className="home-server-item link">
+                            <div className='back'>
+                                <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                            </div>
+                        </Link>
+                        <div className="search_col_video">
+                            <Search history={this.props.history} back="/video" getValue={this.getValue.bind(this)} />
+                        </div>
+                        <div className="menu">
+                            <img className="img" src={require('../../assets/images/video/menu_icon.png')}  alt="返回"/>
+                        </div>
+                    </div>
+                </div>
                 <div className="Video_container">
                     <Banner data={this.state.bannerArr}/>
                     <VideoStream/>

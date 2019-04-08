@@ -2,8 +2,14 @@
 
 /***********VideoStream***********/
 
-
-
+.search_col_video {
+    height: 100%;
+    width: calc(100% - 60px);
+}
+.menu {
+    width: 26px;
+    height: 18px;
+}
 .even {
     /* margin-lef */
 }
