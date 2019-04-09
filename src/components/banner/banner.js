@@ -4,24 +4,13 @@ import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './banner.css';
 import { http } from "../../common/http.js";
 import { imgPrefix, onlinePrefix } from '../../../src/app-config/config.js';
-
+import { filterLink } from '../../common/tool'
 
 
 class Banner extends Component {
     constructor(props) {
         super(props)
         this.state = {
-        }
-    }
-    filterLink = (link) => {
-        if (link) {
-            if (link.indexOf('http') > -1) {
-                return link
-            } else {
-                return 'https://'+link
-            }
-        } else {
-            return
         }
     }
     bannerView = async (bannerId) => {
@@ -34,7 +23,7 @@ class Banner extends Component {
                 {this.props.data.map((item, index) => {
                     return (
                       <div key={index}>
-                        <a onClick={() => this.bannerView(item.jbId)} href={this.filterLink(item.jbLink)} className="banner_box">
+                        <a onClick={() => this.bannerView(item.jbId)} href={filterLink(item.jbLink)} className="banner_box">
                             <img className="banner_img" src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:imgPrefix + item.jbImage} alt="banner" />
                         </a>
                       </div>

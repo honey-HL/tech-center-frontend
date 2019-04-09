@@ -118,7 +118,6 @@ class Video extends Component {
     render() {
         return(
             <div className="Video">
-                <BaikeHeader title='视频教学' history={this.props.history}/>
                 <div className='Baike_Header'>
                     <div className='title_ea'>{this.props.title}</div>
                     <div className="back_search">
