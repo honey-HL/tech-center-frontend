@@ -6,6 +6,7 @@ import './assets/styles/common.css';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import Loadable from "react-loadable";
 import { basePath } from "./app-config/config.js";
+import 'antd-mobile/dist/antd-mobile.css'; 
 
 
 

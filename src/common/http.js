@@ -42,15 +42,8 @@ export const http = async(url, params, production) => {
             }
             reject(Messages.internalServerError);
           }).catch((error) => {
-            console.log(error);
-            if (axios.isCancel(error)) {
-              reject(null);
-              return;
-            }
-            if (error.response && error.response.status === 401) {
-            //   getAccessToken();
-            }
-            reject(checkErrorMessage(error));
+            resolve(error);
+            return;
         })
     })
 }

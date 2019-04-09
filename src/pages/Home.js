@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import '../assets/styles/Home.css';
 import { http } from "../common/http.js";
 import ask from '../assets/images/home/ask.png';
@@ -9,11 +8,8 @@ import Banner from '../components/banner/banner';
 import CardHorizontal from '../components/card_horizontal/card_horizontal'
 import Search from '../components/search/search'
 import Consulting from '../components/consulting/consulting'
-import loading_img from '../assets/images/loading.png';
-import { ListView } from 'antd-mobile';
-import axios from 'axios'
-import eye from '../assets/images/home/eye.png';
-import heart from '../assets/images/home/heart.png';
+import { ListView, Toast } from 'antd-mobile';
+import {eye, heart, loading_img} from '../common/images';
 import { imgPrefix } from '../../src/app-config/config.js';
 
 
@@ -129,31 +125,35 @@ class TabsCard extends React.Component {
         })
         console.log(this.state.types)
         this.loadData(this.state.types[0])
-        // this.searchList(this.state.types[0])
     }
 
     loadData = async (item, pageIndex) => {
         let params = {
+            pageIndex: !pageIndex?this.state.pageIndex:pageIndex,
             title: '',
             pageSize: this.state.pageSize,
-            pageIndex: !pageIndex?this.state.pageIndex:pageIndex,
             orderBy: item.id !== undefined ? item.id:'',
             classifyId: item.jacId !== undefined ? item.jacId: '',
             type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
         }
         let response = await http('/jszx/search', params);
         console.log(response);
-        let new_data = this.state.data;
-        response.data.data.forEach(element => {
-          new_data.push(element);
-        });
-        this.setState({ 
-            total: response.data.total,
-            pageIndex: this.state.pageIndex + 1,
-            data: new_data,
-            dataSource: this.state.dataSource.cloneWithRows(new_data),
-        })
-        if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+        if (response.data) {
+            let new_data = this.state.data;
+            response.data.data.forEach(element => {
+              new_data.push(element);
+            });
+            this.setState({ 
+                total: response.data.total,
+                pageIndex: this.state.pageIndex + 1,
+                data: new_data,
+                dataSource: this.state.dataSource.cloneWithRows(new_data),
+            })
+            if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+                this.setState({isLoading: false})
+            }
+        } else {
+            Toast.info(response.message, 1);
             this.setState({isLoading: false})
         }
     }
@@ -169,13 +169,6 @@ class TabsCard extends React.Component {
         } 
     }
 
-    goArticleDetail = (item) => {
-        debugger
-        this.props.history.push({
-            pathname: 'detail'
-        })
-    }
-
     componentWillUnmount() {
         if (this.timer) {
             clearTimeout(this.timer);
@@ -186,11 +179,16 @@ class TabsCard extends React.Component {
         window.$mobile.navigationShow(true);
         this.getTabsNav()
     }
+    onScrollHandle = () => {
+        console.log(this.lv)
+        // console.log(this.lv.scrollHeight-window.screen.availHeight)
+
+    }
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'detail',state:{id: rowData.jaId}}} 
+                to={{pathname: 'detail',state:{id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>
@@ -230,7 +228,6 @@ class TabsCard extends React.Component {
                      <ListView
                         ref={el => this.lv = el}
                         dataSource={this.state.dataSource}
-                        className="am-list sticky-list"
                         useBodyScroll
                         renderFooter={() => (
                         <div style={{ padding: 30, textAlign: 'center', display:'flex',justifyContent:'center'}}>
@@ -243,7 +240,7 @@ class TabsCard extends React.Component {
                         )}
                         renderRow={row}
                         pageSize={4}
-                        onScroll={() => { console.log('scroll'); }}
+                        onScroll={() => this.onScrollHandle()}
                         scrollEventThrottle={200}
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={10}
@@ -314,6 +311,7 @@ class FourTypes extends React.Component {
 class Home extends Component {
     constructor (props) {
         super(props)
+        let defaultScrollTop = 0;
         this.state = {
             availHeight: '',
             search_value: '',
@@ -340,14 +338,30 @@ class Home extends Component {
         // eslint-disable-next-line
         const scrollHeight = this.scrollRef.scrollHeight;
         // const isBottom = scrollTop + clientHeight === scrollHeight;
-        if (scrollHeight-clientHeight-scrollTop <= 120) {
+        // if (scrollHeight-clientHeight-scrollTop <= 120) {
             // debugger
-            this.refs.tabsCard.loadMore()
-        }
+            // this.refs.tabsCard.loadMore()
+        // }
       };
+     
     componentDidMount () {
         this.setState({availHeight: window.screen.availHeight + 'px'})
         this.getBannerList()
+        // let latoutNode = document.getElementsByClassName("Home")[0];
+        // if (latoutNode) {
+        //     // debugger
+        //     latoutNode.addEventListener("scroll", e => {
+        //         debugger
+        //       latoutNode.scrollTop = e.target.scrollTop;
+        //       console.log(latoutNode.scrollTop)
+        //     });
+        //     // latoutNode.scrollTop = defaultScrollTop;
+           
+        // }
+    }
+    componentWillUnmount () {
+        console.log(document.documentElement.getBoundingClientRect.top);
+        console.log(document.getElementsByClassName('Home')[0].scrollTop);
     }
     render() {
         return(
