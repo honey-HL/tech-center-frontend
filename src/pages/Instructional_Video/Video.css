@@ -1,5 +1,31 @@
 /********************************************************************************Video*********/
 
+
+/*****视频右侧弹出层*****/
+.am-drawer.am-drawer-right .am-drawer-draghandle {
+    display: none !important;
+}
+.am-drawer {
+    position: static !important;
+    top:80px !important;
+}
+.my-drawer {
+    position: relative;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .my-drawer .am-drawer-sidebar {
+    background-color: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .my-drawer .am-drawer-sidebar .am-list {
+    width: 300px;
+    padding: 0;
+  }
+/*****视频右侧弹出层*****/
+
+
 /***********VideoStream***********/
 
 .search_col_video {
@@ -14,10 +40,16 @@
     /* margin-lef */
 }
 .VideoStream_inner{
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between; */
+}
+.VideoStream_item {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 .VideoStream{
     background: #fff;
@@ -58,16 +90,17 @@
 
 /**********Header*********/
 .Video_container {
-    height: calc(100% - 102px);
+    height: calc(100% - 80px);
     margin-top: 10px;
-    overflow: auto;
+    /* overflow: auto; */
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
-    background: rgba(250,250,250,1);
+    background: #fff;
+    position: relative;
 }
 .Video {
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     background:linear-gradient(180deg,rgba(248,175,126,1),rgba(228,103,19,1));
 }
 /**********Header*********/

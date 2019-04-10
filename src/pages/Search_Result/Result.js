@@ -202,7 +202,7 @@ class Result extends Component {
     }
     render(){
         return(
-            <div className='background_orange'>
+            <div className='Search_Result'>
                 <ComHeader from={this.props.location.state.from} title={this.state.title}/>
                 <div className="Redius_Blank">
                     <div className="Result">
