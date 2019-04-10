@@ -32,27 +32,27 @@ class App extends Component {
 
 
 const ArticleDetail =  Loadable({
-  loader: () => import('./pages/Article_Detail/detail'),
+  loader: () => import('./pages/article_detail1/Detail'),
   loading: () => <div></div>
 })
 
 const Result =  Loadable({
-  loader: () => import('./pages/Search_Result/Result'),
+  loader: () => import('./pages/search_result1/Result'),
   loading: () => <div></div>
 })
 
 const Sharing =  Loadable({
-  loader: () => import('./pages/Master_Sharing/Sharing'),
+  loader: () => import('./pages/master_sharing/Sharing'),
   loading: () => <div></div>
 })
 
 const Knowledge =  Loadable({
-  loader: () => import('./pages/Knowledge_Base/Knowledge'),
+  loader: () => import('./pages/knowledge_base1/Knowledge'),
   loading: () => <div></div>
 })
 
 const Video =  Loadable({
-  loader: () => import('./pages/Instructional_Video/Video'),
+  loader: () => import('./pages/instructional_video1/Video'),
   loading: () => <div></div>
 })
 
@@ -62,7 +62,7 @@ const Home = Loadable({
 })
 
 const Encyclopedia= Loadable({
-  loader: () => import('./pages/Question_Encyclopedia/Encyclopedia'),
+  loader: () => import('./pages/question_encyclopedia1/Encyclopedia'),
   loading: () => <div></div>
 })
 

@@ -6,8 +6,7 @@
     display: none !important;
 }
 .am-drawer {
-    position: static !important;
-    top:80px !important;
+    position: absolute !important;
 }
 .my-drawer {
     position: relative;
@@ -90,7 +89,7 @@
 
 /**********Header*********/
 .Video_container {
-    height: calc(100% - 80px);
+   min-height: calc(100% - 80px);
     margin-top: 10px;
     /* overflow: auto; */
     border-top-left-radius: 13px;

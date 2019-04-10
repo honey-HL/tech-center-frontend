@@ -192,7 +192,11 @@ class Video extends Component {
         return(
             <div 
             className="Video"
-            // style={{position:this.state.open?'fixed':'relative',}}
+            style={{
+                position:this.state.open?'fixed':'relative',
+                top:this.state.open?'0':'',
+                left:this.state.open?'0':''
+            }}
             >
                 <div className='Baike_Header'>
                     <div className='title_ea'>{this.props.title}</div>
@@ -211,19 +215,24 @@ class Video extends Component {
                     </div>
                 </div>
                 <div className="Video_container">
-                    <Banner data={this.state.bannerArr}/>
-                    <VideoStream ref={c => {this.videoRef = c;}} />
                     <Drawer
                         enableDragHandle ={drag}
                         position="right"
                         className="my-drawer"
-                        style={{ display: this.state.open?'block':'none', height: document.documentElement.clientHeight }}
+                        style={{
+                            zIndex:this.state.open?'9999':'',
+                            display: this.state.open?'block':'none', 
+                            height: document.documentElement.clientHeight - 80
+                         }}
                         contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                         sidebar={sidebar}
                         open={this.state.open}
                         onOpenChange={this.onOpenChange}
                     >
+                    &nbsp;
                     </Drawer>
+                    <Banner data={this.state.bannerArr}/>
+                    <VideoStream ref={c => {this.videoRef = c;}} />
                 </div>
             </div>
         )
