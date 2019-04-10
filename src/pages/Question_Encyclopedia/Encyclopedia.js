@@ -17,7 +17,7 @@ class Article extends Component {
             show_article: false,
             active_jnId: '',
             is_like_active: '',
-            jaView: '',
+            jaLike: '',
             article_title: '',
             article_content: '',
             jbImage: '',
@@ -57,10 +57,10 @@ class Article extends Component {
                 show_article: true,
                 active_jnId: item.jnId,
                 jaId: res.data.data[0].jaId,
-                jaView: res.data.data[0].jaView,
+                jaLike: res.data.data[0].jaLike,
                 article_content: res.data.data[0].jaContent,
                 article_title: res.data.data[0].jaTitle,
-                jaView: res.data.data[0].jaView,
+                jaLike: res.data.data[0].jaLike,
             })
         }
         let data = this.state.list
@@ -230,7 +230,7 @@ class Article extends Component {
                             !this.state.is_like_active?<img style={{transition:'all .2s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
                         }
                         </a>
-                        <div className='jaView'>{this.state.jaView}</div>
+                        <div className='jaLike'>{this.state.jaLike}</div>
                     </div>
                 </div>
             </div>
