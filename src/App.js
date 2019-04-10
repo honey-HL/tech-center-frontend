@@ -39,7 +39,7 @@ const Result =  Loadable({
 })
 
 const Sharing =  Loadable({
-  loader: () => import('./pages/master_sharing1/Sharing1'),
+  loader: () => import('./pages/master_sharing/Sharing'),
   loading: () => <div></div>
 })
 
