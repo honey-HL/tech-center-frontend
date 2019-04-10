@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './assets/styles/common.css';
 // import { browserHistory } from 'react-router';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import Loadable from "react-loadable";
 import { basePath } from "./app-config/config.js";
-import 'antd-mobile/dist/antd-mobile.css'; 
-
-
+import 'antd-mobile/dist/antd-mobile.css'
 
 class App extends Component {
   componentDidMount () {
@@ -42,7 +39,7 @@ const Result =  Loadable({
 })
 
 const Sharing =  Loadable({
-  loader: () => import('./pages/master_sharing/Sharing'),
+  loader: () => import('./pages/master_sharing1/Sharing1'),
   loading: () => <div></div>
 })
 

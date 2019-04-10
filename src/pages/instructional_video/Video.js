@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input } from 'antd';
 import './Video.css';
 import { http } from "../../common/http";
-import { triangle } from '../../assets/images/encyclopedia/triangle.png';
-import { video } from '../../assets/images/home/ask.png';
 import Search from '../../components/search/search'
 import Banner from '../../components/banner/banner'
-import CardVertical from '../../components/card_vertical/card_vertical';
-import BaikeHeader from '../../components/baike_header/baike_header';
-import menu_icon from '../../assets/images/video/menu_icon.png'
 import { ListView, Toast, Drawer, List } from 'antd-mobile';
 import {eye, loading_img} from '../../common/images';
-
 
 class VideoStream extends Component {
     constructor(props) {
@@ -36,7 +29,7 @@ class VideoStream extends Component {
         }
     }
 
-    onEndReached = (event) => {
+    onEndReached = () => {
         console.log(this.state.data.length)
         if (this.state.data.length < this.state.total) {
             this.setState({isLoading: true})
