@@ -25,7 +25,7 @@
     if (isApp) {
       if (isAndroid) {
         return window.$android[method](JSON.stringify(data))
-      } else if (isIOS&&isMoblie) {
+      } else if (isIOS) {
         return window.webkit.messageHandlers[method].postMessage(JSON.stringify(data))
       }
     }
