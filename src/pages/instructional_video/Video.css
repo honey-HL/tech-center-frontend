@@ -1,6 +1,105 @@
 /********************************************************************************Video*********/
 
 
+
+/******sidevbar********/
+
+
+.sidebar_confirm {
+    color: #E46713;
+    padding: 8px 50px;
+    background:rgba(252,252,252,0.95);
+    border:1px solid rgba(228, 103, 19, 1);
+    box-shadow:0px 0px 10px 0px rgba(189,82,10,0.1);
+    border-radius:35px;
+  }
+.sidebar_cancel{
+    border-radius:35px;
+   border:1px solid rgba(224, 224, 224, 1);
+   padding: 8px 50px;
+   box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+.sidebar_bottom {
+    justify-content: space-around;
+    color: #666;
+    box-sizing: border-box;
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    height: 50px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    box-shadow:0px 0px 20px 0px rgba(0,0,0,0.15);
+    opacity:0.9;
+  }
+.type_wraper_item {
+    color: #666;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border:1px solid #AAAAAA;
+    cursor: pointer;
+    margin-right: 12px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.sidebar_clicked {
+    border: 1px solid #E46713;
+    color: #E46713;
+}
+.sidebar_type, .sidebar_brand{
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+}
+.sidebar_type_wraper, .sidebar_brand_wraper {
+    display: flex;
+    padding: 0 15px;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+}
+.sidebar_secondary_title {
+    color: #999;
+    padding: 12px 20px 0;
+}
+.sidebar_head .sidebar_title {
+    color: #E46713;
+    font-size: 14px;
+    width: inherit;
+    text-align: center;
+}
+.sidebar_head .back_orange {
+    width: 10px;
+    display: inline-block;
+    height: 19px;
+    margin-left:5px;
+}
+.sidebar_container {
+    overflow: auto;
+    box-sizing: border-box;
+}
+.sidebar_head{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row; 
+    padding: 8px 10px;
+    border-bottom: 1px solid #E0E0E0;
+    box-sizing: border-box;
+}
+.sidebar {
+    width: 100%;
+    height: inherit;
+    background: #fff;
+}
+.am-drawer.am-drawer-right .am-drawer-sidebar {
+    width: 80% !important;
+    border-top-left-radius: 18px !important;
+}
+/******sidevbar********/
+
+
 /*****视频右侧弹出层*****/
 .am-drawer.am-drawer-right .am-drawer-draghandle {
     display: none !important;
@@ -89,7 +188,7 @@
 
 /**********Header*********/
 .Video_container {
-   min-height: calc(100% - 80px);
+   min-height: calc(100% - 93px);
     margin-top: 10px;
     /* overflow: auto; */
     border-top-left-radius: 13px;
