@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Detail.css';
 import { http } from "../../common/http";
 import ComHeader from '../../components/com_header/com_header';
-import CardHorizontal from '../../components/card_horizontal/card_horizontal'
 import { ListView, Toast } from 'antd-mobile';
 import { imgPrefix } from '../../app-config/config';
 import {eye, heart, loading_img} from '../../common/images';

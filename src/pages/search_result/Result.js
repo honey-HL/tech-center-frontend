@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './Result.css';
-import { http } from "../../common/http";
 import ComHeader from '../../components/com_header/com_header';
 import search_icon from '../../assets/images/home/search.png';
 import hot_icon from '../../assets/images/hot.png';
 import clean from '../../assets/images/clean.png';
-import eye from '../../assets/images/home/eye.png';
 import ComEye from '../../components/com_eye/com_eye';
 import Cosulting from '../../components/consulting/consulting';
 
@@ -46,7 +43,7 @@ class Hot extends Component {
             <div className={`Hot ${this.props.display?'show_hot':'hide_hot'}`}>
                 <div className="hot_top">
                     <div className='hot_img'>
-                        <img className="img_search" src={hot_icon}/>
+                        <img className="img_search" src={hot_icon} alt="serach"/>
                     </div>
                     <div className='hot_title'>热门搜索</div>
                 </div>

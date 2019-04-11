@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Tabs } from 'antd';
 import './Knowledge.css';
-import { http } from "../../common/http.js";
 import ComHeader from '../../components/com_header/com_header';
 import CardHorizontal from '../../components/card_horizontal/card_horizontal'
 

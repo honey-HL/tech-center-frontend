@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/styles/Home.css';
 import { http } from "../common/http.js";
-import ask from '../assets/images/home/ask.png';
-import search_icon from '../assets/images/home/search.png';
 import Banner from '../components/banner/banner';
-import CardHorizontal from '../components/card_horizontal/card_horizontal'
 import Search from '../components/search/search'
 import Consulting from '../components/consulting/consulting'
 import { ListView, Toast } from 'antd-mobile';
@@ -36,44 +33,6 @@ class TabsCard extends React.Component {
             style_obj: {
                 color:'#666'
             },
-            data: [
-                // {
-                //     content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                //     src: require('../assets/images/1.jpg'),
-                //     view: 72,
-                //     heart: 134
-                // },
-                // {
-                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                //     src: require('../assets/images/1.jpg'),
-                //     view: 72,
-                //     heart: 134
-                // },
-                // {
-                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                //     src: require('../assets/images/1.jpg'),
-                //     view: 72,
-                //     heart: 134
-                // },
-                // {
-                //     content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                //     src: require('../assets/images/1.jpg'),
-                //     view: 72,
-                //     heart: 134
-                // },
-                // {
-                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                //     src: require('../assets/images/1.jpg'),
-                //     view: 72,
-                //     heart: 134
-                // },
-                // {
-                //     content: 'iPhone XS很难修？认证专家告 诉你这些小技巧',
-                //     src: require('../assets/images/1.jpg'),
-                //     view: 72,
-                //     heart: 134
-                // }
-            ],
             types: [ // 0推荐 1发布时间 2热度
                 {name: '推荐', active: true, id: 0},
                 {name: '最新', active: false, id: 1},
@@ -311,7 +270,6 @@ class FourTypes extends React.Component {
 class Home extends Component {
     constructor (props) {
         super(props)
-        let defaultScrollTop = 0;
         this.state = {
             availHeight: '',
             search_value: '',

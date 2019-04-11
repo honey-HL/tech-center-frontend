@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './Encyclopedia.css';
 import { http } from "../../common/http.js";
-import Search from '../../components/search/search';
 import BaikeHeader from '../../components/baike_header/baike_header';
 import { Toast } from 'antd-mobile';
-import { debug } from 'util';
 import { filterLink } from '../../common/tool'
 import { imgPrefix } from '../../../src/app-config/config.js';
 import {like_red, like_white} from '../../common/images';
@@ -60,7 +57,6 @@ class Article extends Component {
                 jaLike: res.data.data[0].jaLike,
                 article_content: res.data.data[0].jaContent,
                 article_title: res.data.data[0].jaTitle,
-                jaLike: res.data.data[0].jaLike,
             })
         }
         let data = this.state.list
@@ -90,14 +86,14 @@ class Article extends Component {
         const items = this.state.list;
         if (info.active) {
             items.forEach((item) => {
-                if (info.jnId == item.jnId) {
+                if (info.jnId === item.jnId) {
                     item.active = false;
                 }
             })
         } else {
             items.forEach((item) => {
                 item.active = false;
-                if (info.jnId == item.jnId) {
+                if (info.jnId === item.jnId) {
                     item.active = true;
                 }
             })
@@ -145,7 +141,7 @@ class Article extends Component {
         console.log(this.state.list)
     }
     bannerView = async (bannerId) => {
-        let res = await http('/jszx/bannerview', {bannerId: bannerId});
+        await http('/jszx/bannerview', {bannerId: bannerId});
     }
     getBaikeNav = async ()=> {
         let response = await http('/jszx/baikeNavi', {pid:0});
@@ -157,7 +153,7 @@ class Article extends Component {
     } 
     likeHandle = async (jaId) => { // GET /jszx/likearticle
         if (!this.state.is_like_active) { // 没有点过like
-            let res = await http('/jszx/likearticle', {id: jaId});
+            await http('/jszx/likearticle', {id: jaId});
             let data = this.state.list;
             for (let i in data) {
                 for (let j in data[i].secondary) {
@@ -193,13 +189,13 @@ class Article extends Component {
                                 <div className={item.active?"active_menu":'height_0'}>{
                                 item.secondary.map((it, ide) => {
                                     return(
-                                        <a 
+                                        <div 
                                         onClick={() => this.getEncyDetail(it)} 
                                         key={ide} 
                                         className={`memu_item_kid ${it.isClicked?'memu_item_kid_active':''}`}
                                         >
                                             {it.jnName}
-                                        </a>
+                                        </div>
                                     )
                                 })
                                 }</div>
@@ -225,11 +221,11 @@ class Article extends Component {
                     onClick={() => this.likeHandle(this.state.jaId)} 
                     className='like_article'
                     >
-                        <a style={{display:'block',width:'32px',height:'28px',}}>
+                        <div style={{display:'block',width:'32px',height:'28px',}}>
                         {
                             !this.state.is_like_active?<img style={{transition:'all .2s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
                         }
-                        </a>
+                        </div>
                         <div className='jaLike'>{this.state.jaLike}</div>
                     </div>
                 </div>

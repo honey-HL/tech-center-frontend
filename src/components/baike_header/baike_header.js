@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './baike_header.css';
-import { http } from "../../common/http.js";
 import Search from '../../components/search/search';
 
 

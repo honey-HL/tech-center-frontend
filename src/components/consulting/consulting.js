@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './consulting.css';
 import ask from '../../assets/images/home/ask.png';
-import { http } from "../../common/http.js";
 
 
 class Consulting extends Component {

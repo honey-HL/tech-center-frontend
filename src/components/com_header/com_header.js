@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './com_header.css';
-import { http } from "../../common/http.js";
 
 
 class Com_Header extends Component {

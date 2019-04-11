@@ -123,12 +123,8 @@
       "/HL/Projects/tech-center-frontend/tech-center-frontend/node_modules/jest-watch-typeahead/testname.js"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "devDependencies": {
+   "babel-plugin-import": "^1.9.1",
     "react-router-dom": "^5.0.0"
   }
-}
+} 

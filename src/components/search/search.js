@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './search.css';
 // import { http } from "../common/http.js";
 import search_icon from '../../assets/images/home/search.png';

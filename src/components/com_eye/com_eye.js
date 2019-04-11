@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
 import './com_eye.css';
 import eye from '../../assets/images/home/eye.png';
 // import heart from '../../assets/images/home/heart.png';

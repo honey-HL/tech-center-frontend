@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Carousel, Row, Col, Input, Tabs } from 'antd';
+import { Carousel } from 'antd';
 import './banner.css';
 import { http } from "../../common/http.js";
 import { imgPrefix, onlinePrefix } from '../../../src/app-config/config.js';
@@ -14,7 +13,7 @@ class Banner extends Component {
         }
     }
     bannerView = async (bannerId) => {
-        let res = await http('/jszx/bannerview', {bannerId: bannerId});
+        await http('/jszx/bannerview', {bannerId: bannerId});
     }
     render() {
         return(
