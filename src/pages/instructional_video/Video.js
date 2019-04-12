@@ -101,7 +101,7 @@ class VideoStream extends Component {
             const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter/'
             return (
                 <Link 
-                    to={{pathname: 'detail',state:{id: rowData.jaId, scrollTop:''}}} 
+                    to={{pathname: 'vdetail',state:{id: rowData.viId, scrollTop:''}}} 
                     key={rowID} 
                     className='Card_Vertical'
                 >
