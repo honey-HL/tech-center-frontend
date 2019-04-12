@@ -99,7 +99,7 @@ class Card_Horizontal extends Component {
                 {
                     this.state.isLoading?<div className={`loading_img`}>
                         <img className="banner_img" src={loading_img} alt="loading" />
-                    </div>:<div>无更多数据</div>
+                    </div>:<div>已加载全部</div>
                 }
                 </div>
                 )}
