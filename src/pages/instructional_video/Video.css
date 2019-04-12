@@ -188,7 +188,7 @@
 
 /**********Header*********/
 .Video_container {
-   min-height: calc(100% - 93px);
+   min-height: calc(100% - 75px);
     margin-top: 10px;
     /* overflow: auto; */
     border-top-left-radius: 13px;

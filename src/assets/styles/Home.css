@@ -100,7 +100,7 @@
 }
 /*******home_header*********/
 .home_container{
-    height: calc(100% - 102px);
+    height: calc(100% - 89px);
     margin-top: 10px;
     /****overflow****/
     /* overflow: auto;  */
