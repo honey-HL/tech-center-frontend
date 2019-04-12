@@ -6,6 +6,8 @@ import hot_icon from '../../assets/images/hot.png';
 import clean from '../../assets/images/clean.png';
 import ComEye from '../../components/com_eye/com_eye';
 import Cosulting from '../../components/consulting/consulting';
+import { http } from "../../common/http.js";
+import { Toast } from 'antd-mobile';
 
 
 
@@ -13,22 +15,27 @@ class Hot extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            hot_list: ['屏幕总成', '代修服务', '屏幕门', 'xs信号问题', '小米8青春版', 'OPPO X1']
+            hot_list: [],
         }
     }
-    handleHotList = () => {
-        let data = this.state.hot_list;
-        let result = [];
-        for(var i=0; i<data.length; i+=3){
-            result.push(data.slice(i,i+3));
+    handleHotList = async () => {
+        let res = await http('/jszx/classify', {type: 2}); // 分类类型 1 首页展示 2热搜展示 3知识库展示
+        if (res.data) {
+            let new_types = [];
+            res.data.forEach((item) => {
+                new_types.push({jacName: item.jacName, jacId: item.jacId})
+            })
+            this.setState({
+                hot_list: new_types
+            })
+        } else {
+            Toast.info(res.message, 1);
         }
-        this.setState({hot_list: result})
-        console.log(result);
-        console.log(this.state.hot_list);
+        console.log(this.state.hot_list)
     }
     componentDidMount(prevProps, prevState) {
         console.log(prevProps, prevState);
-        // this.handleHotList();
+        this.handleHotList();
     }
     changeKey = (item) => {
 
@@ -55,7 +62,7 @@ class Hot extends Component {
                             {
                                 row.map((item, it) => {
                                     return(
-                                        <div onClick={() => this.changeKey(item)} key={it} className="hot_row_item">{item}</div>
+                                        <div onClick={() => this.changeKey(item)} key={it} className="hot_row_item">{item.jacName}</div>
                                     )
                                 })
                             }
