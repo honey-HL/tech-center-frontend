@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './VideoDetail.css';
 import ComHeader from '../../components/com_header/com_header';
 import { http } from "../../common/http";
