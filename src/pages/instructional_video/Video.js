@@ -89,6 +89,10 @@ class VideoStream extends Component {
     }
 
     componentDidMount() {
+        if (window.sessionStorage.getItem('checked')) {
+            window.sessionStorage.removeItem('checked')
+            this.setState({pageIndex: 1})
+        }
         this.loadData()
     }
 
@@ -166,7 +170,6 @@ class Video extends Component {
         console.log(this.state.search_value);
     }
     componentDidMount() {
-        window.sessionStorage.removeItem('checked')
         window.$mobile.navigationShow(false);
         this.getBanner()
         this.getPhoneType()
@@ -383,7 +386,7 @@ class Video extends Component {
                 <div className='Baike_Header'>
                     <div className='title_ea'>{this.props.title}</div>
                     <div className="back_search">
-                        <Link to="/" className="home-server-item link">
+                        <Link onClick={() => this.removeSession()} to="/" className="home-server-item link">
                             <div className='back'>
                                 <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>
