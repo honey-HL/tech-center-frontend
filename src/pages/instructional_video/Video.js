@@ -42,9 +42,8 @@ class VideoStream extends Component {
         }
     }
 
-    loadData = async () => {
+    loadData = async (passed_by) => {
         let checked = JSON.parse(window.sessionStorage.getItem('checked'));
-        let passed_by = JSON.parse(window.sessionStorage.getItem('passed_by'));
         if (passed_by) {
             this.setState({
                 data: [],
@@ -168,7 +167,6 @@ class Video extends Component {
     }
     componentDidMount() {
         window.sessionStorage.removeItem('checked')
-        window.sessionStorage.removeItem('passed_by')
         window.$mobile.navigationShow(false);
         this.getBanner()
         this.getPhoneType()
@@ -197,7 +195,6 @@ class Video extends Component {
                 pmId: '',
                 pbId: '',
             },
-            passed_by: true,
             show_model: false,
             type_data: type,
             brand_data: brand,
@@ -227,11 +224,14 @@ class Video extends Component {
             Toast.info('类型必选', 1);
             return
         }
+        console.log(this.state.checked);
         console.log(this.videoRef)
-        // 刷新数据前存 
-        window.sessionStorage.setItem('passed_by', true);
+          // 刷新数据前存 
+        if (window.sessionStorage.getItem('checked')) {
+            window.sessionStorage.removeItem('checked')
+        }
         window.sessionStorage.setItem('checked', JSON.stringify(this.state.checked))
-        this.videoRef.loadData()
+        this.videoRef.loadData(true)
         //  刷心数据后清空
         this.setState({
             checked: {
