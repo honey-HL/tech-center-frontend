@@ -80,22 +80,6 @@
     height: 100%;
     flex-grow: 1;
 }
-.search_question::placeholder {
-    font-size:13px;
-    font-family:PingFangSC-Regular;
-    font-weight:400;
-    color:#999999;
-}
-.search_question {
-    display: flex;
-    position: relative;
-    align-items: center;
-    height:100%;
-    background:rgba(252,252,252,0.95);
-    box-shadow:0px 0px 11px 0px rgba(0,0,0,0.15);
-    opacity:0.9;
-    border-radius:19px;
-}
 .search_box {
     padding: 0 12px;
     margin-top: 10px;
