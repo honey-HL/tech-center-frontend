@@ -87,12 +87,14 @@ class TabsCard extends React.Component {
     }
 
     loadData = async (item, pageIndex) => {
+        console.log('item.id',item.id)
+        console.log('item.jacId',item.jacId)
         let params = {
             pageIndex: !pageIndex?this.state.pageIndex:pageIndex,
             title: '',
             pageSize: this.state.pageSize,
-            orderBy: item.id !== undefined ? item.id:'',
-            classifyId: item.jacId !== undefined ? item.jacId: '',
+            orderBy: item.id !== 'undefined' ? item.id:'',
+            classifyId: item.jacId !== 'undefined' ? item.jacId: '',
             type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
         }
         let response = await http('/jszx/search', params);
