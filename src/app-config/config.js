@@ -2,6 +2,8 @@ export const basePath = '';
 export const imgPrefix = 'http://192.168.21.119:8888';
 export const baseUrl = 'http://192.168.21.119:8888';
 export const onlinePrefix = 'https://jszx.3ceasy.com';
+export const onlineImg = 'https://jszx.3ceasy.com/video/videocenter/'; // 线上图片ip
+export const onlineIp = 'https://jszx.3ceasy.com/video/videocenter/api/'; // 线上ip
 export const Messages = {
     internalServerError: '抱歉，服务异常，请稍后尝试。',
     unknownError: '抱歉，遇到未知错误，请稍后重试。',

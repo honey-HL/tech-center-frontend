@@ -12,8 +12,18 @@ class Banner extends Component {
         this.state = {
         }
     }
-    bannerView = async (bannerId) => {
-        await http('/jszx/bannerview', {bannerId: bannerId});
+    bannerView = async (item) => {
+        if (this.props.from === 'video') {
+            this.props.history.push({
+                pathname: "/vdetail",
+                state: {
+                    id: item.rLink
+                }
+            });
+        } else {
+            await http('/jszx/bannerview', {bannerId: item.jbId});
+            window.location.href = filterLink(item.jbLink);
+        }
     }
     render() {
         return(
@@ -22,9 +32,9 @@ class Banner extends Component {
                 {this.props.data.map((item, index) => {
                     return (
                       <div key={index}>
-                        <a onClick={() => this.bannerView(item.jbId)} href={filterLink(item.jbLink)} className="banner_box">
+                        <div onClick={() => this.bannerView(item)} className="banner_box">
                             <img className="banner_img" src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:imgPrefix + item.jbImage} alt="banner" />
-                        </a>
+                        </div>
                       </div>
                     )
                 })}
