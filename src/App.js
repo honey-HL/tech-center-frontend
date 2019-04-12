@@ -20,7 +20,7 @@ class App extends Component {
           <Route exact path="/knowledge" onEnter={()=>{document.title="知识库"}} component={Knowledge} />
           <Route exact path="/sharing" onEnter={()=>{document.title="大师分享"}} component={Sharing} />
           <Route exact path="/result" onEnter={()=>{document.title="搜索问题"}} component={Result} />
-          <Route exact path="/detail" onEnter={()=>{document.title="文章详情"}} component={ArticleDetail} />
+          <Route exact path="/adetail" onEnter={()=>{document.title="文章详情"}} component={ArticleDetail} />
         </Switch>
       </BrowserRouter>
     );
@@ -29,7 +29,7 @@ class App extends Component {
 
 
 const ArticleDetail =  Loadable({
-  loader: () => import('./pages/article_detail/Detail'),
+  loader: () => import('./pages/article_detail/ArticleDetail'),
   loading: () => <div></div>
 })
 

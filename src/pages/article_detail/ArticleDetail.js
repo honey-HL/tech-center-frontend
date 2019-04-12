@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './Detail.css';
+import './ArticleDetail.css';
 import { http } from "../../common/http";
 import ComHeader from '../../components/com_header/com_header';
 import { ListView, Toast } from 'antd-mobile';
@@ -8,7 +8,7 @@ import { imgPrefix } from '../../app-config/config';
 import {eye, heart, loading_img} from '../../common/images';
 
 
-class Detail extends Component {
+class ArticleDetail extends Component {
     constructor(props) {
         super(props)
         const dataSource = new ListView.DataSource({
@@ -157,4 +157,4 @@ class Detail extends Component {
     }
 }
 
-export default Detail;
+export default ArticleDetail;

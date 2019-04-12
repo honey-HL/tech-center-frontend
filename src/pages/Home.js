@@ -147,7 +147,7 @@ class TabsCard extends React.Component {
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'detail',state:{id: rowData.jaId, scrollTop:''}}} 
+                to={{pathname: 'adetail',state:{id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>
