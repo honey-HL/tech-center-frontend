@@ -334,7 +334,7 @@ class Home extends Component {
                     <div className='title'>技术中心</div>
                     <div className="search_box" type="flex" justify="space-around" align="middle">
                         <div className="search_left" span={16}>
-                            <Search history={this.props.history} back="/" pass={this.getValue.bind(this)} />
+                            <Search history={this.props.history} type={4} back="/" pass={this.getValue.bind(this)} />
                         </div>
                         <Consulting/>
                     </div>

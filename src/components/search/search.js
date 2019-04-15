@@ -53,6 +53,7 @@ class Search extends Component {
         this.props.history.push({
             pathname: "/result",
             state: {
+                type: this.props.type,
                 from: this.props.back
             }
         });
