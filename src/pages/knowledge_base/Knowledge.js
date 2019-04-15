@@ -91,7 +91,7 @@ class Knowledge extends Component {
                         }
                         </div>
                         <div className="tab_content">
-                            <CardHorizontal back={this.state.back} active_item ={this.state.active_item} type={4} ref={el => this.horizontal = el}/>
+                            <CardHorizontal back={this.state.back} active_item ={this.state.active_item} type={2} ref={el => this.horizontal = el}/>
                         </div>
                     </div>
                 </div>

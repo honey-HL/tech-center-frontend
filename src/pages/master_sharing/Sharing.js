@@ -8,73 +8,28 @@ class Sharing extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: [
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                }
-            ],
+            back: '/sharing',
+            data: [],
             title: '大师分享'
         }
     }
-    changeTab = (e) => {}
+  
     componentDidMount(){
         window.$mobile.navigationShow(false);
+        this.horizontal.loadData()
     }
+
     render(){
         return(
-            <div className='background_orange'>
+            <div className='Sharing'>
                 <ComHeader  from='/' title={this.state.title}/>
                 <div className="Redius_Blank">
-                {
-                this.state.data.map((item, index) => {
-                    return(<CardHorizontal key={index} info={item}/>)
-                })
-                }
+                <CardHorizontal 
+                    back={this.state.back}
+                    active_item ={this.state.active_item} 
+                    type={3} 
+                    ref={el => this.horizontal = el}
+                />
                 </div>
             </div>
         )

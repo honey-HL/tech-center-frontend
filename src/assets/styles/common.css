@@ -303,7 +303,7 @@
 
 .Redius_Blank{
     min-height: calc(100% - 68px);
-    /* overflow: auto; */
+    overflow: auto;
     background: #fff;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
