@@ -1,5 +1,25 @@
 
 
+
+.tip_box {
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    padding: 0 15px;
+    justify-content: space-between;
+    color: #666666;
+}
+
+.jaTitle {
+    padding: 20px 15px 15px;
+    font-size: 15px;
+    color: #333;
+}
+
+.jaPublishtime {
+    font-size: 12px;
+}
+
 .article_content {
     padding: 25px 20px 48px;
 }
@@ -7,7 +27,8 @@
 .relative_title {
     padding: 18px 20px 0;
     font-size:14px;
-    color: #333;
+    color: #666;
+    font-size: 16px;
 }
 .relative_article {
     min-height: calc(100% - 196px);
