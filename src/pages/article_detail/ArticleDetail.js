@@ -87,6 +87,7 @@ class ArticleDetail extends Component {
     componentDidMount(){
         this.getArticle(this.props.location.state.id);
         console.log(this.props.location.state);
+        console.log(this.props.back)
         window.$mobile.navigationShow(false);
     }
     render(){
@@ -123,7 +124,7 @@ class ArticleDetail extends Component {
         ref={node => this.node = node}
         className='Detail_Article'
         >
-            <ComHeader  from='/' title={this.state.title}/>
+            <ComHeader from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/>
             <div className="Redius_Blank">
                 <div className="article_content" dangerouslySetInnerHTML={{ __html: this.state.content}}></div>
                 <div className="section_bar"></div>

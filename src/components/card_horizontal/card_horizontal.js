@@ -5,7 +5,7 @@ import eye from '../../assets/images/home/eye.png';
 import heart from '../../assets/images/home/heart.png';
 import { imgPrefix } from '../../../src/app-config/config.js';
 import loading_img from '../../assets/images/loading.png';
-import { ListView } from 'antd-mobile';
+import { ListView, Toast } from 'antd-mobile';
 import {http} from '../../common/http'
 
 
@@ -25,46 +25,58 @@ class Card_Horizontal extends Component {
         }
     }
     loadData = async (item, pageIndex) => {
+        console.log(item, pageIndex)
+        console.log('item.id',item.id)
+        console.log('item.jacId',item.jacId)
         let params = {
+            pageIndex: pageIndex?pageIndex:this.state.pageIndex,
             title: '',
             pageSize: this.state.pageSize,
-            pageIndex: !pageIndex?this.state.pageIndex:pageIndex,
-            orderBy: item.id !== undefined ? item.id:'',
-            classifyId: item.jacId !== undefined ? item.jacId: '',
-            type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
+            orderBy: item.id !== 'undefined' ? item.id:'',
+            classifyId: item.jacId !== 'undefined' ? item.jacId: '',
+            type: this.props.type // 1问问百科 2知识库 3大师分享 4首页文章
         }
         let response = await http('/jszx/search', params);
         console.log(response);
-        let new_data = this.state.data;
-        response.data.data.forEach(element => {
-          new_data.push(element);
-        });
-        this.setState({ 
-            total: response.data.total,
-            pageIndex: this.state.pageIndex + 1,
-            data: new_data,
-            dataSource: this.state.dataSource.cloneWithRows(new_data),
-        })
-        if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+        if (response.data) {
+            let new_data = pageIndex === 1?[]:this.state.data;
+            response.data.data.forEach(element => {
+              new_data.push(element);
+            });
+            this.setState({ 
+                total: response.data.total,
+                pageIndex: pageIndex?pageIndex+1:this.state.pageIndex + 1,
+                data: new_data,
+                dataSource: this.state.dataSource.cloneWithRows(new_data),
+            })
+            if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+                this.setState({isLoading: false})
+            }
+        } else {
+            Toast.info(response.message, 1);
             this.setState({isLoading: false})
         }
     }
     
     onEndReached = (event) => {
-        console.log(this.state.data.length)
+        console.log(this.props.active_item)
         if (this.state.data.length < this.state.total) {
             this.setState({isLoading: true})
-            this.loadData(this.state.active_item)
+            this.loadData(this.props.active_item)
         }
         if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
             this.setState({isLoading: false})
         } 
     }
+
+    componentDidMount () {
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'detail',state:{id: rowData.jaId}}} 
+                to={{pathname: 'adetail',state:{id: rowData.jaId, back: this.props.back}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Tabs } from 'antd';
 import './Knowledge.css';
 import ComHeader from '../../components/com_header/com_header';
 import CardHorizontal from '../../components/card_horizontal/card_horizontal'
+import { http } from "../../common/http.js";
+// import { Tabs } from '../../components/tabs/Tabs';
 
 
 class Knowledge extends Component {
@@ -12,71 +13,91 @@ class Knowledge extends Component {
             style_obj: {
                 color:'#666'
             },
-            types: [
-                {name: '推荐'},
-                {name: '屏幕'},
-                {name: '主办'},
-                {name: '排线'},
-                {name: '电池'}
-            ],
-            data: [
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                },
-                {
-                    content: '721893743204732047324470324703780183iPhone XS很难修？认证专家告 诉你这些小技巧',
-                    src: require('../../assets/images/1.jpg'),
-                    view: 72,
-                    heart: 134
-                }
-            ],
+            back:'/knowledge',
+            pageIndex:1,
+            types: [],
+            data: [],
+            isLoading: true,
+            active_item: '',
             title: '知识库'
         }
     }
+
+    getTabsNav = async () => {
+        let res = await http('/jszx/classify', {type: 3}); // 分类类型 1 首页展示 2热搜展示 3知识库展示
+        let new_types = this.state.types;
+        res.data.forEach((item) => {
+            new_types.push({name: item.jacName, jacId: item.jacId, active: false})
+        })
+        new_types[0].active = true;
+        this.setState({
+            pageIndex:1,
+            active_item: new_types[0],
+            types: new_types
+        })
+        console.log(this.state.types)
+        this.horizontal.loadData(this.state.types[0])
+    }
+
+    changeActiveTab = (info) => {
+        const items = this.state.types;
+        items.forEach((item) => {
+            item.active = false;
+            if (info.id !== undefined) {
+                if ((info.id+'') === (item.id +'')) {
+                item.active = true;
+                    return
+            }
+            } else {
+                if ((info.jacId === item.jacId)) {
+                    item.active = true;
+                    return
+                }
+            }
+        })
+        this.setState({
+            types: items,
+            active_item: info
+        })
+        this.horizontal.loadData(info, 1)
+        console.log(this.state);
+        console.log(this.state.pageIndex);
+    }
+
+    componentWillUnmount() {
+    }
+
     changeTab = (e) => {}
+   
     componentDidMount(){
         window.$mobile.navigationShow(false);
+        this.getTabsNav()
     }
     render(){
-        const TabPane = Tabs.TabPane;
         return(
-            <div className='Knowledge'>
-                <ComHeader from='/' title={this.state.title}/>
-                <div className="Redius_Blank">
-                    <Tabs tabBarStyle={this.state.style_obj} defaultActiveKey="0" onChange={this.changeTab()}>
+        <div className='Knowledge'>
+            <ComHeader from='/' title={this.state.title}/>
+            <div className="Redius_Blank">
+
+                <div className="TabsCard">
+                    <div className="tab_bar">
+                        <div className="tab_bar_box">
                         {
                             this.state.types.map((item, index) => {
                                 return(
-                                    <TabPane tab={item.name} size='small' key={index}>
-                                        {
-                                            this.state.data.map((info, index1) => {
-                                                return(
-                                                    <CardHorizontal key={index1} info={info}/>
-                                                )
-                                            })
-                                        }
-                                    </TabPane>
+                                    <div onClick={() => this.changeActiveTab(item)} className={`tab_item ${item.active?'active':''}`} key={index}>{item.name}</div>
                                 )
                             })
                         }
-                    </Tabs>
+                        </div>
+                        <div className="tab_content">
+                            <CardHorizontal back={this.state.back} active_item ={this.state.active_item} type={4} ref={el => this.horizontal = el}/>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+        </div>
         )
     }
 }
