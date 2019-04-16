@@ -323,6 +323,13 @@ class Home extends Component {
         console.log(document.documentElement.getBoundingClientRect.top);
         console.log(document.getElementsByClassName('Home')[0].scrollTop);
     }
+
+    handleConsulting = () => {
+        this.props.history.push({
+            pathname: '/minquiry'
+        })
+    }
+    
     render() {
         return(
             <div 
@@ -331,12 +338,15 @@ class Home extends Component {
             // onScrollCapture={() => this.onScrollHandle()}
             className="Home">
                 <div className="header_box">
-                    <div className='title'>技术中心</div>
+                    <div className='title'>
+                        技术中心
+                        <div onClick={() => this.handleConsulting()} className='my_consulting'>我的咨询</div>
+                    </div>
                     <div className="search_box" type="flex" justify="space-around" align="middle">
                         <div className="search_left" span={16}>
                             <Search history={this.props.history} type={4} back="/" pass={this.getValue.bind(this)} />
                         </div>
-                        <Consulting/>
+                        <Consulting history={this.props.history}/>
                     </div>
                 </div>
                 <div className="home_container">

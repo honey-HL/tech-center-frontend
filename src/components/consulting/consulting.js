@@ -15,9 +15,14 @@ class Consulting extends Component {
     componentDidMount () {
         console.log(this.props.from)
     }
+    submitConsulting = () => {
+        this.props.history.push({
+            pathname: 'sinquiry'
+        })
+    }
     render(){
         return(
-            <div className='expert_btn'>
+            <div onClick={() => this.submitConsulting()} className='expert_btn'>
                 <div className="search_expert_icon">
                     <img className="consulting" src={ask} alt="咨询专家" />
                 </div>
