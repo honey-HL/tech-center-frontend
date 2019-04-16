@@ -22,7 +22,7 @@ class Sharing extends Component {
     render(){
         return(
             <div className='Sharing'>
-                <ComHeader  from='/' title={this.state.title}/>
+                <ComHeader history={this.props.history} from='/' title={this.state.title}/>
                 <div className="Redius_Blank">
                 <CardHorizontal 
                     back={this.state.back}

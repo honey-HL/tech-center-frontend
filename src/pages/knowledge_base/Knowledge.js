@@ -76,7 +76,7 @@ class Knowledge extends Component {
     render(){
         return(
         <div className='Knowledge'>
-            <ComHeader from='/' title={this.state.title}/>
+            <ComHeader history={this.props.history} from='/' title={this.state.title}/>
             <div className="Redius_Blank">
 
                 <div className="TabsCard">
