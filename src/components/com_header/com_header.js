@@ -10,7 +10,14 @@ class Com_Header extends Component {
     }
     handleBack = (e) => {
         // console.log('this.location.query', this.location.query);
-        // this.props.history.push({pathname: '/'});
+        // this.props.history.push({
+        //     pathname: this.props.from,
+        //     state: {
+        //         from: this.props.history.location.state.origin,
+        //     }
+        // });
+        this.props.history.goBack()
+        // window.history.back()
     }
     componentDidMount () {
         console.log(this.props.from)
@@ -19,9 +26,9 @@ class Com_Header extends Component {
         return(
             <div className='Com_Header'>
                 <div className="Com_Header_row">
-                    <Link to={this.props.from} className='back'>
+                    <div onClick={() => this.handleBack()} className='back'>
                         <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
-                    </Link>
+                    </div>
                     <div className="title_box">
                         {this.props.title}
                     </div>

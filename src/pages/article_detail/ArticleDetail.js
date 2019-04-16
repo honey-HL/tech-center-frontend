@@ -201,7 +201,7 @@ class ArticleDetail extends Component {
         ref={node => this.node = node}
         className='Detail_Article'
         >
-            <ComHeader from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/>
+            <ComHeader history={this.props.history} from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/>
             <div className="Redius_Blank">
                 <div className='jaTitle'>{this.state.jaTitle}</div>
                 <div className='tip_box'>
