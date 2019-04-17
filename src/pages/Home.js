@@ -73,17 +73,22 @@ class TabsCard extends React.Component {
         console.log(this.state.pageIndex);
     }
     getTabsNav = async () => {
-        let res = await http('/jszx/classify', {type: 1});
+        let response = await http('/jszx/classify', {type: 1});
         let new_types = this.state.types;
-        res.data.forEach((item) => {
-            new_types.push({name: item.jacName, jacId: item.jacId, active: false})
-        })
-        this.setState({
-            pageIndex:1,
-            types: new_types
-        })
-        console.log(this.state.types)
-        this.loadData(this.state.types[0])
+        if (response.data) {
+            response.data.forEach((item) => {
+                new_types.push({name: item.jacName, jacId: item.jacId, active: false})
+            })
+            this.setState({
+                pageIndex:1,
+                types: new_types
+            })
+            console.log(this.state.types)
+            this.loadData(this.state.types[0])
+        } else {
+            Toast.info(response.message, 1);
+            this.setState({isLoading: false})
+        }
     }
 
     loadData = async (item, pageIndex) => {
@@ -281,8 +286,13 @@ class Home extends Component {
     getBannerList = async () => {
         let res = await http('/jszx/banner', {type: 1});
         console.log('res ', res);
-        this.setState({bannerArr: res.data});
-        console.log(this.state.bannrArr);
+        if (res.data) {
+            this.setState({bannerArr: res.data});
+            console.log(this.state.bannrArr);
+        } else {
+            Toast.info(res.message, 1);
+            this.setState({isLoading: false})
+        }
     }
     getValue (event) {
         this.setState({search_value: event.target.value});
@@ -326,7 +336,10 @@ class Home extends Component {
 
     handleConsulting = () => {
         this.props.history.push({
-            pathname: '/minquiry'
+            pathname: '/minquiry',
+            state: {
+                back: '/'
+            }
         })
     }
     
@@ -346,7 +359,7 @@ class Home extends Component {
                         <div className="search_left" span={16}>
                             <Search history={this.props.history} type={4} back="/" pass={this.getValue.bind(this)} />
                         </div>
-                        <Consulting history={this.props.history}/>
+                        <Consulting back={'/'} history={this.props.history}/>
                     </div>
                 </div>
                 <div className="home_container">

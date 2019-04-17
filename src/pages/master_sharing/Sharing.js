@@ -10,12 +10,14 @@ class Sharing extends Component {
         this.state = {
             back: '/sharing',
             data: [],
+            loading: false,
             title: '大师分享'
         }
     }
   
     componentDidMount(){
         window.$mobile.navigationShow(false);
+        this.setState({loading: true})
         this.horizontal.loadData()
     }
 
@@ -25,6 +27,7 @@ class Sharing extends Component {
                 <ComHeader history={this.props.history} from='/' title={this.state.title}/>
                 <div className="Redius_Blank">
                 <CardHorizontal 
+                    loading={this.state.loading}
                     back={this.state.back}
                     active_item ={this.state.active_item} 
                     type={3} 

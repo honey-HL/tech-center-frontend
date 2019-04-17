@@ -3,7 +3,7 @@ import './Knowledge.css';
 import ComHeader from '../../components/com_header/com_header';
 import CardHorizontal from '../../components/card_horizontal/card_horizontal'
 import { http } from "../../common/http.js";
-// import { Tabs } from '../../components/tabs/Tabs';
+import { Toast } from 'antd-mobile';
 
 
 class Knowledge extends Component {
@@ -17,8 +17,8 @@ class Knowledge extends Component {
             pageIndex:1,
             types: [],
             data: [],
-            isLoading: true,
             active_item: '',
+            loading: false,
             title: '知识库'
         }
     }
@@ -26,17 +26,23 @@ class Knowledge extends Component {
     getTabsNav = async () => {
         let res = await http('/jszx/classify', {type: 3}); // 分类类型 1 首页展示 2热搜展示 3知识库展示
         let new_types = this.state.types;
-        res.data.forEach((item) => {
-            new_types.push({name: item.jacName, jacId: item.jacId, active: false})
-        })
-        new_types[0].active = true;
-        this.setState({
-            pageIndex:1,
-            active_item: new_types[0],
-            types: new_types
-        })
-        console.log(this.state.types)
-        this.horizontal.loadData(this.state.types[0])
+        if (res.data) {
+            res.data.forEach((item) => {
+                new_types.push({name: item.jacName, jacId: item.jacId, active: false})
+            })
+            new_types[0].active = true;
+            this.setState({
+                pageIndex:1,
+                active_item: new_types[0],
+                types: new_types
+            })
+            console.log(this.state.types)
+            this.setState({loading: true})
+            this.horizontal.loadData(this.state.types[0])
+        } else {
+            Toast.info(res.message, 1);
+            this.setState({loading: false})
+        }
     }
 
     changeActiveTab = (info) => {
@@ -91,7 +97,7 @@ class Knowledge extends Component {
                         }
                         </div>
                         <div className="tab_content">
-                            <CardHorizontal back={this.state.back} active_item ={this.state.active_item} type={2} ref={el => this.horizontal = el}/>
+                            <CardHorizontal loading={this.state.loading} back={this.state.back} active_item ={this.state.active_item} type={2} ref={el => this.horizontal = el}/>
                         </div>
                     </div>
                 </div>

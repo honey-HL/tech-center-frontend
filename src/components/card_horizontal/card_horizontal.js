@@ -21,7 +21,7 @@ class Card_Horizontal extends Component {
             data: [],
             total: '',
             dataSource,
-            isLoading: true,
+            isLoading: this.props.loading,
         }
     }
     loadData = async (item, pageIndex) => {
