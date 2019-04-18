@@ -1,35 +1,33 @@
-(function () {
-
+;(function () {
   let callbackMap = {}
-  let u = navigator.userAgent;
-  let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
-  let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)&&!!u.match(/AppleWebKit.*Mobile.*/);
+  let u = navigator.userAgent
+  let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
+  let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
   let isApp = u.indexOf('QJWAPP') > -1;
 
-  let getNextMsgId = () => {
-    return new Date().getTime()
+  let getNextMsgId = (method) => {
+    return method + new Date().getTime()
   }
 
-  function executeMobile(method, params, callback) {
+  function executeMobile (method, params, callback) {
     let data = {
       callbackId: null,
       params: params
     }
 
     if (callback) {
-      let callbackId = getNextMsgId()
+      let callbackId = getNextMsgId(method)
       data.callbackId = callbackId
       callbackMap[callbackId] = callback
     }
 
     if (isApp) {
       if (isAndroid) {
-        return window.$android[method](JSON.stringify(data))
+        return window.$android.native(method, JSON.stringify(data))
       } else if (isIOS) {
         return window.webkit.messageHandlers[method].postMessage(JSON.stringify(data))
       }
     }
-  
   }
   window.$mobile = {}
   window.$mobile.callback = function (params) {
@@ -44,4 +42,8 @@
   window.$mobile.logger = (msg) => executeMobile('logger', msg)
   window.$mobile.open = (url) => executeMobile('open', url)
   window.$mobile.navigationShow = (isShow) => executeMobile('navigationShow', isShow)
+  window.$mobile.navigationTo = (index) => executeMobile('navigationTo', index)
+  window.$mobile.showMine = () => executeMobile('showMine')
+  window.$mobile.close = () => executeMobile('close')
+  window.$mobile.saveRecycleQrCode = (params, callback) => executeMobile('saveRecycleQrCode', params, callback)
 })()

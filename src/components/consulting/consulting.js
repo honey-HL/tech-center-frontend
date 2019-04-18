@@ -17,7 +17,10 @@ class Consulting extends Component {
     }
     submitConsulting = () => {
         this.props.history.push({
-            pathname: 'sinquiry'
+            pathname: 'sinquiry',
+            state: {
+                back: this.props.back,
+            }
         })
     }
     render(){
