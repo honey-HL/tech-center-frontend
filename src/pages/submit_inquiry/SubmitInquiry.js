@@ -4,36 +4,40 @@ import './SubmitInquiry.css';
 import ComHeader from '../../components/com_header/com_header';
 import { TextareaItem, ImagePicker, Picker, Toast, List } from 'antd-mobile';
 import {http} from '../../common/http'
+import { baseUrl } from "../../app-config/config.js";
 
 
 class SubmitInquiry extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            jcId: '',
             form: '',
             jcName: '',
             province: [],
             files: [],
+            uploaded: [],
+            selected_count: 0,
             t_value: '',
             q_list:[
-                {
-                    name: '手机屏幕'
-                },
-                {
-                    name: '手机屏幕'
-                },{
-                    name: '手机屏幕'
-                },{
-                    name: '手机屏幕'
-                },{
-                    name: '手机屏幕'
-                },{
-                    name: '手机屏幕'
-                }, {
-                    name: '手机屏幕'
-                }, {
-                    name: '手机屏幕'
-                },
+                // {
+                //     name: '手机屏幕'
+                // },
+                // {
+                //     name: '手机屏幕'
+                // },{
+                //     name: '手机屏幕'
+                // },{
+                //     name: '手机屏幕'
+                // },{
+                //     name: '手机屏幕'
+                // },{
+                //     name: '手机屏幕'
+                // }, {
+                //     name: '手机屏幕'
+                // }, {
+                //     name: '手机屏幕'
+                // },
             ],
             arrValue: ['510000', '510100']
         }
@@ -54,7 +58,11 @@ class SubmitInquiry extends Component {
             //     new_arr.push(response.data.slice(i,i+3));
             // }
             response.data.forEach(item => {
-                new_arr.push(item)
+                new_arr.push({
+                    name: item.name,
+                    id: item.id,
+                    selected: false,
+                })
             })
             this.setState({q_list:new_arr})
         } else {
@@ -119,11 +127,13 @@ class SubmitInquiry extends Component {
         if (response.data) {
             if (response.data.length > 0) {
                 this.setState({
+                    jcId: response.data[0].jcId,
                     jcName: response.data[0].jcName
                 })
             } else {
                 this.setState({
-                    jcName: '暂无技术中心',
+                    jcId: '',
+                    jcName: '',
                 })
                 Toast.info('该地区没有技术中心', 1);
             }
@@ -154,11 +164,47 @@ class SubmitInquiry extends Component {
         })
     }
 
-    uploadImages = (files, type, index) => {
-        console.log(files, type, index);
+    uploadImages = async (files, type, index) => {
+        if (type === 'add') {
+            this.uploadFile(files[0])
+        } else {
+            let images = this.state.uploaded;
+            images.splice(index, 1);
+            this.setState({
+                uploaded: images
+            })
+            console.log(files, index)
+            console.log(this.state.uploaded);
+        }
         this.setState({
-            files,
-        });
+            files: files
+        })
+    }
+
+    uploadFile(fileObj) {
+        let that = this
+        fileObj = fileObj.file;
+        let xhr;
+        let form = new FormData();
+        form.append("file", fileObj);
+        xhr = new XMLHttpRequest();
+        xhr.open("post", baseUrl + '/jszx/uploadImg', true);
+        xhr.onload = (evt) => {
+            let data = JSON.parse(evt.target.responseText);
+            console.log(data);
+            that.uploadComplete(data.data)
+        };
+        xhr.send(form); //开始上传，发送form数据
+    }
+
+    uploadComplete (img) {
+        let arr = this.state.uploaded;
+        arr.push(img)
+        this.setState({
+            uploaded: arr
+        }, () => {
+            console.log(this.state.uploaded)
+        })
     }
 
     getTextarea (val) {
@@ -168,8 +214,90 @@ class SubmitInquiry extends Component {
         console.log(val)
     }
 
-    checkTags = (item) => {
+    selectTags = (item) => {
+        console.log(item)
+        console.log('selectTags')
+        let list = this.state.q_list
+        list.forEach(element => {
+            if (element.id === item.id) {
+                if (!item.selected) {
+                    element.selected = true
+                    this.setState({selected_count: this.state.selected_count + 1},()=>{
+                        console.log(this.state.selected_count);
+                    })      
+                } else {
+                    if (this.state.selected_count <= 1) {
+                        return
+                    }
+                    this.setState({selected_count: this.state.selected_count - 1},()=>{
+                        console.log(this.state.selected_count);
+                    })      
+                    element.selected = false
+                }
+            }
+        }) 
+        this.setState({
+            q_list: list
+        }, () => {
+            console.log(this.state.q_list);
+        })
+    }
 
+    validating = () => {
+        let params = {}
+        if (this.state.jcId.length > 0) {
+            params.jcId = this.state.jcId
+        } else {
+            Toast.info('技术中心必选', 1);
+            return
+        }
+        if (this.state.t_value.length > 0) {
+            params.jccContent = this.state.t_value
+        } else {
+            Toast.info('问题内容必填', 1);
+            return
+        }
+        if (this.state.uploaded.length > 0) {
+            if (this.state.uploaded.length <= 1) {
+                params.jccIamges = this.state.uploaded[0]
+            } else {
+                params.jccIamges = this.state.uploaded.join(',');
+                // console.log(params.jccIamges)
+            }
+        } else {
+            Toast.info('至少上传一张图片', 1);
+            return
+        }
+        let jccType = []
+        this.state.q_list.forEach(item => {
+            if (item.selected) {
+                jccType.push(item.id)
+            }
+        })
+        if (jccType.length > 0) {
+            if (jccType.length === 1) {
+                params.jccType = jccType[0]
+            } else {
+                params.jccType = jccType.join(",");
+            }
+        } else {
+            Toast.info('至少选择一个问题类型', 1);
+            return
+        }
+        console.log(params)
+        this.submitAll(params);
+    }
+
+    submitAll = async (params) => {
+        let response = await http('/jszx/addquestion', params); 
+        if (response.data) {
+            Toast.success('提交成功,喊程露', 1);
+            this.props.history.push({
+                pathname: this.props.location.state.back
+            })
+        } else {
+            Toast.info(response.message, 1);
+        }
     }
 
     render(){
@@ -207,14 +335,13 @@ class SubmitInquiry extends Component {
                             placeholder="在此输入问题......"
                         />
                     </div>
-                    <input type="file" accept="image/*"/>
                     <ImagePicker
-                            files={this.state.files}
-                            onChange={this.uploadImages}
-                            onImageClick={(index, fs) => console.log(index, fs)}
-                            selectable={this.state.files.length < 3}
-                            multiple={this.state.multiple}
-                        />
+                        files={this.state.files}
+                        onChange={this.uploadImages}
+                        onImageClick={(index, fs) => console.log(index, fs)}
+                        selectable={this.state.files.length < 3}
+                        multiple={this.state.multiple}
+                    />
                     <div className="section_bar"></div>
                     <div className='question_classification'>
                         <div className='select_tag'>选择问题分类（可多选）</div>
@@ -222,12 +349,22 @@ class SubmitInquiry extends Component {
                         {
                             this.state.q_list.map((item, id) => {
                                 return(
-                                    <div onClick={(item) => this.checkTags(item)} className='question_item' key={id}>
+                                    <div 
+                                    onClick={() => this.selectTags(item)} 
+                                    className={`question_item ${item.selected?'selected_tag':'question_item'}`}
+                                    key={id}>
                                     {item.name}
                                 </div>
                                 )
                             })
                         }
+                        </div>
+                    </div>
+                    <div className='submit_inq'>
+                        <div
+                         onClick={() => this.validating()} 
+                          className='sub_btn'>
+                            提交咨询
                         </div>
                     </div>
                 </div>
