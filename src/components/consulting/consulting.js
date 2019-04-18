@@ -26,11 +26,15 @@ class Consulting extends Component {
     render(){
         return(
             <div onClick={() => this.submitConsulting()} className='expert_btn'>
-                <div className="search_expert_icon">
+                <div 
+                style={{width: this.props.search_expert_icon}}
+                className="search_expert_icon">
                     <img className="consulting" src={ask} alt="咨询专家" />
                 </div>
-                <div className="consulting_title">
-                    咨询专家
+                <div 
+                style={{width: this.props.consulting_title}}
+                className="consulting_title">
+                    {this.props.info}
                 </div>
             </div>
         )

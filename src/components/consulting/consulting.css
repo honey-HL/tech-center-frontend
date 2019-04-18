@@ -1,7 +1,7 @@
 .search_expert_icon {
     display: inline-block;
     float: left;
-    width: 20%;
+    /* width: 20%; */
     margin-left: 8px;
 }
 .consulting {
@@ -12,7 +12,7 @@
 .consulting_title {
     text-align: right;
     float: right;
-    width: 63%;
+    /* width: 63%; */
     /* margin-right: 8px; */
     display: inline-block;
 }

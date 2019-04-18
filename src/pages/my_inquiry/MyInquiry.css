@@ -1,0 +1,47 @@
+
+
+
+
+
+
+.myinquiry_sec {
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 12px;
+    height: 35px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.myinquiry_search {
+    height: inherit;
+    width: 70%;
+    margin-left: 10px;
+}
+
+.ask_q {
+   height: inherit;
+}
+
+.MyInquiry_Blank {
+    display: flex;
+    height: calc(100% - 97px);
+    background: rgba(250,250,250,1);
+    margin-top: 10px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+
+.MyInquiry {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background:linear-gradient(180deg,rgba(248,175,126,1),rgba(228,103,19,1));
+}

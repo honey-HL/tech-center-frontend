@@ -355,11 +355,11 @@ class Home extends Component {
                         技术中心
                         <div onClick={() => this.handleConsulting()} className='my_consulting'>我的咨询</div>
                     </div>
-                    <div className="search_box" type="flex" justify="space-around" align="middle">
-                        <div className="search_left" span={16}>
+                    <div className="search_box">
+                        <div className="search_left">
                             <Search history={this.props.history} type={4} back="/" pass={this.getValue.bind(this)} />
                         </div>
-                        <Consulting back={'/'} history={this.props.history}/>
+                        <Consulting search_expert_icon={'20%'} consulting_title={'63%'} back={'/'} info={'咨询专家'} history={this.props.history}/>
                     </div>
                 </div>
                 <div className="home_container">
