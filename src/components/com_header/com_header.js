@@ -13,7 +13,11 @@ class Com_Header extends Component {
         this.props.history.push({
             pathname: this.props.from,
             state: {
-                from: this.props.history.location.state.origin,
+                from: 
+                    this.props && this.props.history &&
+                    this.props.history.location && 
+                    this.props.history.location.state &&
+                    this.props.history.location.state.origin?this.props.history.location.state.origin:'/',
             }
         }); // 会直接回到上一页
         // this.props.history.goBack() // 会回到之前的滚动位置
