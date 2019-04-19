@@ -5,12 +5,123 @@ import ComHeader from '../../components/com_header/com_header';
 import { TextareaItem, ImagePicker, Picker, Toast, List } from 'antd-mobile';
 import {http} from '../../common/http'
 import { baseUrl } from "../../app-config/config.js";
+import { imgPrefix } from '../../../src/app-config/config.js';
 
+
+class QJPopup extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            show_qjp: false,
+            experts: [],
+            jcImage: '',
+            id: '',
+            jcName: '',
+        }
+    }
+
+    getTechCenterInfo = async (id) => {
+        let response = await http('/jszx/getcenter', {id: id}); 
+        console.log(response)
+        if (response.data) {
+            this.setState({
+                jcImage: response.data.center.jcImage,
+                jcName: response.data.center.jcName,
+                experts: response.data.user,
+            })
+        } else {
+            Toast.info(response.message, 1);
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        let self = this;
+        self.qjpopup.scrollIntoView(); // 回到顶部
+        setTimeout(function(){
+            if (nextProps.id && nextProps.id !== '') {
+                self.getTechCenterInfo(nextProps.id)
+            }
+            self.setState({
+                show_qjp: nextProps.show
+            })
+        },0)
+    }
+
+    onScrollHandle = () => {
+        console.log(this.qjpopup.scrollTop)
+      };
+
+    hide = () => {
+        this.setState({
+            show_qjp: !this.state.show_qjp,
+        }, () => {
+            console.log('hide ', this.state.show_qjp)
+            this.props.updateShow(this.state.show_qjp)
+        })
+    }
+
+    prevent = (event) => {
+        event.cancelBubble = true
+        event.stopPropagation()
+        console.log('prevent')
+        this.setState({
+            show_qjp: true,
+        }, () => {})
+    }
+
+    componentWillMount () {
+    }
+
+    componentDidMount () {
+    }
+
+    render () {
+        return(<div
+        onClick={() => this.hide()}
+        className={`${this.state.show_qjp?'QJPopup':'hide_qjp'}`}
+        >
+            <div 
+            onScrollCapture={() => this.onScrollHandle()}
+            ref={qjpopup => this.qjpopup = qjpopup}
+            onClick={event => this.prevent(event)} className='qj_picker'>
+                <div className='qj_picker_title'>{this.state.jcName}</div>
+                <div className='jcImage'>
+                    <img className="banner_img" src={imgPrefix + this.state.jcImage} alt="" />
+                </div>
+                <div className='tc_staff_structure'>
+                    <div>架构云图</div>
+                    <div className='cloud_structure'>
+                        <img className="banner_img" src={require('../../assets/images/qjs.png')} alt="" />
+                    </div>
+                </div>
+                <div className='experts'>
+                    <div className='experts_title'>专家团队</div>
+                    <div className='experts_container'>
+                    {
+                        this.state.experts.map((item, index) => {
+                            return(
+                                <div className='single_person' key={index}>
+                                    <div className='avatar'>
+                                        <img className="banner_img" src={imgPrefix + item.jmHeadimage} alt="" />
+                                    </div>
+                                    <div>{item.jmName}</div>
+                                    <div>{item.jmType}</div>
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>)
+    }
+}
 
 class SubmitInquiry extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            show_qjp: false,
             jcId: '',
             form: '',
             jcName: '',
@@ -87,7 +198,7 @@ class SubmitInquiry extends Component {
                     item.children = new_data;
                 }
             })
-            val[1] = new_data[0].value
+            val[1] = new_data&&new_data[0]&&new_data[0].value?new_data[0].value: '';
             this.setState({
                 arrValue: val,
                 province:province,
@@ -129,6 +240,8 @@ class SubmitInquiry extends Component {
                 this.setState({
                     jcId: response.data[0].jcId,
                     jcName: response.data[0].jcName
+                }, () => {
+                    console.log(this.state.jcId)
                 })
             } else {
                 this.setState({
@@ -300,8 +413,20 @@ class SubmitInquiry extends Component {
         }
     }
 
-    showPopup = () => {
+    showQJPopup = () => {
         console.log('2333')
+        if (this.state.jcName !== '') {
+            this.setState({
+                show_qjp: !this.state.show_qjp,
+            })
+        }
+    }
+
+    updateShow = (show) => {
+        console.log(show, 'updateShow')
+        this.setState({
+            show_qjp: show
+        })
     }
 
     render(){
@@ -309,11 +434,13 @@ class SubmitInquiry extends Component {
             <div className='SubmitInquiry'>
 
                 <ComHeader history={this.props.history}  from={this.props.location.state.back} title={'咨询专家'}/>
+                
+                <QJPopup updateShow= {this.updateShow} show={this.state.show_qjp} id={this.state.jcId}/>
 
                 <div className='Redius_Blank'>
                     <div className="area_box">
                         <div className='reminder'>您正在咨询</div>
-                        <div className="jcName" onClick={() => this.showPopup()}>{this.state.jcName}</div>
+                        <div className="jcName" onClick={() => this.showQJPopup()}>{this.state.jcName}</div>
                         <Picker className='picker_area' extra="请选择(可选)"
                             value={this.state.arrValue}
                             data={this.state.province}
@@ -323,8 +450,6 @@ class SubmitInquiry extends Component {
                             onDismiss={e => console.log('dismiss', e)}
                             >
                             <List.Item className='reminder_box' arrow="horizontal">
-                                {/* <div className='reminder'>您正在咨询</div> */}
-                                {/* <div className="jcName" onClick={() => this.showPopup()}>{this.state.jcName}</div> */}
                             </List.Item>
                         </Picker>
                     </div>

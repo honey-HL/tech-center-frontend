@@ -1,4 +1,158 @@
 
+
+/***********千机网技术中心弹框*************/
+
+
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: #e6e6e6;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.experts_container {
+    display: -webkit-box;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling:touch;
+}
+
+.single_person {
+    flex-grow: 1;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.single_person div:nth-child(2) {
+    color: #333333;
+    font-size: 14px;
+}
+
+
+.single_person div:nth-child(3) {
+    background: #F6A772;
+    color: #fff;
+    width: 80%;
+    margin: 0 10%;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.tc_staff_structure {
+    color: #333333;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.qj_picker_title {
+    color:#333;
+    text-align: center;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.experts_title {
+    color: #333333;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.jcImage {
+    background: #e6e6e6;
+    height: 180px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.qj_picker {
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    padding: 0 10px 15px; 
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.show_qjp {
+    display: block;
+}
+
+.hide_qjp {
+    display: none;
+}
+
+.QJPopup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    z-index: 9;
+    -webkit-transform: translateZ(1px);
+    transform: translateZ(1px);
+    transition: all .2s;
+    display: block;
+}
+
+/***********千机网技术中心弹框*************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****地区弹框选择默认样式修改***/
+
+.am-picker .am-picker-col:last-child {
+    display:none !important;
+}
+
+.am-picker-col-item {
+    font-size: 15px;
+    color: #999 !important;
+}
+
+.am-picker-col-item-selected {
+    color: #E46713 !important;
+}
+
+.am-picker-popup-item {
+    font-size: 15px !important;
+    color: #333 !important;
+}
+
+.am-picker-popup-header-left {
+    color: #666 !important;
+}
+
+.am-picker-popup-header-right {
+    color: #E46713 !important;
+}
+ 
 .am-list-item .am-list-line .am-list-extra {
     flex-basis: auto !important;
 }
@@ -6,6 +160,19 @@
 .am-picker-popup-content {
     width: 100% !important;
 }
+
+.am-picker-popup-header {
+    background: #f8f8f8 !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.am-picker-popup {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+/****地区弹框选择默认样式修改****/
 
 .picker_area {
     width: 100%;
