@@ -300,6 +300,10 @@ class SubmitInquiry extends Component {
         }
     }
 
+    showPopup = () => {
+        console.log('2333')
+    }
+
     render(){
         return(
             <div className='SubmitInquiry'>
@@ -308,7 +312,9 @@ class SubmitInquiry extends Component {
 
                 <div className='Redius_Blank'>
                     <div className="area_box">
-                        <Picker extra="请选择(可选)"
+                        <div className='reminder'>您正在咨询</div>
+                        <div className="jcName" onClick={() => this.showPopup()}>{this.state.jcName}</div>
+                        <Picker className='picker_area' extra="请选择(可选)"
                             value={this.state.arrValue}
                             data={this.state.province}
                             title="选择地区"
@@ -317,8 +323,8 @@ class SubmitInquiry extends Component {
                             onDismiss={e => console.log('dismiss', e)}
                             >
                             <List.Item className='reminder_box' arrow="horizontal">
-                                <div className='reminder'>您正在咨询</div>
-                                {this.state.jcName}
+                                {/* <div className='reminder'>您正在咨询</div> */}
+                                {/* <div className="jcName" onClick={() => this.showPopup()}>{this.state.jcName}</div> */}
                             </List.Item>
                         </Picker>
                     </div>

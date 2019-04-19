@@ -1,6 +1,19 @@
 
+.am-list-item .am-list-line .am-list-extra {
+    flex-basis: auto !important;
+}
 
+.am-picker-popup-content {
+    width: 100% !important;
+}
 
+.picker_area {
+    width: 100%;
+}
+
+.jcName {
+    display: inline-block;
+}
 
 .submit_inq {
     display: flex;
@@ -137,5 +150,7 @@
 }
 
 .area_box {
-    /* display: none; */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
