@@ -66,7 +66,9 @@ class Search extends Component {
     }
     render() {
         return(
-            <div className='Search'>
+            <div 
+            onClick={() => this.submitQuestion(this.state.search_key)}
+            className='Search'>
                 <input
                     ref="search"
                     value={this.state.search_key}
