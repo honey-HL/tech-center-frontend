@@ -2,6 +2,12 @@
 
 
 
+.back_area {
+    padding: 10px 20px 10px 12px;
+    position: absolute;
+    left: 0;
+}
+
 .r_jaTitle {
     font-size: 14px;
     color: #333;

@@ -281,8 +281,10 @@ class Result extends Component {
 
             <div className='Com_Header'>
                 <div className="Com_Header_row">
-                    <div onClick={() => this.handleBack()} className='back'>
-                        <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                    <div onClick={() => this.handleBack()} className='back_area'>
+                        <div className='back'>
+                            <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                        </div>
                     </div>
                     <div className="title_box">
                        搜索问题
