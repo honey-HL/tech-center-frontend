@@ -4,7 +4,7 @@ import ComHeader from '../../components/com_header/com_header';
 import search_icon from '../../assets/images/home/search.png';
 import hot_icon from '../../assets/images/hot.png';
 import clean from '../../assets/images/clean.png';
-import Cosulting from '../../components/consulting/consulting';
+import Consulting from '../../components/consulting/consulting';
 import { http } from "../../common/http.js";
 import { ListView, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
@@ -173,6 +173,7 @@ class ResultList extends Component {
         };
         return(
             <div 
+            history={this.props.history}
             className={`List ${this.props.display?'show_hot':'hide_hot'}`}>
                 <div className="list_main">
                   <ListView
@@ -198,7 +199,7 @@ class ResultList extends Component {
                 <div className="fix_bar">
                     <div className='bar_tip'>没有找到答案？您可以</div>
                     <div className='consulting_box'>
-                        <Cosulting/>
+                        <Consulting back={'/result'} search_expert_icon={'28%'} consulting_title={'48%'} info={'提问'} history={this.props.history}/>
                     </div>
                 </div>
             </div>
@@ -274,6 +275,7 @@ class Result extends Component {
     render () {
         return(
         <div 
+        history={this.props.history}
         ref={el => this.result = el}
         className='Search_Result'>
 
@@ -313,7 +315,7 @@ class Result extends Component {
                         </div>
                     </div>
                     <Hot popular={item => this.popular(item)} display={this.state.show_hot} />
-                    <ResultList ref={el => this.rlist = el} origin={this.props.location.state.from} display={!this.state.show_hot} />
+                    <ResultList  history={this.props.history} ref={el => this.rlist = el} origin={this.props.location.state.from} display={!this.state.show_hot} />
                     {/* <div className={`fix_bar`} style={{opacity:!this.state.show_hot?1:0}}>
                         <div className='bar_tip'>没有找到答案？您可以</div>
                         <div className='consulting_box'>
