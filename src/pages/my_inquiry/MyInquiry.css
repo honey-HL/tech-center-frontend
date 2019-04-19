@@ -4,6 +4,29 @@
 
 
 
+
+
+/***my_inquiry_list**/
+
+
+
+.content_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.my_inquiry_item {
+    margin: 0 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #E0E0E0;
+}
+.my_inquiry_list {
+    width: 100%;
+    padding: 0 10px;
+}
+/***my_inquiry_list**/
+
+
 .myinquiry_sec {
     width: 100%;
     padding: 0 15px;
@@ -28,6 +51,7 @@
 
 .MyInquiry_Blank {
     display: flex;
+    flex-direction: column;
     height: calc(100% - 97px);
     background: rgba(250,250,250,1);
     margin-top: 10px;
