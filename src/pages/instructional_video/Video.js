@@ -385,8 +385,8 @@ class Video extends Component {
             >
                 <div className='Baike_Header'>
                     <div className='title_ea'>{this.props.title}</div>
-                    <div className="back_search">
-                        <Link onClick={() => this.removeSession()} to="/" className="home-server-item link">
+                    <div className="back_search_mennu">
+                        <Link onClick={() => this.removeSession()} to="/" className="video_back">
                             <div className='back'>
                                 <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>
@@ -394,8 +394,10 @@ class Video extends Component {
                         <div className="search_col_video">
                             <Search history={this.props.history} back="/video" getValue={this.getValue.bind(this)} />
                         </div>
-                        <div onClick={() => this.onOpenChange()} className="menu">
-                            <img className="img" src={require('../../assets/images/video/menu_icon.png')}  alt="返回"/>
+                        <div onClick={() => this.onOpenChange()} className="menu_box">
+                            <div className="menu">
+                                <img className="img" src={require('../../assets/images/video/menu_icon.png')}  alt="返回"/>
+                            </div>
                         </div>
                     </div>
                 </div>

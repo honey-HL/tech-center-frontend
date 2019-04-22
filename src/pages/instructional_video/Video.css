@@ -1,6 +1,34 @@
 /********************************************************************************Video*********/
 
+/**返回 搜索 菜单**/
+.search_col_video {
+    height: 100%;
+    width: calc(100% - 81px);
+}
 
+.video_back {
+    padding: 10px 10px 10px 12px;
+}
+
+.back_search_mennu {
+    display: inline-block;
+    width: 100%;
+    height: 35px;
+}
+
+.video_back, .search_col_video, .menu_box {
+    display: inline-block;
+    float: left;
+}
+.menu_box {
+    padding: 10px 12px 10px 10px;
+    float:right;
+}
+.menu{
+    width: 26px;
+    height: 18px;
+}
+/**返回 搜索 菜单**/
 
 /******sidevbar********/
 
@@ -125,15 +153,6 @@
 
 
 /***********VideoStream***********/
-
-.search_col_video {
-    height: 100%;
-    width: calc(100% - 60px);
-}
-.menu {
-    width: 26px;
-    height: 18px;
-}
 .even {
     /* margin-lef */
 }
@@ -188,7 +207,7 @@
 
 /**********Header*********/
 .Video_container {
-   min-height: calc(100% - 75px);
+   min-height: calc(100% - 70px);
     margin-top: 10px;
     /* overflow: auto; */
     border-top-left-radius: 13px;
