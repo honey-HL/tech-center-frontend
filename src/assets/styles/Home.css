@@ -111,16 +111,18 @@
 }
 
 .home_container{
-    height: calc(100% - 89px);
+    min-height: calc(100% - 89px);
     margin-top: 10px;
     /****overflow****/
     /* overflow: auto;  */
+    overflow: hidden;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
     background: #fff;
     opacity: 1;
     transition: all .2s;
     margin-top: 10px;
+    position: relative;
 }
   .Home {
     width: 100%;

@@ -318,7 +318,7 @@
 
 .Redius_Blank{
     min-height: calc(100% - 68px);
-    overflow: auto;
+    /* overflow: auto; */
     background: #fff;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
@@ -329,8 +329,10 @@
 
 .TabsCard {
     width: 100%;
-    height: auto;
+    /* height: auto; */
     background: #fff;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
 }
 .ant-tabs-top .ant-tabs-ink-bar-animated {
     width: 46px !important;

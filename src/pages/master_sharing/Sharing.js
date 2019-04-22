@@ -26,13 +26,15 @@ class Sharing extends Component {
             <div className='Sharing'>
                 <ComHeader history={this.props.history} from='/' title={this.state.title}/>
                 <div className="Redius_Blank">
-                <CardHorizontal 
-                    loading={this.state.loading}
-                    back={this.state.back}
-                    active_item ={this.state.active_item} 
-                    type={3} 
-                    ref={el => this.horizontal = el}
-                />
+                    <div className='sharing_container'>
+                        <CardHorizontal 
+                            loading={this.state.loading}
+                            back={this.state.back}
+                            active_item ={this.state.active_item} 
+                            type={3} 
+                            ref={el => this.horizontal = el}
+                        />
+                    </div>
                 </div>
             </div>
         )

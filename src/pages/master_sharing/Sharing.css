@@ -1,3 +1,9 @@
+.sharing_container {
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    overflow: hidden;
+}
+
 .Sharing {
     width: 100%;
     height: 100%;
