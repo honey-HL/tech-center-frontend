@@ -233,7 +233,7 @@
 }
 .back_search {
     width: 100%;
-    padding: 0 15px;
+    padding: 0 12px 0 0;
     margin-top: 12px;
     height: 35px;
     overflow: hidden;
