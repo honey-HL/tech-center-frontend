@@ -364,7 +364,7 @@ class Result extends Component {
                     <div className="Result">
                         <div className='Result_Search'>
                             <input
-                                contenteditable="true"
+                                contentEditable="true"
                                 ref="search"
                                 value={this.state.key}
                                 autoFocus="autofocus"

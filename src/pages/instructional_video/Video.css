@@ -1,6 +1,13 @@
 /********************************************************************************Video*********/
 
 /**返回 搜索 菜单**/
+
+.sidebar_back {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
 .search_col_video {
     height: 100%;
     width: calc(100% - 81px);
@@ -112,7 +119,7 @@
     display: flex;
     align-items: center;
     flex-direction: row; 
-    padding: 8px 10px;
+    padding: 0 10px 0 0;
     border-bottom: 1px solid #E0E0E0;
     box-sizing: border-box;
 }

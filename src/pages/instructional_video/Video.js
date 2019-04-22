@@ -322,8 +322,10 @@ class Video extends Component {
         const drag = false
         const sidebar = (<div style={{ height: document.documentElement.clientHeight - 93}} className='sidebar'>
            <div className='sidebar_head'>
-                <div onClick={this.onOpenChange} className='back_orange'>
-                    <img className='banner_img' alt='back' src={require('../../assets/images/back_orange.png')}/>
+                <div onClick={this.onOpenChange} className='sidebar_back'>
+                    <div className='back_orange'>
+                        <img className='img' alt='back' src={require('../../assets/images/back_orange.png')}/>
+                    </div>
                 </div>
                 <div className='sidebar_title'>导航</div>
             </div>
@@ -409,7 +411,7 @@ class Video extends Component {
                         style={{
                             zIndex:this.state.open?'9999':'',
                             display: this.state.open?'block':'none', 
-                            height: document.documentElement.clientHeight - 93
+                            height: document.documentElement.clientHeight - 70
                          }}
                         contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                         sidebar={sidebar}

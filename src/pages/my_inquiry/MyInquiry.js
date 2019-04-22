@@ -118,7 +118,7 @@ class MyInquiry extends Component {
                 <div className='Baike_Header'>
                     <div className='title_ea'>我的咨询</div>
                     <div className="back_search">
-                        <Link to="/" className="home-server-item link">
+                        <Link to="/" className="my_inquiry_back link">
                             <div className='back'>
                                 <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>

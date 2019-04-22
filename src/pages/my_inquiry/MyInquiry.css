@@ -8,7 +8,9 @@
 
 /***my_inquiry_list**/
 
-
+.my_inquiry_back {
+    padding: 10px 0 10px 12px;
+}
 
 .content_row {
     display: flex;
