@@ -339,11 +339,14 @@ class SubmitInquiry extends Component {
                         console.log(this.state.selected_count);
                     })      
                 } else {
-                    if (this.state.selected_count <= 1) {
-                        return
-                    }
+                    // if (this.state.selected_count <= 1) {
+                    //     return
+                    // }
                     this.setState({selected_count: this.state.selected_count - 1},()=>{
                         console.log(this.state.selected_count);
+                        if (this.state.selected_count < 1) {
+                            Toast.info('至少选择一个问题类型', 1);
+                        }
                     })      
                     element.selected = false
                 }
