@@ -1,6 +1,10 @@
 
 
 
+.VideoStream{
+    background: #fff;
+    padding: 17px 13px 0;
+}
 
 .back_area {
     padding: 10px 20px 10px 12px;
@@ -173,11 +177,14 @@
 /******Hot**/
 
 /******Result_Search****/
-.clean{
-    position: absolute;
-    right: 10px;
+.clean_btn {
     width: 19px;
     height: 19px;
+}
+.clean{
+    position: absolute;
+    padding: 8px;
+    right: 0;
     opacity: 0;
     transition: all .2s;
 }
@@ -191,11 +198,12 @@
     display: inline-block;
 }
 .result_magnifier{
-    width: 20px;
-    height: 20px;
+    /* width: 20px;
+    height: 20px; */
     position: absolute;
-    left: 10px;
+    /* left: 10px; */
     cursor: pointer;
+    padding: 8px;
 }
 .Result_Search .result_search {
     border: 1px solid #e0e0e0;
@@ -208,7 +216,7 @@
     padding: 0 12px 0 32px;
     box-sizing: border-box;
     color: #999999;
-    font-size: 13px;
+    font-size: 14px;
 }
 .Result_Search{
     position: relative;

@@ -31,7 +31,7 @@ class Baike_Header extends Component {
                         </div>
                     </Link>
                     <div className="search_col">
-                        <Search history={this.props.history} back="/encyclopedia" getValue={this.getValue.bind(this)} />
+                        <Search type={this.props.type} history={this.props.history} back="/encyclopedia" getValue={this.getValue.bind(this)} />
                     </div>
                 </div>
             </div>

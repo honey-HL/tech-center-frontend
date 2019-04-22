@@ -249,7 +249,7 @@ class Encyclopedia extends React.Component {
     render() {
         return(
             <div className="Encyclopedia">
-                <BaikeHeader title='问问百科' history={this.props.history}/>
+                <BaikeHeader type={1} title='问问百科' history={this.props.history}/>
                 <Article/>
             </div>
         )

@@ -151,7 +151,7 @@ class VideoDetail extends Component {
         <div  
         ref={vdetail => this.vdetail = vdetail}
         className='VideoDetail'>
-            <ComHeader history={this.props.history}  from='/video' title={this.state.viTitle}/>
+            <ComHeader history={this.props.history}  from={this.props.location.state.back} title={this.state.viTitle}/>
             <div className='Redius_Blank'>
 
                 <div className='youkuplayer_box'>

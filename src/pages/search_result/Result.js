@@ -97,7 +97,39 @@ class ResultList extends Component {
         }
     }
 
-    getResults = async(key, type, pageIndex) => {
+    videoSearch =  async(key, type, pageIndex) => {
+        console.log(key, type, pageIndex)
+        let params = {
+            brandId: '',
+            typeId: '',
+            modelId: '',
+            pageIndex: pageIndex?pageIndex:this.state.pageIndex,
+            pageSize: this.state.pageSize,
+            title: key,
+        }
+        let response = await http('/video/videocenter/api/search', params, true);
+        console.log(response);
+        if (response.data) {
+            let new_data = pageIndex?[]:this.state.data;
+            response.data.data.forEach(element => {
+                new_data.push(element);
+            });
+            this.setState({ 
+                total: response.data.total,
+                pageIndex: this.state.pageIndex + 1,
+                data: new_data,
+                dataSource: this.state.dataSource.cloneWithRows(new_data),
+            })
+            if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
+                this.setState({isLoading: false})
+            }
+        } else {
+            Toast.info(response.message, 1);
+            this.setState({isLoading: false})
+        }
+    }
+
+    otherSearch = async(key, type, pageIndex) => {
         console.log(key, type, pageIndex)
         let params = {
             pageIndex: pageIndex?pageIndex:this.state.pageIndex,
@@ -135,7 +167,11 @@ class ResultList extends Component {
         console.log(this.state.data.length)
         if (this.state.data.length < this.state.total) {
             this.setState({isLoading: true})
-            this.getResults(this.state.title, this.state.type);
+            if (this.props.origin === '/video') {
+                this.videoSearch(this.state.title, this.state.type);
+            } else {
+                this.otherSearch(this.state.title, this.state.type);
+            }
         }
         if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
             this.setState({isLoading: false})
@@ -147,35 +183,60 @@ class ResultList extends Component {
     }
 
     render () {
-        const row = (rowData, sectionID, rowID) => {
-            return (
-                <Link 
-                to={{pathname: 'adetail',state:{id: rowData.jaId, back: '/result',origin: this.props.origin,scrollTop:''}}} 
-                key={rowID} 
-                className='Card_Horizontal'>
-                    <div className='Card_Horizontal_item'>
-                        <div className="result_item">
-                            <div className='r_jaTitle'>{rowData.jaTitle}</div>
-                            <div className="r_jaContent" style={{"WebkitBoxOrient": "vertical"}} dangerouslySetInnerHTML={{ __html: getSimpleText(rowData.jaContent)}}></div>
-                            <div className='r_time_view'>
-                                <div className="r_publish_time">{transformTime(rowData.jaPublishtime)}</div>
-                                <div className="r_view_like">
-                                    <div className='in_block'>
-                                        <div className='eye'><img className="banner_img" src={eye} alt="banner" /></div>
-                                        <span className='in_block view_num'>{rowData.jaView}</span>
+        let row = ''
+        if (this.props.origin === '/video') {
+            row = (rowData, sectionID, rowID) => {
+                const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter/'
+                return (
+                    <Link 
+                        to={{pathname: 'vdetail',state:{id: rowData.viId, back: '/result',scrollTop:''}}} 
+                        key={rowID} 
+                        className='Card_Vertical'
+                    >
+                        <div className="Card_Vertical_cover">
+                            <img className="banner_img" src={imgPrefix + rowData.viCover} alt="banner" />
+                        </div>
+                        <div className="Card_Vertical_title" style={{'WebkitBoxOrient':'vertical'}}>{rowData.viTitle}</div>
+                        <div className="Card_Vertical_view_box">
+                            <div className='eye'>
+                                <img className="img_float" src={eye} alt="浏览量" />
+                            </div>
+                            <span className='Card_Vertical_view_num'>{rowData.viView}</span>
+                        </div>
+                    </Link>
+                );
+            };
+        } else {
+            row = (rowData, sectionID, rowID) => {
+                return (
+                    <Link 
+                    to={{pathname: 'adetail',state:{id: rowData.jaId, back: '/result',origin: this.props.origin,scrollTop:''}}} 
+                    key={rowID} 
+                    className='Card_Horizontal'>
+                        <div className='Card_Horizontal_item'>
+                            <div className="result_item">
+                                <div className='r_jaTitle'>{rowData.jaTitle}</div>
+                                <div className="r_jaContent" style={{"WebkitBoxOrient": "vertical"}} dangerouslySetInnerHTML={{ __html: getSimpleText(rowData.jaContent)}}></div>
+                                <div className='r_time_view'>
+                                    <div className="r_publish_time">{transformTime(rowData.jaPublishtime)}</div>
+                                    <div className="r_view_like">
+                                        <div className='in_block'>
+                                            <div className='eye'><img className="banner_img" src={eye} alt="banner" /></div>
+                                            <span className='in_block view_num'>{rowData.jaView}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </Link>
-            );
-        };
+                    </Link>
+                );
+            };
+        }
         return(
             <div 
             history={this.props.history}
             className={`List ${this.props.display?'show_hot':'hide_hot'}`}>
-                <div className="list_main">
+                <div className={`list_main ${this.props.origin==='/video'?'VideoStream':''}`}>
                   <ListView
                         ref={el => this.lv = el}
                         dataSource={this.state.dataSource}
@@ -243,7 +304,7 @@ class Result extends Component {
 
     popular = (jacName) => {
         console.log(jacName)
-        this.rlist.getResults(jacName, this.props.location.state.type, 1)
+        this.rlist.otherSearch(jacName, this.props.location.state.type, 1)
         this.setState({show_hot: false})
     }
 
@@ -257,7 +318,11 @@ class Result extends Component {
 
     submitQuestion = async (key) => {
         this.setState({show_hot: false})
-        this.rlist.getResults(key, this.props.location.state.type, 1)
+        if (this.props.location.state.from === '/video') { // 来自于视频页面的搜索
+            this.rlist.videoSearch(key, this.props.location.state.type, 1)
+        } else {
+            this.rlist.otherSearch(key, this.props.location.state.type, 1)
+        }
     }
 
     handleBack = (e) => {
@@ -299,6 +364,7 @@ class Result extends Component {
                     <div className="Result">
                         <div className='Result_Search'>
                             <input
+                                contenteditable="true"
                                 ref="search"
                                 value={this.state.key}
                                 autoFocus="autofocus"
@@ -309,10 +375,14 @@ class Result extends Component {
                                 className='result_search'
                                 placeholder="搜索问题" />
                             <div onClick={() => this.submitQuestion(this.state.key)} className="result_magnifier">
-                                <img className="img_search" src={search_icon} alt="搜索" />
+                                <div className='clean_btn'>
+                                    <img className="img" src={search_icon} alt="搜索" />
+                                </div>
                             </div>
                             <div onClick={() => this.cleanKey()} className={`clean ${this.state.show_clean?'show_clean':''}`}>
-                                <img className="img_search" src={clean} alt="清除" />
+                                <div className='clean_btn'>
+                                    <img className="img" src={clean} alt="清除" />
+                                </div>
                             </div>
                         </div>
                     </div>
