@@ -152,6 +152,7 @@ class Video extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            availHeight: '',
             show_model: false,
             open: false,
             bannerArr: [],
@@ -170,6 +171,9 @@ class Video extends Component {
         console.log(this.state.search_value);
     }
     componentDidMount() {
+        this.setState({
+            availHeight: window.screen.availHeight
+        })
         window.$mobile.navigationShow(false);
         this.getBanner()
         this.getPhoneType()
@@ -403,7 +407,9 @@ class Video extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="Video_container">
+                <div 
+                style={{height:this.state.availHeight - 70}}
+                className="Video_container">
                     <Drawer
                         enableDragHandle ={drag}
                         position="right"
