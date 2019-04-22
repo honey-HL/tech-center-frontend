@@ -17,6 +17,7 @@ class Banner extends Component {
             this.props.history.push({
                 pathname: "/vdetail",
                 state: {
+                    back: '/video',
                     id: item.rLink
                 }
             });

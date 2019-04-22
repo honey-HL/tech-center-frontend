@@ -420,7 +420,7 @@ class Video extends Component {
                     >
                     &nbsp;
                     </Drawer>
-                    <Banner data={this.state.bannerArr}/>
+                    <Banner from={'video'} history={this.props.history} data={this.state.bannerArr}/>
                     <VideoStream ref={c => {this.videoRef = c;}} />
                 </div>
             </div>
