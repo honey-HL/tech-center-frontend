@@ -125,6 +125,10 @@ class VideoDetail extends Component {
         }
     }
 
+    handleBack = (e) => {
+        this.props.history.goBack();
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter/'
@@ -151,7 +155,20 @@ class VideoDetail extends Component {
         <div  
         ref={vdetail => this.vdetail = vdetail}
         className='VideoDetail'>
-            <ComHeader history={this.props.history}  from={this.props.location.state.back} title={this.state.viTitle}/>
+            {/* <ComHeader history={this.props.history}  from={this.props.location.state.back} title={this.state.viTitle}/> */}
+            <div className='Com_Header'>
+                <div className="Com_Header_row">
+                    <div onClick={() => this.handleBack()} className='back_area'>
+                        <div className='back'>
+                            <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                        </div>
+                    </div>
+                    <div className="title_box">
+                        {this.state.viTitle}
+                    </div>
+                </div>
+                <div className="white"></div>
+            </div>
             <div className='Redius_Blank'>
 
                 <div className='youkuplayer_box'>
