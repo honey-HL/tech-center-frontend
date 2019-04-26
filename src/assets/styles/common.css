@@ -112,6 +112,8 @@
     display: flex;
     align-items: center;
     margin-left:2px;
+    width: 42%;
+    float: left;
 }
 .heart_box {
     margin-left:20px;
@@ -141,8 +143,9 @@
     background-position: center !important;
 }
 .Card_Horizontal_right_img {
-    width:140px;
-    height: 80px;
+    /* width:140px; */
+    width: 42%;
+    height: 90px;
     border:1px solid rgba(224,224,224,1);
     border-radius:5px;
     padding: 2px;
@@ -154,7 +157,7 @@
     display: flex;
     flex-direction: column;
     margin-right: 10px;
-    width: 60%;
+    width: 54%;
 }
 .Card_Horizontal_item {
     display: flex;
@@ -165,6 +168,7 @@
     padding: 15px 0;
     width: calc(100% - 30px);
     border-bottom: 1px solid rgba(224,224,224,1);
+    justify-content: space-between;
 }
 .Card_Horizontal {
     width: 100%;
