@@ -40,9 +40,9 @@ class Hot extends Component {
         this.handleHotList();
     }
 
-    changeKey = (item) => {
+    searchByHot = (item) => {
         console.log(this.result)
-        this.props.popular(item.jacName);
+        this.props.popular(item);
     }
 
     render () {
@@ -67,7 +67,7 @@ class Hot extends Component {
                             {
                                 row.map((item, it) => {
                                     return(
-                                        <div onClick={() => this.changeKey(item)} key={it} className="hot_row_item">{item.jacName}</div>
+                                        <div onClick={() => this.searchByHot(item)} key={it} className="hot_row_item">{item.jacName}</div>
                                     )
                                 })
                             }
@@ -88,6 +88,7 @@ class ResultList extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            jacId: '',
             pageIndex: 1,
             pageSize: 10,
             dataSource,
@@ -129,15 +130,15 @@ class ResultList extends Component {
         }
     }
 
-    otherSearch = async(key, type, pageIndex) => {
-        console.log(key, type, pageIndex)
+    otherSearch = async(item, type, pageIndex) => {
+        console.log(item, type, pageIndex)
         let params = {
             pageIndex: pageIndex?pageIndex:this.state.pageIndex,
-            title: key,
+            title: item.title?item.title: '',
             pageSize: this.state.pageSize,
             orderBy: '',
-            classifyId: '',
-            type: type, // 1问问百科 2知识库 3大师分享 4首页文章
+            classifyId: item.jacId?item.jacId: this.state.jacId?this.state.jacId:'',
+            type: 4, // 1问问百科 2知识库 3大师分享 4首页文章 type固定为首页搜索
         }
         let response = await http('/jszx/search', params);
         console.log(response);
@@ -147,7 +148,8 @@ class ResultList extends Component {
               new_data.push(element);
             });
             this.setState({ 
-                title: key,
+                title: item.title?item.title: '',
+                jacId: item.jacId?item.jacId: '',
                 type: type,
                 total: response.data.total,
                 pageIndex: pageIndex?2:this.state.pageIndex + 1,
@@ -170,7 +172,7 @@ class ResultList extends Component {
             if (this.props.origin === '/video') {
                 this.videoSearch(this.state.title, this.state.type);
             } else {
-                this.otherSearch(this.state.title, this.state.type);
+                this.otherSearch({title: this.state.title}, this.state.type);
             }
         }
         if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
@@ -302,9 +304,9 @@ class Result extends Component {
 
     }
 
-    popular = (jacName) => {
-        console.log(jacName)
-        this.rlist.otherSearch(jacName, this.props.location.state.type, 1)
+    popular = (item) => {
+        console.log(item)
+        this.rlist.otherSearch(item, this.props.location.state.type, 1)
         this.setState({show_hot: false})
     }
 
@@ -321,7 +323,7 @@ class Result extends Component {
         if (this.props.location.state.from === '/video') { // 来自于视频页面的搜索
             this.rlist.videoSearch(key, this.props.location.state.type, 1)
         } else {
-            this.rlist.otherSearch(key, this.props.location.state.type, 1)
+            this.rlist.otherSearch({title: key}, this.props.location.state.type, 1)
         }
     }
 
