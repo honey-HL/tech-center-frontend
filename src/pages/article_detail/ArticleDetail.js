@@ -131,7 +131,9 @@ class ArticleDetail extends Component {
         if (response.data) {
             let new_data = this.state.data;
             response.data.data.forEach(element => {
-              new_data.push(element);
+                if (parseInt(element.jaId) !== parseInt(this.state.jaId)) {
+                    new_data.push(element);
+                }
             });
             this.setState({ 
                 total: response.data.total,
