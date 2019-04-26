@@ -154,6 +154,7 @@ class ArticleDetail extends Component {
         if (!this.state.is_like_active) { // 没有点过like
             await http('/jszx/likearticle', {id: jaId});
             this.setState({
+                jaLike: parseInt(this.state.jaLike) + 1,
                 is_like_active: true,
             })
         }

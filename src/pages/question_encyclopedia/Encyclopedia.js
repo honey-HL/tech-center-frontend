@@ -163,6 +163,7 @@ class Article extends Component {
                 }
             }
             this.setState({
+                jaLike: parseInt(this.state.jaLike) + 1,
                 is_like_active: true,
                 list: data,
             })
