@@ -251,7 +251,7 @@ class ResultList extends Component {
                         {
                             this.state.isLoading?<div className={`loading_img`}>
                                 <img className="banner_img" src={loading_img} alt="loading" />
-                            </div>:this.state.data.length>0?<div>已加载全部</div>:<div>抱歉,没有找到与{this.state.title || this.state.jacName}相关的结果</div>
+                            </div>:this.state.data.length>0?<div>已加载全部</div>:<div>抱歉,没有找到与<span className='keyword'>{this.state.title || this.state.jacName}</span>相关的结果</div>
                         }
                         </div>
                         )}

@@ -233,6 +233,10 @@ input {
     height: 19px !important;
     background-position: 1px 1px !important; */
 }
+.keyword {
+    color: #666;
+    margin: 0 5px;
+}
 .am-list-item .am-input-control input {
     font-size: 14px !important;
     color: #999999 !important;
