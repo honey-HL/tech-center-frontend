@@ -2,6 +2,9 @@
 
 
 
+
+
+
 .result_view {
     width: 70px;
     text-align: right;
@@ -147,13 +150,16 @@
     justify-content: space-around;
     color: #999;
     font-size: 14px;
-    padding: 10px 0;
+}
+.hot_row_item {
+    padding: 10px;
 }
 .hot_main{
     display: flex;
     flex-direction: column;
 }
 .hot_title{
+    font-size: 14px;
     margin-left: 10px;
 }
 .hot_img{
