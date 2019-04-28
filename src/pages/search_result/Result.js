@@ -6,7 +6,7 @@ import hot_icon from '../../assets/images/hot.png';
 import clean from '../../assets/images/clean.png';
 import Consulting from '../../components/consulting/consulting';
 import { http } from "../../common/http.js";
-import { ListView, Toast } from 'antd-mobile';
+import { ListView, Toast, InputItem } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import {eye, loading_img} from '../../common/images';
 import { transformTime, getSimpleText } from '../../common/tool'
@@ -294,13 +294,22 @@ class Result extends Component {
         }
         this.setState({key: '',show_clean: false, show_rlist: false})
     }
-    handleVal =  (event) => {
-        let val = event.target.value.replace(/\s+/g,"");
-        this.setState({key: val})
-        if (val !== '' && val !== undefined) {
-            this.setState({show_clean: true})
-        } else {
-            this.setState({show_clean: false})
+    // handleValChange =  (event) => {
+    //     let val = event.target.value.replace(/\s+/g,""); // 有效
+    //     this.setState({key: val})
+    //     if (val !== '' && val !== undefined) {
+    //         this.setState({show_clean: true})
+    //     } else {
+    //         this.setState({show_clean: false})
+    //     }
+    // }
+    handleValChange =  (value) => {
+        console.log()
+        console.log(value)
+        let val = value.replace(/\s+/g,""); // 为毛这个步骤在这里无效？
+        this.setState({key: val});
+        if (this.props.location.state.from !== '/video' && value === '') { // 值被清空时展示热搜 隐藏结果列表
+            this.setState({show_hot: true, show_rlist: false})
         }
     }
     handleEnterKey = (e) => {
@@ -385,27 +394,40 @@ class Result extends Component {
 
                     <div className="Result">
                         <div className='Result_Search'>
-                            <input
+                        <InputItem
+                                contentEditable="true"
+                                ref="search"
+                                autoFocus="autofocus"
+                                type='text'
+                                defaultValue={this.state.key}
+                                placeholder="搜索问题"
+                                clear
+                                onChange={(event) => this.handleValChange(event)}
+                                onKeyPress={(e) => this.handleEnterKey(e)}
+                                maxLength="40"
+                                className='result_search'
+                            ></InputItem>
+                            {/* <input
                                 contentEditable="true"
                                 ref="search"
                                 value={this.state.key}
                                 autoFocus="autofocus"
                                 type='text'
                                 maxLength="40"
-                                onChange={(event) => this.handleVal(event)}
+                                onChange={(event) => this.handleValChange(event)}
                                 onKeyPress={(e) => this.handleEnterKey(e)}
                                 className='result_search'
-                                placeholder="搜索问题" />
+                                placeholder="搜索问题" /> */}
                             <div onClick={() => this.submitQuestion(this.state.key)} className="result_magnifier">
                                 <div className='clean_btn'>
                                     <img className="img" src={search_icon} alt="搜索" />
                                 </div>
                             </div>
-                            <div onClick={() => this.cleanKey()} className={`clean ${this.state.show_clean?'show_clean':''}`}>
+                            {/* <div onClick={() => this.cleanKey()} className={`clean ${this.state.show_clean?'show_clean':''}`}>
                                 <div className='clean_btn'>
                                     <img className="img" src={clean} alt="清除" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <Hot popular={item => this.popular(item)} display={this.state.show_hot} />
