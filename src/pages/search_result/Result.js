@@ -88,6 +88,7 @@ class ResultList extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            jacName: '',
             jacId: '',
             pageIndex: 1,
             pageSize: 10,
@@ -116,6 +117,7 @@ class ResultList extends Component {
                 new_data.push(element);
             });
             this.setState({ 
+                title: key,
                 total: response.data.total,
                 pageIndex: this.state.pageIndex + 1,
                 data: new_data,
@@ -148,6 +150,7 @@ class ResultList extends Component {
               new_data.push(element);
             });
             this.setState({ 
+                jacName: item.jacName,
                 title: item.title?item.title: '',
                 jacId: item.jacId?item.jacId: '',
                 type: type,
@@ -222,9 +225,9 @@ class ResultList extends Component {
                                 <div className='r_time_view'>
                                     <div className="r_publish_time">{transformTime(rowData.jaPublishtime)}</div>
                                     <div className="r_view_like">
-                                        <div className='in_block'>
+                                        <div style={{display: 'flex'}}>
                                             <div className='eye'><img className="banner_img" src={eye} alt="banner" /></div>
-                                            <span className='in_block view_num'>{rowData.jaView}</span>
+                                            <span className='result_view'>{rowData.jaView}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -248,7 +251,7 @@ class ResultList extends Component {
                         {
                             this.state.isLoading?<div className={`loading_img`}>
                                 <img className="banner_img" src={loading_img} alt="loading" />
-                            </div>:<div>已加载全部</div>
+                            </div>:this.state.data.length>0?<div>已加载全部</div>:<div>抱歉,没有找到与{this.state.title || this.state.jacName}相关的结果</div>
                         }
                         </div>
                         )}
@@ -275,6 +278,7 @@ class Result extends Component {
         super(props)
         console.log(this.props.query);
         this.state = {
+            show_rlist: false,
             show_hot: true,
             show_clean: false,
             key: '',
@@ -283,7 +287,12 @@ class Result extends Component {
         }
     }
     cleanKey = () => {
-        this.setState({key: '',show_clean: false, show_hot: true})
+        if (this.props.location.state.from === '/video') {
+            this.setState({show_hot: false})
+        } else {
+            this.setState({show_hot: true})
+        }
+        this.setState({key: '',show_clean: false, show_rlist: false})
     }
     handleVal =  (event) => {
         let val = event.target.value.replace(/\s+/g,"");
@@ -307,7 +316,7 @@ class Result extends Component {
     popular = (item) => {
         console.log(item)
         this.rlist.otherSearch(item, this.props.location.state.type, 1)
-        this.setState({show_hot: false})
+        this.setState({show_hot: false, show_rlist: true})
     }
 
     componentDidMount(){
@@ -316,10 +325,13 @@ class Result extends Component {
         console.log(this.props.location.state.type);
         window.$mobile.navigationShow(false);
         console.log('this.props.location.pathname', this.props);
+        if (this.props.location.state.from === '/video') {
+            this.setState({show_hot: false})
+        }
     }
 
     submitQuestion = async (key) => {
-        this.setState({show_hot: false})
+        this.setState({show_hot: false, show_rlist: true})
         if (this.props.location.state.from === '/video') { // 来自于视频页面的搜索
             this.rlist.videoSearch(key, this.props.location.state.type, 1)
         } else {
@@ -328,14 +340,22 @@ class Result extends Component {
     }
 
     handleBack = (e) => {
-        if (!this.state.show_hot) {
-            this.setState({show_hot: true})
+        if (this.props.location.state.from === '/video') { // 来自视频的搜索
+            this.setState({show_hot: false,show_rlist: false})
+            if (!this.state.show_hot && !this.state.show_rlist) {
+                this.props.history.goBack()
+            }
         } else {
-            this.props.history.push({
-                pathname: this.props.location.state.from,
-                state: {
-                }
-            });
+            if (!this.state.show_hot) {
+                this.setState({show_hot: true, show_rlist: false})
+            } else {
+                this.props.history.goBack()
+                // this.props.history.push({
+                //     pathname: this.props.location.state.from,
+                //     state: {
+                //     }
+                // });
+            }
         }
     }
 
@@ -389,7 +409,7 @@ class Result extends Component {
                         </div>
                     </div>
                     <Hot popular={item => this.popular(item)} display={this.state.show_hot} />
-                    <ResultList  history={this.props.history} ref={el => this.rlist = el} origin={this.props.location.state.from} display={!this.state.show_hot} />
+                    <ResultList  history={this.props.history} ref={el => this.rlist = el} origin={this.props.location.state.from} display={this.state.show_rlist} />
                     {/* <div className={`fix_bar`} style={{opacity:!this.state.show_hot?1:0}}>
                         <div className='bar_tip'>没有找到答案？您可以</div>
                         <div className='consulting_box'>

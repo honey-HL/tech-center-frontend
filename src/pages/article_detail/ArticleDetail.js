@@ -170,6 +170,10 @@ class ArticleDetail extends Component {
         window.$mobile.navigationShow(false);
     }
 
+    handleBack = (e) => {
+        this.props.history.goBack() // 会回到之前的滚动位置
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -204,7 +208,20 @@ class ArticleDetail extends Component {
         ref={node => this.node = node}
         className='Detail_Article'
         >
-            <ComHeader history={this.props.history} from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/>
+            {/* <ComHeader history={this.props.history} from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/> */}
+            <div className='Com_Header'>
+                <div className="Com_Header_row">
+                    <div onClick={() => this.handleBack()} className='back_area'>
+                        <div className='back'>
+                            <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                        </div>
+                    </div>
+                    <div className="title_box">
+                        {this.state.title}
+                    </div>
+                </div>
+                <div className="white"></div>
+            </div>
             <div className="Redius_Blank">
                 <div className='jaTitle'>{this.state.jaTitle}</div>
                 <div className='tip_box'>

@@ -1,6 +1,12 @@
 
 
 
+
+.result_view {
+    width: 70px;
+    text-align: right;
+}
+
 .VideoStream{
     background: #fff;
     padding: 17px 13px 0;
