@@ -142,7 +142,9 @@ class TabsCard extends React.Component {
     }
     
     componentDidMount () {
-        window.$mobile.navigationShow(true);
+        if (window.$mobile) {
+            window.$mobile.navigationShow(true);
+        }
         this.getTabsNav()
     }
     onScrollHandle = () => {
@@ -154,7 +156,7 @@ class TabsCard extends React.Component {
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'adetail',state:{id: rowData.jaId, scrollTop:''}}} 
+                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/', id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>

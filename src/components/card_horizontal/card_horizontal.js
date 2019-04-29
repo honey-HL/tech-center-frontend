@@ -74,7 +74,7 @@ class Card_Horizontal extends Component {
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'adetail',state:{id: rowData.jaId, back: this.props.back}}} 
+                to={{pathname: 'adetail/'+rowData.jaId,state:{id: rowData.jaId, back: this.props.back}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>

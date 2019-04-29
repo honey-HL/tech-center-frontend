@@ -16,7 +16,9 @@ class Sharing extends Component {
     }
   
     componentDidMount(){
-        window.$mobile.navigationShow(false);
+        if (window&&window.$mobile) {
+            window.$mobile.navigationShow(false);
+        }
         this.setState({loading: true})
         this.horizontal.loadData()
     }

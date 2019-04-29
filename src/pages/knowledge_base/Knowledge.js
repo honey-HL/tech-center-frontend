@@ -76,7 +76,9 @@ class Knowledge extends Component {
     changeTab = (e) => {}
    
     componentDidMount(){
-        window.$mobile.navigationShow(false);
+        if (window&&window.$mobile) {
+            window.$mobile.navigationShow(false);
+        }
         this.getTabsNav()
     }
     render(){

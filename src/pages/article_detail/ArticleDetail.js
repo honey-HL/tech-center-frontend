@@ -89,7 +89,7 @@ class ArticleDetail extends Component {
         this.setState({
             data: [],
             pageIndex: 1,
-            id: this.props.location.state.id, 
+            id: id, // this.props.location.state.id, 
             content: response.data.jaContent,
             jaTitle: response.data.jaTitle,
             jaLike: response.data.jaLike,
@@ -102,7 +102,9 @@ class ArticleDetail extends Component {
         console.log(response.data.jaPublishtime);
         console.log(new Date(parseInt(response.data.jaPublishtime)));
         this.loadData()
-        this.node.scrollIntoView(); // 回到顶部
+        if (this.node) {
+            this.node.scrollIntoView(); // 回到顶部
+        }
         console.log(response);
     }
     
@@ -164,14 +166,24 @@ class ArticleDetail extends Component {
     }
 
     componentDidMount(){
-        this.getArticle(this.props.location.state.id);
-        console.log(this.props.location.state);
-        console.log(this.props.back)
-        window.$mobile.navigationShow(false);
+        let id = this.props.match.url.split('/')[2];
+        // this.getArticle(this.props.location.state.id);
+        this.getArticle(id);
+        if (window&&window.$mobile) {
+            window.$mobile.navigationShow(false);
+        }
     }
 
     handleBack = (e) => {
-        this.props.history.goBack() // 会回到之前的滚动位置
+        let from = this.props && this.props.location && this.props.location.state && this.props.location.state.back?this.props.location.state.back:'';
+        console.log(from);
+        if (from === '') { // 没有上一个页面  url跳转
+            console.log('url跳转')
+           this.props.history.push({pathname: '/'})
+        } else { // 有上一个页面  // 父级跳转
+            console.log('父级跳转')
+            this.props.history.goBack() // 会回到之前的滚动位置
+        }
     }
 
     render(){
@@ -179,7 +191,7 @@ class ArticleDetail extends Component {
             return (
                 <Link 
                 onClick={() => this.getArticle(rowData.jaId)}
-                to={{pathname: 'adetail',state:{id: rowData.jaId}}} 
+                to={{pathname: 'adetail'+rowData.jaId,state:{id: rowData.jaId}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>
