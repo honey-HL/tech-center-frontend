@@ -375,7 +375,7 @@ class Result extends Component {
         ref={el => this.result = el}
         className='Search_Result'>
 
-            <div className='Com_Header'>
+            {/* <div className='Com_Header'>
                 <div className="Com_Header_row">
                     <div onClick={() => this.handleBack()} className='back_area'>
                         <div className='back'>
@@ -387,9 +387,9 @@ class Result extends Component {
                     </div>
                 </div>
                 <div className="white"></div>
-            </div>
+            </div> */}
 
-            {/* <ComHeader history={this.props.history} from={this.props.location.state.from} title={this.state.title}/> */}
+            <ComHeader history={this.props.history} from={this.props.location.state.from} title={this.state.title}/>
             <div className="Redius_Blank">
 
                     <div className="Result">
