@@ -40,6 +40,7 @@ class VideoDetail extends Component {
         let data = response.data
         if (data) {
             this.setState({
+                data: [],
                 pageIndex: 1,
                 viUploaddate: filterDate(data.viUploaddate),
                 viContent: data.viContent,
