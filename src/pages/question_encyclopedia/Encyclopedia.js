@@ -171,7 +171,9 @@ class Article extends Component {
     }
     componentDidMount () {
         this.getBaikeNav()
-        window.$mobile.navigationShow(false);
+        if (window&&window.$mobile) {
+            window.$mobile.navigationShow(false);
+        }
     }
     render () {
         return(

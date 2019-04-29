@@ -332,7 +332,9 @@ class Result extends Component {
         var elem = document.getElementsByClassName('result_search')[0];
         elem.focus();
         console.log(this.props.location.state.type);
-        window.$mobile.navigationShow(false);
+        if (window&&window.$mobile) {
+            window.$mobile.navigationShow(false);
+        }
         console.log('this.props.location.pathname', this.props);
         if (this.props.location.state.from === '/video') {
             this.setState({show_hot: false})
