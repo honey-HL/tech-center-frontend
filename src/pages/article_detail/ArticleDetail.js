@@ -191,7 +191,7 @@ class ArticleDetail extends Component {
             return (
                 <Link 
                 onClick={() => this.getArticle(rowData.jaId)}
-                to={{pathname: 'adetail'+rowData.jaId,state:{id: rowData.jaId}}} 
+                to={{pathname: '/adetail/'+rowData.jaId,state:{id: rowData.jaId}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>

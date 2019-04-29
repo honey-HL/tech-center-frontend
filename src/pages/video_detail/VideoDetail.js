@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './VideoDetail.css';
 import ComHeader from '../../components/com_header/com_header';
 import { http } from "../../common/http";
@@ -145,22 +146,24 @@ class VideoDetail extends Component {
         const row = (rowData, sectionID, rowID) => {
             const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter/'
             return (
-                <div 
+                <Link
                     onClick={() => this.getVideoData(rowData.viId, true)}
-                    key={rowID} 
+                    to={{pathname: '/vdetail/'+rowData.viId}} 
                     className='Card_Vertical'
                 >
-                    <div className="Card_Vertical_cover">
-                        <img className="banner_img" src={imgPrefix + rowData.viCover} alt="banner" />
-                    </div>
-                    <div className="Card_Vertical_title" style={{'WebkitBoxOrient':'vertical'}}>{rowData.viTitle}</div>
-                    <div className="Card_Vertical_view_box">
-                        <div className='eye'>
-                            <img className="img_float" src={eye} alt="浏览量" />
+                    <div key={rowID}>
+                        <div className="Card_Vertical_cover">
+                            <img className="banner_img" src={imgPrefix + rowData.viCover} alt="banner" />
                         </div>
-                        <span className='Card_Vertical_view_num'>{rowData.viView}</span>
+                        <div className="Card_Vertical_title" style={{'WebkitBoxOrient':'vertical'}}>{rowData.viTitle}</div>
+                        <div className="Card_Vertical_view_box">
+                            <div className='eye'>
+                                <img className="img_float" src={eye} alt="浏览量" />
+                            </div>
+                            <span className='Card_Vertical_view_num'>{rowData.viView}</span>
+                        </div>
                     </div>
-                </div>
+                </Link>
             );
         };
         return(
