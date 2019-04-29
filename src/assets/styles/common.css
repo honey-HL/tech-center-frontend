@@ -320,6 +320,12 @@
     display: inline-block;
 }
 
+.wh_100 {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
 .Redius_Blank{
     min-height: calc(100% - 68px);
     /* overflow: auto; */

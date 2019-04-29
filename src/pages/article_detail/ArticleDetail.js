@@ -209,7 +209,7 @@ class ArticleDetail extends Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img className="banner_img" src={imgPrefix + rowData.jaImage} alt="banner" />
+                            <img className="wh_100" src={imgPrefix + rowData.jaImage} alt="banner" />
                         </div>
                     </div>
                 </Link>
