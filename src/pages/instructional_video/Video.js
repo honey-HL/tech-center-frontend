@@ -101,7 +101,7 @@ class VideoStream extends Component {
             const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter/'
             return (
                 <Link 
-                    to={{pathname: 'vdetail',state:{id: rowData.viId,back: '/video', scrollTop:''}}} 
+                    to={{pathname: 'vdetail/'+rowData.viId,state:{id: rowData.viId,back: '/video', scrollTop:''}}} 
                     key={rowID} 
                     className='Card_Vertical'
                 >
@@ -170,7 +170,9 @@ class Video extends Component {
         console.log(this.state.search_value);
     }
     componentDidMount() {
-        window.$mobile.navigationShow(false);
+        if (window&&window.$mobile) {
+            window.$mobile.navigationShow(false);
+        }
         this.getBanner()
         this.getPhoneType()
         this.getPhoneBrand()

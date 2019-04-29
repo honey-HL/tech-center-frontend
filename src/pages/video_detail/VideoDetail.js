@@ -40,6 +40,7 @@ class VideoDetail extends Component {
         let data = response.data
         if (data) {
             this.setState({
+                pageIndex: 1,
                 viUploaddate: filterDate(data.viUploaddate),
                 viContent: data.viContent,
                 viView: data.viView,
@@ -75,8 +76,10 @@ class VideoDetail extends Component {
     }
 
     componentDidMount () {
-        this.getVideoData(this.props.location.state.id)
-        console.log(this.props.location.state.id);
+        let id = this.props.match.url.split('/')[2];
+        this.getVideoData(id);
+        // this.getVideoData(this.props.location.state.id)
+        // console.log(this.props.location.state.id);
     }
 
     hideCover () {
@@ -126,7 +129,15 @@ class VideoDetail extends Component {
     }
 
     handleBack = (e) => {
-        this.props.history.goBack();
+        let from = this.props && this.props.location && this.props.location.state && this.props.location.state.back?this.props.location.state.back:'';
+        console.log(from);
+        if (from === '') { // 没有上一个页面  url跳转
+            console.log('url跳转')
+           this.props.history.push({pathname: '/video'})
+        } else { // 有上一个页面  // 父级跳转
+            console.log('父级跳转')
+            this.props.history.goBack()
+        }
     }
 
     render(){

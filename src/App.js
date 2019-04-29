@@ -21,7 +21,7 @@ class App extends Component {
           <Route exact path="/sharing" onEnter={()=>{document.title="大师分享"}} component={Sharing} />
           <Route exact path="/result" onEnter={()=>{document.title="搜索问题"}} component={Result} />
           <Route exact path="/adetail/:id" onEnter={()=>{document.title="文章详情"}} component={ArticleDetail} />
-          <Route exact path="/vdetail" onEnter={()=>{document.title="视频详情"}} component={VideoDetail} />
+          <Route exact path="/vdetail/:id" onEnter={()=>{document.title="视频详情"}} component={VideoDetail} />
           <Route exact path="/sinquiry" onEnter={()=>{document.title="咨询专家"}} component={SubmitInquiry} />
           <Route exact path="/minquiry" onEnter={()=>{document.title="我的咨询"}} component={MyInquiry} />
         </Switch>
