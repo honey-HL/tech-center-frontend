@@ -24,12 +24,18 @@ class App extends Component {
           <Route exact path="/vdetail/:id" onEnter={()=>{document.title="视频详情"}} component={VideoDetail} />
           <Route exact path="/sinquiry" onEnter={()=>{document.title="咨询专家"}} component={SubmitInquiry} />
           <Route exact path="/minquiry" onEnter={()=>{document.title="我的咨询"}} component={MyInquiry} />
+          <Route component={NoaMatch}/>
         </Switch>
       </BrowserRouter>
     );
   }
 }
 
+
+const NoaMatch =  Loadable({
+  loader: () => import('./pages/noa_match/NoaMatch'),
+  loading: () => <div></div>
+})
 
 const MyInquiry =  Loadable({
   loader: () => import('./pages/my_inquiry/MyInquiry'),

@@ -15,6 +15,7 @@ class ArticleDetail extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            show_article: true,
             dataSource,
             pageIndex: 1,
             pageSize: 10,
@@ -86,26 +87,32 @@ class ArticleDetail extends Component {
 
     getArticle = async (id) => {
         let response = await http('/jszx/getarticle', {id:id});
-        this.setState({
-            data: [],
-            pageIndex: 1,
-            id: id, // this.props.location.state.id, 
-            content: response.data.jaContent,
-            jaTitle: response.data.jaTitle,
-            jaLike: response.data.jaLike,
-            jaId: response.data.jaId,
-            jacId: response.data.jacId,
-            jaSource: response.data.jaSource,
-            jaPublishtime: this.transformTime(response.data.jaPublishtime),
-            jaType: response.data.jaType
-        });
-        console.log(response.data.jaPublishtime);
-        console.log(new Date(parseInt(response.data.jaPublishtime)));
-        this.loadData()
-        if (this.node) {
-            this.node.scrollIntoView(); // 回到顶部
-        }
         console.log(response);
+        if (response.data) {
+            this.setState({
+                data: [],
+                pageIndex: 1,
+                id: id, // this.props.location.state.id, 
+                content: response.data.jaContent,
+                jaTitle: response.data.jaTitle,
+                jaLike: response.data.jaLike,
+                jaId: response.data.jaId,
+                jacId: response.data.jacId,
+                jaSource: response.data.jaSource,
+                jaPublishtime: this.transformTime(response.data.jaPublishtime),
+                jaType: response.data.jaType
+            });
+            console.log(response.data.jaPublishtime);
+            console.log(new Date(parseInt(response.data.jaPublishtime)));
+            this.loadData()
+            if (this.node) {
+                this.node.scrollIntoView(); // 回到顶部
+            }
+        } else {
+            this.setState({isLoading: false, show_article: false})
+            Toast.info('文章不存在', 1);
+            // this.props.history.push({pathname: '/404'})
+        }
     }
     
     onEndReached = (event) => {
@@ -220,64 +227,80 @@ class ArticleDetail extends Component {
         ref={node => this.node = node}
         className='Detail_Article'
         >
-            {/* <ComHeader history={this.props.history} from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/> */}
-            <div className='Com_Header'>
-                <div className="Com_Header_row">
-                    <div onClick={() => this.handleBack()} className='back_area'>
-                        <div className='back'>
-                            <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+
+            <div  className='Detail_Article' style={{display:this.state.show_article?'block':'none'}}>
+                {/* <ComHeader history={this.props.history} from={!this.props.location.state.back?'/':this.props.location.state.back} title={this.state.title}/> */}
+                <div className='Com_Header'>
+                    <div className="Com_Header_row">
+                        <div onClick={() => this.handleBack()} className='back_area'>
+                            <div className='back'>
+                                <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
+                            </div>
+                        </div>
+                        <div className="title_box">
+                            {this.state.title}
                         </div>
                     </div>
-                    <div className="title_box">
-                        {this.state.title}
+                    <div className="white"></div>
+                </div>
+                <div className="Redius_Blank">
+                    <div className='jaTitle'>{this.state.jaTitle}</div>
+                    <div className='tip_box'>
+                        <div className='jaPublishtime'>{this.state.jaPublishtime}</div>
+                        <div>来源: {this.state.jaSource}</div>
+                    </div>
+                    <div className="article_content" dangerouslySetInnerHTML={{ __html: this.state.content}}></div>
+                    <div 
+                        onClick={() => this.likeHandle(this.state.jaId)} 
+                        className='like_article'
+                        >
+                            <div style={{display:'block',width:'32px',height:'28px',}}>
+                            {
+                                !this.state.is_like_active?<img style={{transition:'all .2s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
+                            }
+                            </div>
+                            <div className='jaLike'>{this.state.jaLike}</div>
+                    </div>
+                    <div className="section_bar"></div>
+                    <div className="relative_article">
+                        <div className="relative_title">相关文章</div>
+                        <ListView
+                            ref={el => this.lv = el}
+                            dataSource={this.state.dataSource}
+                            className="am-list sticky-list"
+                            useBodyScroll
+                            renderFooter={() => (
+                            <div style={{ padding: 30, textAlign: 'center', display:'flex',justifyContent:'center'}}>
+                            {
+                                this.state.isLoading?<div className={`loading_img`}>
+                                    <img className="banner_img" src={loading_img} alt="loading" />
+                                </div>:<div>已加载全部</div>
+                            }
+                            </div>
+                            )}
+                            renderRow={row}
+                            pageSize={4}
+                            onScroll={() => { console.log('scroll'); }}
+                            scrollEventThrottle={200}
+                            onEndReached={this.onEndReached}
+                            onEndReachedThreshold={10}
+                        />
                     </div>
                 </div>
-                <div className="white"></div>
             </div>
-            <div className="Redius_Blank">
-                <div className='jaTitle'>{this.state.jaTitle}</div>
-                <div className='tip_box'>
-                    <div className='jaPublishtime'>{this.state.jaPublishtime}</div>
-                    <div>来源: {this.state.jaSource}</div>
+
+            <div className="No_Article" style={{display:!this.state.show_article?'block':'none'}}>
+                <div className='box_404'>
+                    <div className='img_404'>
+                        <img className="img" src={require('../../assets/images/404.png')}  alt="404"/>
+                    </div>
                 </div>
-                <div className="article_content" dangerouslySetInnerHTML={{ __html: this.state.content}}></div>
-                <div 
-                    onClick={() => this.likeHandle(this.state.jaId)} 
-                    className='like_article'
-                    >
-                        <div style={{display:'block',width:'32px',height:'28px',}}>
-                        {
-                            !this.state.is_like_active?<img style={{transition:'all .2s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
-                        }
-                        </div>
-                        <div className='jaLike'>{this.state.jaLike}</div>
-                </div>
-                <div className="section_bar"></div>
-                <div className="relative_article">
-                    <div className="relative_title">相关文章</div>
-                    <ListView
-                        ref={el => this.lv = el}
-                        dataSource={this.state.dataSource}
-                        className="am-list sticky-list"
-                        useBodyScroll
-                        renderFooter={() => (
-                        <div style={{ padding: 30, textAlign: 'center', display:'flex',justifyContent:'center'}}>
-                        {
-                            this.state.isLoading?<div className={`loading_img`}>
-                                <img className="banner_img" src={loading_img} alt="loading" />
-                            </div>:<div>已加载全部</div>
-                        }
-                        </div>
-                        )}
-                        renderRow={row}
-                        pageSize={4}
-                        onScroll={() => { console.log('scroll'); }}
-                        scrollEventThrottle={200}
-                        onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
-                    />
-                </div>
+                <div className="no_article">抱歉! 您访问的文章<span style={{color:'#f48870',}}>失联</span>啦...</div>
+                <Link className='back_box' to={{pathname: '/'}}>
+                    <div className='back_home'>回到首页</div>
+                </Link>
             </div>
+            
         </div>
         )
     }
