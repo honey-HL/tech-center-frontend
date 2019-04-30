@@ -16,6 +16,7 @@ class VideoDetail extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {  
+            show_video: true,
             total: '',
             pageIndex: 1,
             pageSize: 10,
@@ -38,32 +39,37 @@ class VideoDetail extends Component {
     getVideoData = async (viId, from_related) => {
         this.setState({viId: viId})
         let response = await http('/video/videocenter/api/getVideo',{id:viId}, true); // true 为线上
-        let data = response.data
-        if (data) {
-            this.setState({
-                data: [],
-                pageIndex: 1,
-                viUploaddate: filterDate(data.viUploaddate),
-                viContent: data.viContent,
-                viView: data.viView,
-                viVideoid: data.viVideoid,
-                viCover: data.viCover,
-                viTitle: data.viTitle
-            })
-            if (!from_related) { // 默认来源
-                this.showVideo(this.state.viVideoid)
-            } else { // 从相关视频点过来 
-                var parent = document.getElementById("youkuplayer");
-                var child = document.getElementsByClassName("ykplayer")[0];
-                if (child !=null) {
-                    parent.removeChild(child);
+        if (response.data) {
+            let data = response.data
+            if (data) {
+                this.setState({
+                    data: [],
+                    pageIndex: 1,
+                    viUploaddate: filterDate(data.viUploaddate),
+                    viContent: data.viContent,
+                    viView: data.viView,
+                    viVideoid: data.viVideoid,
+                    viCover: data.viCover,
+                    viTitle: data.viTitle
+                })
+                if (!from_related) { // 默认来源
+                    this.showVideo(this.state.viVideoid)
+                } else { // 从相关视频点过来 
+                    var parent = document.getElementById("youkuplayer");
+                    var child = document.getElementsByClassName("ykplayer")[0];
+                    if (child !=null) {
+                        parent.removeChild(child);
+                    }
+                    this.showVideo(this.state.viVideoid)
+                    this.vdetail.scrollIntoView(); // 回到顶部
                 }
-                this.showVideo(this.state.viVideoid)
-                this.vdetail.scrollIntoView(); // 回到顶部
+                this.load(data.pmId)
+            } else {
+                Toast.info(response.message, 1);
             }
-            this.load(data.pmId)
         } else {
-            Toast.info(response.message, 1);
+            this.setState({isLoading: false, show_video: false})
+            Toast.info('该视频不存在', 1);
         }
     }
 
@@ -170,75 +176,94 @@ class VideoDetail extends Component {
         <div  
         ref={vdetail => this.vdetail = vdetail}
         className='VideoDetail'>
-            {/* <ComHeader history={this.props.history}  from={this.props.location.state.back} title={this.state.viTitle}/> */}
-            <div className='Com_Header'>
-                <div className="Com_Header_row">
-                    <div onClick={() => this.handleBack()} className='back_area'>
-                        <div className='back'>
-                            <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
-                        </div>
-                    </div>
-                    <div className="title_box">
-                        {this.state.viTitle}
-                    </div>
-                </div>
-                <div className="white"></div>
-            </div>
-            <div className='Redius_Blank'>
 
-                <div className='youkuplayer_box'>
-                    <div id="youkuplayer">
-                        <div 
-                        style={{opacity:!this.state.hide_cover?1:0}}
-                        className='cover_box'>
-                            <img className="viCover" src={onlineImg + this.state.viCover} alt=""/>
-                        </div>
-                        <div 
-                        style={{opacity:!this.state.hide_cover?1:0}}
-                        onClick={() => this.hideCover()} className="cover_gray">
-                            <img className="play_btn" src={require('../../assets/images/play.png')} alt=""/>
-                        </div>
-                    </div>
-                    <div className="video_info">
-                        <div className="title_view">
-                            <div className="video_title">{this.state.viTitle}</div>
-                            <div className="view_box">
-                                <div className="view_eye">
-                                    <img src={eye} className='banner_img' alt=""/>
-                                </div>
-                                <span className="view_num">{this.state.viView}</span>
+            <div 
+            style={{display:this.state.show_video?'block':'none'}}
+            className='VideoDetail'>
+
+                {/* <ComHeader history={this.props.history}  from={this.props.location.state.back} title={this.state.viTitle}/> */}
+                <div className='Com_Header'>
+                    <div className="Com_Header_row">
+                        <div onClick={() => this.handleBack()} className='back_area'>
+                            <div className='back'>
+                                <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>
                         </div>
-                        <div className="describe">{this.state.viContent}</div>
-                        <div className="upload_time">上传时间: {this.state.viUploaddate}</div>
+                        <div className="title_box">
+                            {this.state.viTitle}
+                        </div>
+                    </div>
+                    <div className="white"></div>
+                </div>
+
+                <div className='Redius_Blank'>
+                    <div className='youkuplayer_box'>
+                        <div id="youkuplayer">
+                            <div 
+                            style={{opacity:!this.state.hide_cover?1:0}}
+                            className='cover_box'>
+                                <img className="viCover" src={onlineImg + this.state.viCover} alt=""/>
+                            </div>
+                            <div 
+                            style={{opacity:!this.state.hide_cover?1:0}}
+                            onClick={() => this.hideCover()} className="cover_gray">
+                                <img className="play_btn" src={require('../../assets/images/play.png')} alt=""/>
+                            </div>
+                        </div>
+                        <div className="video_info">
+                            <div className="title_view">
+                                <div className="video_title">{this.state.viTitle}</div>
+                                <div className="view_box">
+                                    <div className="view_eye">
+                                        <img src={eye} className='banner_img' alt=""/>
+                                    </div>
+                                    <span className="view_num">{this.state.viView}</span>
+                                </div>
+                            </div>
+                            <div className="describe">{this.state.viContent}</div>
+                            <div className="upload_time">上传时间: {this.state.viUploaddate}</div>
+                        </div>
+                    </div>
+
+                    <div className="section_bar"></div>
+
+                    <div className="related_videos">
+                        <div className="related_title">相关视频</div>
+                        <ListView
+                            dataSource={this.state.dataSource}
+                            useBodyScroll
+                            renderFooter={() => (
+                            <div style={{ padding: 30, textAlign: 'center', display:'flex',justifyContent:'center'}}>
+                            {
+                                this.state.isLoading?<div className={`loading_img`}>
+                                    <img className="banner_img" src={loading_img} alt="loading" />
+                                </div>:<div>已加载全部</div>
+                            }
+                            </div>
+                            )}
+                            renderRow={row}
+                            pageSize={4}
+                            scrollEventThrottle={200}
+                            onEndReached={this.onEndReached}
+                            onEndReachedThreshold={10}
+                        />
                     </div>
                 </div>
 
-                <div className="section_bar"></div>
-
-                <div className="related_videos">
-                    <div className="related_title">相关视频</div>
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        useBodyScroll
-                        renderFooter={() => (
-                        <div style={{ padding: 30, textAlign: 'center', display:'flex',justifyContent:'center'}}>
-                        {
-                            this.state.isLoading?<div className={`loading_img`}>
-                                <img className="banner_img" src={loading_img} alt="loading" />
-                            </div>:<div>已加载全部</div>
-                        }
-                        </div>
-                        )}
-                        renderRow={row}
-                        pageSize={4}
-                        scrollEventThrottle={200}
-                        onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
-                    />
-                </div>
-
             </div>
+
+            <div className="No_Article" style={{display:!this.state.show_video?'block':'none'}}>
+                <div className='box_404'>
+                    <div className='img_404'>
+                        <img className="img" src={require('../../assets/images/404.png')}  alt="404"/>
+                    </div>
+                </div>
+                <div className="no_article">抱歉! 您访问的视频<span style={{color:'#f48870',}}>失联</span>啦...</div>
+                <Link className='back_box' to={{pathname: '/'}}>
+                    <div className='back_home'>回到首页</div>
+                </Link>
+            </div>
+    
         </div>
         )
     }

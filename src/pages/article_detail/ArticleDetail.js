@@ -110,8 +110,7 @@ class ArticleDetail extends Component {
             }
         } else {
             this.setState({isLoading: false, show_article: false})
-            Toast.info('文章不存在', 1);
-            // this.props.history.push({pathname: '/404'})
+            Toast.info('该文章不存在', 1);
         }
     }
     
