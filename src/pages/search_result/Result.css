@@ -248,6 +248,9 @@ input {
     color: #999999 !important;
     -webkit-user-select:auto;
 }
+.am-list-item .am-list-line::after {
+    background: #fff !important;
+}
 .am-list-item .am-list-line {
     padding-right: 0 !important;
 }
