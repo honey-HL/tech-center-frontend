@@ -20,12 +20,19 @@
 /****************Article************/
 
 
+.en_article_content p{
+    margin:0;
+    padding: 0;
+    word-break: break-all;
+}
 
-.article_content{
+.en_article_content{
+    width: 100%;
     margin-top: 12px;
     color: #666666;
     font-size: 12px/22px;
     font-family:PingFangSC-Regular;
+    overflow-y: auto;
 }
 .article_title {
     color: #333333;

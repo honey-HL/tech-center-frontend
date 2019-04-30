@@ -212,7 +212,7 @@ class Article extends Component {
                 style={{display: !this.state.show_article?
                     'none' : 'block',}}>
                     <div className="article_title">{this.state.article_title}</div>
-                    <div className="article_content" dangerouslySetInnerHTML={{ __html: this.state.article_content}}></div>
+                    <div className="en_article_content" dangerouslySetInnerHTML={{ __html: this.state.article_content}}></div>
                     <a 
                     onClick={() => this.bannerView(this.state.jbId)} 
                     href={filterLink(this.state.jbLink)} 
@@ -220,16 +220,17 @@ class Article extends Component {
                     >
                         <img className="img" src={this.state.jbImage&&this.state.jbImage!==''?imgPrefix + this.state.jbImage:''}  alt="推荐位图片"/>
                     </a>
-                    <div 
-                    onClick={() => this.likeHandle(this.state.jaId)} 
-                    className='like_article'
-                    >
-                        <div style={{display:'block',width:'32px',height:'28px',}}>
-                        {
-                            !this.state.is_like_active?<img style={{transition:'all .2s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
-                        }
-                        </div>
-                        <div className='jaLike'>{this.state.jaLike}</div>
+                    <div className='like_article'>
+                            <div
+                                onClick={() => this.likeHandle(this.state.jaId)} 
+                                className='like_a_box'>
+                                <div style={{display:'block',width:'32px',height:'28px',}}>
+                                {
+                                    !this.state.is_like_active?<img style={{transition:'all .1s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
+                                }
+                                </div>
+                                <div className='jaLike'>{this.state.jaLike}</div>
+                            </div>
                     </div>
                 </div>
             </div>

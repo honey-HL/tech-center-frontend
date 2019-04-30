@@ -91,6 +91,7 @@ class ArticleDetail extends Component {
         if (response.data) {
             this.setState({
                 data: [],
+                is_like_active: false,
                 pageIndex: 1,
                 id: id, // this.props.location.state.id, 
                 content: response.data.jaContent,
@@ -249,16 +250,17 @@ class ArticleDetail extends Component {
                         <div>来源: {this.state.jaSource}</div>
                     </div>
                     <div className="article_content" dangerouslySetInnerHTML={{ __html: this.state.content}}></div>
-                    <div 
-                        onClick={() => this.likeHandle(this.state.jaId)} 
-                        className='like_article'
-                        >
-                            <div style={{display:'block',width:'32px',height:'28px',}}>
-                            {
-                                !this.state.is_like_active?<img style={{transition:'all .2s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
-                            }
+                    <div className='like_article'>
+                            <div
+                                onClick={() => this.likeHandle(this.state.jaId)} 
+                                className='like_a_box'>
+                                <div style={{display:'block',width:'32px',height:'28px',}}>
+                                {
+                                    !this.state.is_like_active?<img style={{transition:'all .1s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
+                                }
+                                </div>
+                                <div className='jaLike'>{this.state.jaLike}</div>
                             </div>
-                            <div className='jaLike'>{this.state.jaLike}</div>
                     </div>
                     <div className="section_bar"></div>
                     <div className="relative_article">

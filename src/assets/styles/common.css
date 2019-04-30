@@ -61,6 +61,10 @@
     flex-direction: column;
     margin-bottom: 60px;
 }
+.like_a_box {
+    padding: 15px;
+    text-align: center;
+}
 /****like_article**/
 
 .section_bar {
