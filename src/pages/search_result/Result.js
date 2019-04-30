@@ -194,7 +194,7 @@ class ResultList extends Component {
                 const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter/'
                 return (
                     <Link 
-                        to={{pathname: 'vdetail',state:{id: rowData.viId, back: '/result',scrollTop:''}}} 
+                        to={{pathname: '/vdetail/' + rowData.viId,state:{id: rowData.viId, back: '/result',scrollTop:''}}} 
                         key={rowID} 
                         className='Card_Vertical'
                     >
@@ -215,7 +215,7 @@ class ResultList extends Component {
             row = (rowData, sectionID, rowID) => {
                 return (
                     <Link 
-                    to={{pathname: 'adetail',state:{id: rowData.jaId, back: '/result',origin: this.props.origin,scrollTop:''}}} 
+                    to={{pathname: '/adetail/' + rowData.jaId,state:{id: rowData.jaId, back: '/result',origin: this.props.origin,scrollTop:''}}} 
                     key={rowID} 
                     className='Card_Horizontal'>
                         <div className='Card_Horizontal_item'>
