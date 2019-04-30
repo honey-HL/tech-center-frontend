@@ -15,6 +15,8 @@ class ArticleDetail extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            origin: '',
+            back: '',
             show_article: true,
             dataSource,
             pageIndex: 1,
@@ -173,6 +175,14 @@ class ArticleDetail extends Component {
     }
 
     componentDidMount(){
+        console.log('origin',this.props.location.state.origin)
+        let back = this.props && this.props.location && this.props.location.state && this.props.location.state.back?this.props.location.state.back:'';
+        let origin = this.props.location.state.origin;
+        console.log('componentDidMount->back', back);
+        this.setState({
+            origin: origin,
+            back: back,
+        })
         let id = this.props.match.url.split('/')[2];
         // this.getArticle(this.props.location.state.id);
         this.getArticle(id);
@@ -182,14 +192,20 @@ class ArticleDetail extends Component {
     }
 
     handleBack = (e) => {
-        let from = this.props && this.props.location && this.props.location.state && this.props.location.state.back?this.props.location.state.back:'';
-        console.log(from);
-        if (from === '') { // 没有上一个页面  url跳转
+        console.log('handleBack->back', this.state.back);
+        console.log('handleBack->origin',this.state.origin)
+        if (this.state.back === '') { // 没有上一个页面  url跳转
             console.log('url跳转')
            this.props.history.push({pathname: '/'})
-        } else { // 有上一个页面  // 父级跳转
+        } else { // 有上一个页面  // 父级跳转 此页面的上级可以是home result 
             console.log('父级跳转')
-            this.props.history.goBack() // 会回到之前的滚动位置
+            this.props.history.push({
+                pathname: this.state.back,
+                state: {
+                    from: this.state.origin,
+                }
+            })
+            // this.props.history.goBack() // 如果这里用goBack 那么在点击相关文章后再点返回会由你点过的文章详情一层一层返回最初的页面  而不是一次性返回最初的页面
         }
     }
 
