@@ -118,7 +118,6 @@ class ArticleDetail extends Component {
     }
     
     onEndReached = (event) => {
-        console.log(this.state.data.length)
         if (this.state.data.length < this.state.total) {
             this.setState({isLoading: true})
             this.loadData()
@@ -147,7 +146,7 @@ class ArticleDetail extends Component {
                 }
             });
             this.setState({ 
-                total: response.data.total,
+                total: response.data.total - 1,
                 pageIndex: this.state.pageIndex + 1,
                 data: new_data,
                 dataSource: this.state.dataSource.cloneWithRows(new_data),
@@ -297,7 +296,7 @@ class ArticleDetail extends Component {
                             )}
                             renderRow={row}
                             pageSize={4}
-                            onScroll={() => { console.log('scroll'); }}
+                            // onScroll={() => { console.log('scroll'); }}
                             scrollEventThrottle={200}
                             onEndReached={this.onEndReached}
                             onEndReachedThreshold={10}
