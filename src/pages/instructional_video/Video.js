@@ -410,7 +410,6 @@ class Video extends Component {
                     </div>
                 </div>
                 <div 
-                style={{height:this.state.availHeight - 70}}
                 className="Video_container">
                     <Drawer
                         enableDragHandle ={drag}
