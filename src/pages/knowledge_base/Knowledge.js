@@ -10,6 +10,7 @@ class Knowledge extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            availHeight: '',
             style_obj: {
                 color:'#666'
             },
@@ -79,6 +80,9 @@ class Knowledge extends Component {
         if (window&&window.$mobile) {
             window.$mobile.navigationShow(false);
         }
+        this.setState({
+            availHeight: window.screen.availHeight
+        })
         this.getTabsNav()
     }
     render(){
@@ -87,7 +91,9 @@ class Knowledge extends Component {
             <ComHeader history={this.props.history} from='/' title={this.state.title}/>
             <div className="Redius_Blank">
 
-                <div className="TabsCard">
+                <div 
+                style={{height:this.state.availHeight - 68}}
+                className="TabsCard">
                     <div className="tab_bar">
                         <div className="tab_bar_box">
                         {
