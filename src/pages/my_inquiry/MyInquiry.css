@@ -28,6 +28,14 @@
     position: absolute;
     right: 20px;
 }
+.jccContent {
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
 
 
 

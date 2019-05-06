@@ -128,7 +128,7 @@ class MyInquiry extends Component {
             return (
                 <div onClick={() => this.callChat()} className='my_inquiry_item'>
                     <div className='content_row'>
-                        <div className='jccContent'>{rowData.consultation.jccContent}</div>
+                        <div style={{"WebkitBoxOrient": "vertical"}} className='jccContent'>{rowData.consultation.jccContent}</div>
                         <div className='detail_info'>
                             <div className='avatar'>
                                 <img style={{display:!rowData.member?'block':'none'}} className="img" src={default_avatar}  alt="技术人员头像"/>
