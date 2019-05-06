@@ -8,7 +8,14 @@ import { basePath } from "./app-config/config.js";
 import 'antd-mobile/dist/antd-mobile.css'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
   componentDidMount () {
+    const query =  window.location.search.split('?')[1];
+    localStorage.setItem('query', query);
   }
   render() {
     return (

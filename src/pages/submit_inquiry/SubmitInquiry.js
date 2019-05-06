@@ -6,6 +6,7 @@ import { TextareaItem, ImagePicker, Picker, Toast, List } from 'antd-mobile';
 import {http} from '../../common/http'
 import { baseUrl } from "../../app-config/config.js";
 import { imgPrefix } from '../../../src/app-config/config.js';
+import { getQuery } from '../../common/tool';
 
 
 class QJPopup extends Component {
@@ -385,35 +386,45 @@ class SubmitInquiry extends Component {
             return
         }
         let jccType = []
+        let selected = []
         this.state.q_list.forEach(item => {
             if (item.selected) {
+                selected.push(item.name)
                 jccType.push(item.id)
             }
         })
         if (jccType.length > 0) {
             if (jccType.length === 1) {
+                selected = selected[0]
                 params.jccType = jccType[0]
             } else {
+                selected = selected.join(', ');
                 params.jccType = jccType.join(",");
             }
         } else {
             Toast.info('至少选择一个问题类型', 1);
             return
         }
-        console.log(params)
-        this.submitAll(params);
+        console.log(params, selected)
+        this.submitAll(params, selected);
     }
 
-    submitAll = async (params) => {
+    submitAll = async (params, selected) => {
+        console.log(localStorage.getItem('query'))
+        let userId = getQuery(localStorage.getItem('query'), 'userId');
+        params.jccUserid = userId;
+        console.log(userId)
         let response = await http('/jszx/addquestion', params); 
         if (response.data) {
-            Toast.success('提交成功,喊程露', 1);
-            this.props.history.push({
-                pathname: this.props.location.state.back
-            })
-        } else {
-            Toast.info(response.message, 1);
+            Toast.success('提交成功', 1);
         }
+        // 调用原生
+        let kefu_data = await http('/jszx/getkefu', {}); 
+        let kefu = kefu_data.data.jkCode;
+        window.$mobile.openCustomerService({
+            agent: kefu, // '927a7ea41bcb56a698c569215f210acc',
+            message: '类型:' + selected + '\n描述:' + params.jccContent,
+        })
     }
 
     showQJPopup = () => {
@@ -468,6 +479,17 @@ class SubmitInquiry extends Component {
                             count={500}
                             placeholder="在此输入问题......"
                         />
+                        {/* <textarea
+                            onChange = {val => this.getTextarea(val)}
+                            value = {this.state.t_value}
+                            contentEditable="true"
+                            ref={el => this.autoFocusInst = el}
+                            autoFocus='autofocus'
+                            rows={4}
+                            maxLength="500"
+                            count={500}
+                            placeholder="在此输入问题......"
+                        /> */}
                     </div>
                     <ImagePicker
                         files={this.state.files}

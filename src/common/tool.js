@@ -1,3 +1,5 @@
+import Item from "antd-mobile/lib/popover/Item";
+
 export const setTitle = title => () => document.title = title;
 export const filterLink = (link) => {
     if (link) {
@@ -10,6 +12,29 @@ export const filterLink = (link) => {
         return
     }
 }
+
+export const getQuery = (query, key) => {
+    // let query = 'userId=72173081274&token=dsads'
+    let new_arr = []
+    if (query && query.indexOf('&') > -1) { // 多个参数拼接
+        let arr = query.split('&');
+        arr.forEach(item => {
+            let ele = item.split('=');
+            let obj = {}
+            obj[ele[0]] = ele[1];
+            new_arr.push(obj)
+        })
+        let selected = new_arr.filter(item => {
+            for (let k in item) {
+                return k === key
+            }
+        })
+        return selected[0][key]
+    } else {
+        return query.split('=')[1]
+    }
+}
+
 export const filterDate = (da) => {
     let date = new Date(Number(da));
     let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);

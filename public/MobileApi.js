@@ -46,4 +46,5 @@
   window.$mobile.showMine = () => executeMobile('showMine')
   window.$mobile.close = () => executeMobile('close')
   window.$mobile.saveRecycleQrCode = (params, callback) => executeMobile('saveRecycleQrCode', params, callback)
+  window.$mobile.openCustomerService = (params) => executeMobile('openCustomerService', params)
 })()
