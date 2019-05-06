@@ -37,8 +37,10 @@
     color: #fff;
     width: 80%;
     margin: 0 10%;
-    height: 22px;
-    line-height: 22px;
+    padding: 1px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 20px;
     font-size: 13px;
 }

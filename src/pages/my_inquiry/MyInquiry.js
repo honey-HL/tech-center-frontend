@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './MyInquiry.css';
-import ComHeader from '../../components/com_header/com_header';
 import Search from '../../components/search/search'
 import Consulting from '../../components/consulting/consulting'
 import {http} from '../../common/http'
 import { ListView, Toast } from 'antd-mobile';
-import loading_img from '../../assets/images/loading.png';
-import { transformTime, getSimpleText } from '../../common/tool'
+import { getQuery, filterDate } from '../../common/tool';
+import {loading_img, default_avatar} from '../../common/images';
+import { imgPrefix } from '../../../src/app-config/config.js';
 
 
 class MyInquiry extends Component {
@@ -20,30 +20,30 @@ class MyInquiry extends Component {
             pageIndex: 1,
             pageSize: 10,
             data: [
-                {
-                    jcId: "630196253698822144",
-                    jccContent: "如何关闭苹果Xr拨号的时候的按键音？",
-                    jccIamges: "/admin/image/1553830626575.jpg",
-                    jmId: "55",
-                    jmName: "12313",
-                    jmType: "12313",
-                },
-                {
-                    jcId: "630196253698822144",
-                    jccContent: "如何关闭苹果Xr拨号的时候的按键音？",
-                    jccIamges: "/admin/image/1553830626575.jpg",
-                    jmId: "55",
-                    jmName: "12313",
-                    jmType: "12313",
-                },
-                {
-                    jcId: "630196253698822144",
-                    jccContent: "如何关闭苹果Xr拨号的时候的按键音？",
-                    jccIamges: "/admin/image/1553830626575.jpg",
-                    jmId: "55",
-                    jmName: "12313",
-                    jmType: "12313",
-                },
+                // {
+                //     jcId: "630196253698822144",
+                //     jccContent: "如何关闭苹果Xr拨号的时候的按键音？",
+                //     jccIamges: "/admin/image/1553830626575.jpg",
+                //     jmId: "55",
+                //     jmName: "12313",
+                //     jmType: "12313",
+                // },
+                // {
+                //     jcId: "630196253698822144",
+                //     jccContent: "如何关闭苹果Xr拨号的时候的按键音？",
+                //     jccIamges: "/admin/image/1553830626575.jpg",
+                //     jmId: "55",
+                //     jmName: "12313",
+                //     jmType: "12313",
+                // },
+                // {
+                //     jcId: "630196253698822144",
+                //     jccContent: "如何关闭苹果Xr拨号的时候的按键音？",
+                //     jccIamges: "/admin/image/1553830626575.jpg",
+                //     jmId: "55",
+                //     jmName: "12313",
+                //     jmType: "12313",
+                // },
             ],
             total: '',
             dataSource,
@@ -53,10 +53,22 @@ class MyInquiry extends Component {
     
     componentDidMount () {
     //   this.getMyQuestion()
+        this.loadData()
     }
 
     getMyQuestion = async () => {
-        let response = await http('/jszx/myquestion', {userId: 1});
+      //  let userId = getQuery(localStorage.getItem('query'), 'userId');
+        let userId = '419916330402451456';
+        let response = await http('/jszx/myquestion', {userId: userId});
+        if (response.data) {
+            let new_data = [];
+            response.data.data.forEach(element => {
+              new_data.push(element);
+            });
+            this.setState({data: new_data})
+        } else {
+            Toast.info(response.message, 1);
+        }
     }
 
     getValue (event){
@@ -64,19 +76,31 @@ class MyInquiry extends Component {
         // console.log(this.state.search_value);
     }
 
+    callChat = async () => {
+         // 调用原生
+         let kefu_data = await http('/jszx/getkefu', {}); 
+         let kefu = kefu_data.data.jkCode;
+         window.$mobile.openCustomerService({
+             agent: kefu, // '927a7ea41bcb56a698c569215f210acc',
+            //  message: '类型:' + selected + '\n描述:' + params.jccContent,
+         })
+    }
+
     loadData = async (item, pageIndex) => {
         console.log(item, pageIndex)
-        let response = await http('/jszx/myquestion', {userId: 1});
+        let userId = localStorage.getItem('query') !== 'undefined'?getQuery(localStorage.getItem('query'), 'userId'):'419916330402451456';
+        let response = await http('/jszx/myquestion', {userId: userId});
+        console.log(userId)
         console.log(response);
         if (response.data) {
             let new_data = pageIndex === 1?[]:this.state.data;
-            response.data.data.forEach(element => {
+            response.data.forEach(element => {
               new_data.push(element);
             });
             this.setState({ 
                 total: response.data.total,
                 pageIndex: pageIndex?pageIndex+1:this.state.pageIndex + 1,
-                data: new_data,
+                data: new_data.reverse(),
                 dataSource: this.state.dataSource.cloneWithRows(new_data),
             })
             if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
@@ -102,14 +126,23 @@ class MyInquiry extends Component {
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
-                <Link 
-                to={{pathname: 'adetail',state:{id: rowData.jaId, back: this.props.back}}} 
-                key={rowID} 
-                className='Card_Horizontal'>
-                    <div>
-                        
+                <div onClick={() => this.callChat()} className='my_inquiry_item'>
+                    <div className='content_row'>
+                        <div className='jccContent'>{rowData.consultation.jccContent}</div>
+                        <div className='detail_info'>
+                            <div className='avatar'>
+                                <img style={{display:!rowData.member?'block':'none'}} className="img" src={default_avatar}  alt="技术人员头像"/>
+                                <img style={{display:rowData.member?'block':'none'}} className="img" src={imgPrefix + rowData.member.jmHeadimage}  alt="返回"/>
+                            </div>
+                            <div className='jmName'>
+                                <span style={{display:rowData.member?'block':'none'}}>{rowData.member.jmName}</span>
+                                <span style={{display:!rowData.member?'block':'none'}}>技术人员</span>
+                            </div>
+                            <div style={{display:rowData.member?'block':'none'}} className='jmType'>{rowData.member.jmType}</div>
+                            <div className='jccCreatetime'>{filterDate(rowData.consultation.jccCreatetime)}</div>
+                        </div>
                     </div>
-                </Link>
+                </div>
             );
         };
         return(
@@ -127,13 +160,13 @@ class MyInquiry extends Component {
                             <Search history={this.props.history} back="/minquiry" getValue={this.getValue.bind(this)} />
                         </div>
                         <div className='ask_q'>
-                            <Consulting back={'/'} search_expert_icon={'28%'} consulting_title={'48%'} info={'提问'} history={this.props.history}/>
+                            <Consulting back={'/minquiry'} search_expert_icon={'28%'} consulting_title={'48%'} info={'提问'} history={this.props.history}/>
                         </div>
                     </div>
                 </div>
 
                 <div className='MyInquiry_Blank'>
-                    {/* <ListView
+                    <ListView
                         ref={el => this.lv = el}
                         dataSource={this.state.dataSource}
                         className="my_inquiry_list am-list sticky-list"
@@ -153,8 +186,8 @@ class MyInquiry extends Component {
                         scrollEventThrottle={200}
                         onEndReached={this.onEndReached}
                         onEndReachedThreshold={10}
-                    /> */}
-                    {
+                    />
+                    {/* {
                     this.state.data.map((rowData, index) => {
                         return(
                         <div key={index} className='my_inquiry_item'>
@@ -165,7 +198,7 @@ class MyInquiry extends Component {
                         </div>
                         )
                     })
-                    }
+                    } */}
                 </div>
 
             </div>
