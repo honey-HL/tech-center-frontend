@@ -18,6 +18,8 @@ class TabsCard extends React.Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            orderBy: '',
+            classifyId: '',
             pageIndex: 1,
             data: [],
             dataSource,
@@ -33,6 +35,10 @@ class TabsCard extends React.Component {
             style_obj: {
                 color:'#666'
             },
+            active_index: '',
+            show_rf: true,
+            availWidth: '',
+            transWidth: '',
             types: [ // 0推荐 1发布时间 2热度
                 {name: '推荐', active: true, id: 0},
                 {name: '最新', active: false, id: 1},
@@ -42,7 +48,7 @@ class TabsCard extends React.Component {
             ]
         }
     }
-    changeActiveTab = (info) => {
+    changeActiveTab = (info, index) => {
         const items = this.state.types;
         items.forEach((item) => {
             item.active = false;
@@ -59,18 +65,22 @@ class TabsCard extends React.Component {
             }
         })
         this.setState({
+            active_index: index,
+            transWidth: index*-this.state.availWidth,
+            orderBy: info.id,
+            classifyId: info.jacId,
             isLoading: true,
+            show_rf: false,
             pageIndex: 1,
             data: [],
             types: items,
             active_item: info
+        }, () => {
+            let self = this
+            this.timer = setTimeout(() => {
+                self.loadData(info)
+            }, 100);
         })
-        let self = this
-        this.timer = setTimeout(() => {
-            self.loadData(info)
-        }, 100);
-        console.log(this.state);
-        console.log(this.state.pageIndex);
     }
     getTabsNav = async () => {
         let response = await http('/jszx/classify', {type: 1});
@@ -80,10 +90,11 @@ class TabsCard extends React.Component {
                 new_types.push({name: item.jacName, jacId: item.jacId, active: false})
             })
             this.setState({
+                orderBy: this.state.types[0].id,
+                classifyId: this.state.types[0].jacId,
                 pageIndex:1,
                 types: new_types
             })
-            console.log(this.state.types)
             this.loadData(this.state.types[0])
         } else {
             Toast.info(response.message, 1);
@@ -92,46 +103,51 @@ class TabsCard extends React.Component {
     }
 
     loadData = async (item, pageIndex) => {
-        console.log('item.id',item.id)
-        console.log('item.jacId',item.jacId)
+        this.setState({open: false})
         let params = {
             pageIndex: !pageIndex?this.state.pageIndex:pageIndex,
             title: '',
             pageSize: this.state.pageSize,
-            orderBy: item.id !== 'undefined' ? item.id:'',
-            classifyId: item.jacId !== 'undefined' ? item.jacId: '',
+            orderBy: item.id !== undefined ? item.id:this.state.orderBy,
+            classifyId: item.jacId !== undefined? item.jacId: this.state.classifyId,
             type: 4 // 1问问百科 2知识库 3大师分享 4首页文章
         }
         let response = await http('/jszx/search', params);
-        console.log(response);
+        if (params.pageIndex === 1) {
+            this.setState({show_rf: false})
+        } else {
+            this.setState({show_rf: true})
+        }
         if (response.data) {
             let new_data = this.state.data;
             response.data.data.forEach(element => {
               new_data.push(element);
             });
             this.setState({ 
+                open: true,
                 total: response.data.total,
                 pageIndex: this.state.pageIndex + 1,
                 data: new_data,
                 dataSource: this.state.dataSource.cloneWithRows(new_data),
             })
             if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
-                this.setState({isLoading: false})
+                this.setState({isLoading: false,show_rf: true,})
             }
         } else {
             Toast.info(response.message, 1);
-            this.setState({isLoading: false})
+            this.setState({isLoading: false, show_rf: true,})
         }
     }
     
     onEndReached = (event) => {
-        console.log(this.state.data.length)
         if (this.state.data.length < this.state.total) {
             this.setState({isLoading: true})
-            this.loadData(this.state.active_item)
+            if (this.state.open) {
+                this.loadData(this.state.active_item)
+            }
         }
         if (this.state.data.length >= this.state.total || this.state.data.length < this.state.pageSize) {
-            this.setState({isLoading: false})
+            this.setState({isLoading: false,show_rf: true,})
         } 
     }
 
@@ -142,13 +158,17 @@ class TabsCard extends React.Component {
     }
     
     componentDidMount () {
+        this.setState({
+            show_rf: false,
+            availWidth: window.screen.availWidth
+        })
         if (window.$mobile) {
             window.$mobile.navigationShow(true);
         }
         this.getTabsNav()
     }
     onScrollHandle = () => {
-        console.log(this.lv)
+        // console.log(this.lv)
         // console.log(this.lv.scrollHeight-window.screen.availHeight)
 
     }
@@ -156,6 +176,7 @@ class TabsCard extends React.Component {
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
+                id={rowID}
                 to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/', id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
@@ -187,32 +208,51 @@ class TabsCard extends React.Component {
                     {
                         this.state.types.map((item, index) => {
                             return(
-                                <div onClick={() => this.changeActiveTab(item)} className={`tab_item ${item.active?'active':''}`} key={index}>{item.name}</div>
+                                <div onClick={() => this.changeActiveTab(item, index)} className={`tab_item ${item.active?'active':''}`} key={index}>{item.name}</div>
                             )
                         })
                     }
                     </div>
-                    <div className="tab_content">
-                     <ListView
-                        ref={el => this.lv = el}
-                        dataSource={this.state.dataSource}
-                        useBodyScroll
-                        renderFooter={() => (
-                        <div style={{ padding: 30, textAlign: 'center', display:'flex',justifyContent:'center'}}>
+                    <div 
+                    style={{
+                        height:'100%',
+                        transform:'translateX('+ this.state.transWidth+ 'px)',
+                        width: this.state.availWidth*this.state.types.length + 'px'}}
+                    className="tab_content">
                         {
-                            this.state.isLoading?<div className={`loading_img`}>
-                                <img className="banner_img" src={loading_img} alt="loading" />
-                            </div>:<div>已加载全部</div>
+                            this.state.types.map((item, index) => {
+                                return(
+                                    <ListView
+                                        key={index}
+                                        ref={el => this.lv = el}
+                                        dataSource={parseInt(this.state.active_index + 1) === parseInt(index+1)?this.state.dataSource:this.state.dataSource.cloneWithRows([])}
+                                        useBodyScroll
+                                        style={{
+                                            height: parseInt(this.state.active_index + 1) === parseInt(index+1)?'100%':0,
+                                            width: this.state.availWidth + 'px'
+                                        }}
+                                        renderFooter={() => (
+                                        <div style={{
+                                            padding: 30, textAlign: 'center',
+                                            display:this.state.show_rf?'flex':'none',
+                                            justifyContent:'center'}}>
+                                        {
+                                            this.state.isLoading?<div className={`loading_img`}>
+                                            <img className="banner_img" src={loading_img} alt="loading" />
+                                            </div>:<div>已加载全部</div>
+                                        }
+                                        </div>
+                                        )}
+                                        renderRow={row}
+                                        pageSize={4}
+                                        onScroll={() => this.onScrollHandle()}
+                                        scrollEventThrottle={200}
+                                        onEndReached={this.onEndReached}
+                                        onEndReachedThreshold={10}
+                                    />
+                               )
+                            })
                         }
-                        </div>
-                        )}
-                        renderRow={row}
-                        pageSize={4}
-                        onScroll={() => this.onScrollHandle()}
-                        scrollEventThrottle={200}
-                        onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
-                    />
                     </div>
                 </div>
             </div>

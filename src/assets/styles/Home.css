@@ -1,7 +1,10 @@
 
 
-
-
+.tab_content {
+    display: flex;
+    flex-direction: row;
+    transition: all .3s ease 0s;
+}
 
 /**********four_types**************/
 .types_title {
