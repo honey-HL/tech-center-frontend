@@ -6,3 +6,4 @@ export const video =  require('../assets/images/home/ask.png');
 export const like_red = require('../assets/images/encyclopedia/red_heart.png');
 export const like_white = require('../assets/images/encyclopedia/white_heart.png');
 export const default_avatar = require('../assets/images/default_avatar.png');
+export const cover = require('../assets/images/video/cover.png');

@@ -4,12 +4,14 @@ import './banner.css';
 import { http } from "../../common/http.js";
 import { imgPrefix, onlinePrefix } from '../../../src/app-config/config.js';
 import { filterLink } from '../../common/tool'
+import { cover } from '../../common/images';
 
 
 class Banner extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            img_error: false,
         }
     }
     bannerView = async (item) => {
@@ -26,6 +28,11 @@ class Banner extends Component {
             window.location.href = filterLink(item.jbLink);
         }
     }
+
+    handleImageErrored = (e) => {
+        this.setState({img_error: true})
+    }
+
     render() {
         return(
             <div className="banner">
@@ -34,7 +41,11 @@ class Banner extends Component {
                     return (
                       <div key={index}>
                         <div onClick={() => this.bannerView(item)} className="banner_box">
-                            <img className="banner_img" src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:imgPrefix + item.jbImage} alt="banner" />
+                            <img className="banner_img" 
+                                onError={this.handleImageErrored.bind(this)} 
+                                src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:!this.state.img_error?imgPrefix + item.jbImage:cover} 
+                                alt="banner" 
+                            />
                         </div>
                       </div>
                     )

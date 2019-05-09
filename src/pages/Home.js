@@ -6,7 +6,7 @@ import Banner from '../components/banner/banner';
 import Search from '../components/search/search'
 import Consulting from '../components/consulting/consulting'
 import { ListView, Toast } from 'antd-mobile';
-import {eye, heart, loading_img} from '../common/images';
+import {eye, heart, loading_img, cover} from '../common/images';
 import { imgPrefix } from '../../src/app-config/config.js';
 
 
@@ -18,6 +18,7 @@ class TabsCard extends React.Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            img_error: false,
             orderBy: '',
             classifyId: '',
             pageIndex: 1,
@@ -172,6 +173,11 @@ class TabsCard extends React.Component {
         // console.log(this.lv.scrollHeight-window.screen.availHeight)
 
     }
+
+    handleImageErrored = (e) => {
+        this.setState({img_error: true})
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -195,7 +201,11 @@ class TabsCard extends React.Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img className="wh_100" src={imgPrefix + rowData.jaImage} alt="banner" />
+                            <img  
+                                onError={this.handleImageErrored.bind(this)} 
+                                className="wh_100" 
+                                src={!this.state.img_error?imgPrefix + rowData.jaImage:cover} alt="banner" 
+                            />
                         </div>
                     </div>
                 </Link>
