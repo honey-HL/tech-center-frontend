@@ -3,14 +3,15 @@ import './Encyclopedia.css';
 import { http } from "../../common/http.js";
 import BaikeHeader from '../../components/baike_header/baike_header';
 import { Toast } from 'antd-mobile';
-import { filterLink } from '../../common/tool'
+import { filterLink, getSimpleText } from '../../common/tool'
 import { imgPrefix } from '../../../src/app-config/config.js';
-import {like_red, like_white} from '../../common/images';
+import {like_red, like_white,cover} from '../../common/images';
 
 class Article extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            img_error: false,
             show_article: false,
             active_jnId: '',
             is_like_active: '',
@@ -175,6 +176,11 @@ class Article extends Component {
             window.$mobile.navigationShow(false);
         }
     }
+
+    handleImageErrored = (e) => {
+        this.setState({img_error: true})
+    }
+
     render () {
         return(
             <div className='Article'>
@@ -212,13 +218,18 @@ class Article extends Component {
                 style={{display: !this.state.show_article?
                     'none' : 'block',}}>
                     <div className="article_title">{this.state.article_title}</div>
-                    <div className="en_article_content" dangerouslySetInnerHTML={{ __html: this.state.article_content}}></div>
+                    <div className="en_article_content" dangerouslySetInnerHTML={{ __html: getSimpleText(this.state.article_content)}}></div>
                     <a 
                     onClick={() => this.bannerView(this.state.jbId)} 
                     href={filterLink(this.state.jbLink)} 
                     className='recommendation_img'
                     >
-                        <img className="img" src={this.state.jbImage&&this.state.jbImage!==''?imgPrefix + this.state.jbImage:''}  alt="推荐位图片"/>
+                        <img 
+                            onError={this.handleImageErrored.bind(this)} 
+                            className="img" 
+                            src={this.state.jbImage&&this.state.jbImage!==''?!this.state.img_error?imgPrefix + this.state.jbImage:cover:""}  
+                            alt="推荐位图片"
+                        />
                     </a>
                     <div className='like_article'>
                             <div

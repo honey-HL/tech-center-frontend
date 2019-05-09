@@ -4,11 +4,9 @@ import ComHeader from '../../components/com_header/com_header';
 // import CardHorizontal from '../../components/card_horizontal/card_horizontal'
 import { http } from "../../common/http.js";
 import { Link } from 'react-router-dom';
-import eye from '../../assets/images/home/eye.png';
-import heart from '../../assets/images/home/heart.png';
 import { imgPrefix } from '../../../src/app-config/config.js';
-import loading_img from '../../assets/images/loading.png';
 import { ListView, Toast } from 'antd-mobile';
+import {eye, heart, loading_img, cover} from '../../common/images';
 
 
 class Knowledge extends Component {
@@ -18,6 +16,7 @@ class Knowledge extends Component {
         });
         super(props)
         this.state = {
+            img_error: false,
             open: true,
             orderBy:'',
             classifyId:'',
@@ -162,6 +161,11 @@ class Knowledge extends Component {
         })
         this.getTabsNav()
     }
+
+    handleImageErrored = (e) => {
+        this.setState({img_error: true})
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -184,7 +188,12 @@ class Knowledge extends Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img className="wh_100" src={imgPrefix + rowData.jaImage} alt="banner" />
+                            <img 
+                                onError={this.handleImageErrored.bind(this)} 
+                                className="wh_100" 
+                                src={!this.state.img_error?imgPrefix + rowData.jaImage:cover} 
+                                alt="banner"
+                            />
                         </div>
                     </div>
                 </Link>

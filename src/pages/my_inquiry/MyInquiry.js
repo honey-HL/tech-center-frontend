@@ -17,6 +17,7 @@ class MyInquiry extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            img_error: false,
             pageIndex: 1,
             pageSize: 10,
             data: [
@@ -123,6 +124,10 @@ class MyInquiry extends Component {
         } 
     }
 
+    handleImageErrored = (e) => {
+        this.setState({img_error: true})
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -132,7 +137,13 @@ class MyInquiry extends Component {
                         <div className='detail_info'>
                             <div className='avatar'>
                                 <img style={{display:!rowData.member?'block':'none'}} className="img" src={default_avatar}  alt="技术人员头像"/>
-                                <img style={{display:rowData.member?'block':'none'}} className="img" src={imgPrefix + rowData.member.jmHeadimage}  alt="返回"/>
+                                <img 
+                                    onError={this.handleImageErrored.bind(this)} 
+                                    style={{display:rowData.member?'block':'none'}} 
+                                    className="img" 
+                                    src={!this.state.img_error?imgPrefix + rowData.member.jmHeadimage:default_avatar}  
+                                    alt="返回"
+                                />
                             </div>
                             <div className='jmName'>
                                 <span style={{display:rowData.member?'block':'none'}}>{rowData.member.jmName}</span>

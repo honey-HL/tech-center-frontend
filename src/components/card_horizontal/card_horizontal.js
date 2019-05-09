@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './card_horizontal.css';
-import eye from '../../assets/images/home/eye.png';
-import heart from '../../assets/images/home/heart.png';
 import { imgPrefix } from '../../../src/app-config/config.js';
-import loading_img from '../../assets/images/loading.png';
 import { ListView, Toast } from 'antd-mobile';
 import {http} from '../../common/http'
+import {eye, heart, loading_img, cover} from '../../common/images';
 
 
 class Card_Horizontal extends Component {
@@ -16,6 +14,7 @@ class Card_Horizontal extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
         this.state = {
+            img_error: false,
             pageIndex: 1,
             pageSize: 10,
             data: [],
@@ -70,6 +69,10 @@ class Card_Horizontal extends Component {
     componentDidMount () {
     }
 
+    handleImageErrored = (e) => {
+        this.setState({img_error: true})
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -92,7 +95,12 @@ class Card_Horizontal extends Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img className="wh_100" src={imgPrefix + rowData.jaImage} alt="banner" />
+                            <img 
+                                onError={this.handleImageErrored.bind(this)} 
+                                className="wh_100" 
+                                src={!this.state.img_error?imgPrefix + rowData.jaImage:cover}
+                                alt="banner" 
+                            />
                         </div>
                     </div>
                 </Link>
