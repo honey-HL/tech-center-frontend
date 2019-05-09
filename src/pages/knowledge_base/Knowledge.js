@@ -166,7 +166,7 @@ class Knowledge extends Component {
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/', id: rowData.jaId, scrollTop:''}}} 
+                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/knowledge', id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>
