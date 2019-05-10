@@ -202,7 +202,7 @@ class TabsCard extends React.Component {
                         </div>
                         <div className="Card_Horizontal_right_img">
                             <img  
-                                onError={this.handleImageErrored.bind(this)} 
+                                onError={this.handleImageErrored} 
                                 className="wh_100" 
                                 src={!this.state.img_error?imgPrefix + rowData.jaImage:cover} alt="banner" 
                             />

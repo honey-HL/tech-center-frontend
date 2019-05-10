@@ -225,7 +225,7 @@ class Article extends Component {
                     className='recommendation_img'
                     >
                         <img 
-                            onError={this.handleImageErrored.bind(this)} 
+                            onError={this.handleImageErrored} 
                             className="img" 
                             src={this.state.jbImage&&this.state.jbImage!==''?!this.state.img_error?imgPrefix + this.state.jbImage:cover:""}  
                             alt="推荐位图片"
