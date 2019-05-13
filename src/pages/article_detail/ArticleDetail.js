@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './ArticleDetail.css';
+import '../../components/com_header/com_header.css';
 import { http } from "../../common/http";
 import { ListView, Toast } from 'antd-mobile';
 import { imgPrefix } from '../../app-config/config';
@@ -174,9 +175,8 @@ class ArticleDetail extends Component {
     }
 
     componentDidMount(){
-        console.log('origin',this.props.location.state.origin)
         let back = this.props && this.props.location && this.props.location.state && this.props.location.state.back?this.props.location.state.back:'';
-        let origin = this.props.location.state.origin;
+        let origin = this.props && this.props.location && this.props.location.state && this.props.location.state.origin?this.props.location.state.origin:'';
         console.log('componentDidMount->back', back);
         this.setState({
             origin: origin,

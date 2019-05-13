@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      homePath:["/", "/index.html"]
     }
   }
   componentDidMount () {
@@ -21,7 +22,7 @@ class App extends Component {
     return (
       <BrowserRouter basename={basePath}>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path={this.state.homePath} component={Home} />
           <Route exact path="/encyclopedia" onEnter={()=>{document.title="问问百科"}} component={Encyclopedia} />
           <Route exact path="/video" onEnter={()=>{document.title="教学视频"}} component={Video} />
           <Route exact path="/knowledge" onEnter={()=>{document.title="知识库"}} component={Knowledge} />
