@@ -75,7 +75,7 @@ class VideoDetail extends Component {
 
     showVideo (viVideoid) {
         console.log(viVideoid)
-        var player = new YKU.Player('youkuplayer',{
+        new YKU.Player('youkuplayer',{
             styleid: '0',
             client_id: '1b63c938636b6ee3',
             vid: viVideoid,
@@ -85,6 +85,7 @@ class VideoDetail extends Component {
 
     componentDidMount () {
         let id = this.props.match.url.split('/')[2];
+        this.setState({hide_cover: false})
         this.getVideoData(id);
         // this.getVideoData(this.props.location.state.id)
         // console.log(this.props.location.state.id);
@@ -200,14 +201,16 @@ class VideoDetail extends Component {
                     <div className='youkuplayer_box'>
                         <div id="youkuplayer">
                             <div 
-                            style={{opacity:!this.state.hide_cover?1:0}}
+                            style={{display:!this.state.hide_cover?'block':'none'}}
                             className='cover_box'>
                                 <img className="viCover" src={onlineImg + this.state.viCover} alt=""/>
                             </div>
                             <div 
-                            style={{opacity:!this.state.hide_cover?1:0}}
+                            style={{display:!this.state.hide_cover?'block':'none'}}
                             onClick={() => this.hideCover()} className="cover_gray">
-                                <img className="play_btn" src={require('../../assets/images/play.png')} alt=""/>
+                                <div className='play_btn'>
+                                    <img className="" src={require('../../assets/images/play.png')} alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div className="video_info">

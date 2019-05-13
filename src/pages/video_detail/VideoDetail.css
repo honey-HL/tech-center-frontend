@@ -121,9 +121,16 @@
     justify-content: center;
     z-index: 99;
 }
+.play_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+}
 .viCover {
     width: 100%;
-    display: inline-block;
+    height: 100%;
+    display: block;
 }
 .cover_img {
     position: absolute;
