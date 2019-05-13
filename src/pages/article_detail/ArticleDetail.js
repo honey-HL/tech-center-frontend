@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './ArticleDetail.css';
 import { http } from "../../common/http";
-import ComHeader from '../../components/com_header/com_header';
 import { ListView, Toast } from 'antd-mobile';
 import { imgPrefix } from '../../app-config/config';
 import {eye, heart, loading_img, like_white, like_red, cover } from '../../common/images';

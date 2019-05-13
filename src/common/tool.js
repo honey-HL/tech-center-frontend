@@ -1,4 +1,4 @@
-import Item from "antd-mobile/lib/popover/Item";
+
 
 export const setTitle = title => () => document.title = title;
 export const filterLink = (link) => {
@@ -28,6 +28,7 @@ export const getQuery = (query, key) => {
             for (let k in item) {
                 return k === key
             }
+            return true
         })
         return selected[0][key]
     } else {

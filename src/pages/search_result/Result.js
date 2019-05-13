@@ -3,7 +3,6 @@ import './Result.css';
 import ComHeader from '../../components/com_header/com_header';
 import search_icon from '../../assets/images/home/search.png';
 import hot_icon from '../../assets/images/hot.png';
-import clean from '../../assets/images/clean.png';
 import Consulting from '../../components/consulting/consulting';
 import { http } from "../../common/http.js";
 import { ListView, Toast, InputItem } from 'antd-mobile';

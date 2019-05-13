@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './SubmitInquiry.css';
 import ComHeader from '../../components/com_header/com_header';
 import { TextareaItem, ImagePicker, Picker, Toast, List } from 'antd-mobile';
