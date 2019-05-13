@@ -17,7 +17,7 @@ class Banner extends Component {
     bannerView = async (item) => {
         if (this.props.from === 'video') {
             this.props.history.push({
-                pathname: "/vdetail",
+                pathname: "/vdetail/" + item.rLink,
                 state: {
                     back: '/video',
                     id: item.rLink
