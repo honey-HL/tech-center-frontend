@@ -11,6 +11,7 @@ class Article extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            recommended_img: '',
             img_error: false,
             show_article: false,
             active_jnId: '',
@@ -49,15 +50,14 @@ class Article extends Component {
                 type: 1 // 1问问百科 2知识库 3大师分享 4首页文章
             }
             let res = await http('/jszx/search', params);
-            console.log(res);
             this.getBanner()
             this.setState({
                 show_article: true,
                 active_jnId: item.jnId,
-                jaId: res.data.data[0].jaId,
-                jaLike: res.data.data[0].jaLike,
-                article_content: res.data.data[0].jaContent,
-                article_title: res.data.data[0].jaTitle,
+                jaId: res.data&&res.data.data&&res.data.data.length>0?res.data.data[0].jaId:'',
+                jaLike: res.data&&res.data.data&&res.data.data.length>0?res.data.data[0].jaLike:'',
+                article_content: res.data&&res.data.data&&res.data.data.length>0?res.data.data[0].jaContent:'',
+                article_title: res.data&&res.data.data&&res.data.data.length>0?res.data.data[0].jaTitle:'',
             })
         }
         let data = this.state.list
@@ -77,6 +77,7 @@ class Article extends Component {
         let res = await http('/jszx/banner', {type: 2});
         console.log(res);
         this.setState({
+            recommended_img: imgPrefix + res.data[0].jbImage,
             jbId: res.data[0].jbId,
             jbImage: res.data[0].jbImage,
             jbLink: res.data[0].jbLink
@@ -178,7 +179,7 @@ class Article extends Component {
     }
 
     handleImageErrored = (e) => {
-        this.setState({img_error: true})
+        this.setState({recommended_img: cover})
     }
 
     render () {
@@ -226,8 +227,8 @@ class Article extends Component {
                     >
                         <img 
                             onError={this.handleImageErrored} 
-                            className="img" 
-                            src={this.state.jbImage&&this.state.jbImage!==''?!this.state.img_error?imgPrefix + this.state.jbImage:cover:""}  
+                            className="img recommended_img" 
+                            src={this.state.recommended_img}  
                             alt="推荐位图片"
                         />
                     </a>
