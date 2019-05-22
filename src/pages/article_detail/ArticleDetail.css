@@ -24,6 +24,12 @@
 
 .article_content {
     padding: 25px 20px 48px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.article_content p img {
+    width: 100%;
 }
 
 .relative_title {
