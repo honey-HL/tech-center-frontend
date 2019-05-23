@@ -14,6 +14,7 @@ class Article extends Component {
             recommended_img: '',
             img_error: false,
             show_article: false,
+            no_article: false,
             active_jnId: '',
             is_like_active: '',
             jaLike: '',
@@ -52,6 +53,7 @@ class Article extends Component {
             let res = await http('/jszx/search', params);
             this.getBanner()
             this.setState({
+                no_article: res.data&&res.data.data&&res.data.data.length>0?false:true,
                 show_article: true,
                 active_jnId: item.jnId,
                 jaId: res.data&&res.data.data&&res.data.data.length>0?res.data.data[0].jaId:'',
@@ -214,35 +216,38 @@ class Article extends Component {
                     })
                    }
                 </div>
-                <div 
-                className='right_article' 
-                style={{display: !this.state.show_article?
-                    'none' : 'block',}}>
-                    <div className="article_title">{this.state.article_title}</div>
-                    <div className="en_article_content" dangerouslySetInnerHTML={{ __html: getSimpleText(this.state.article_content)}}></div>
-                    <a 
-                    onClick={() => this.bannerView(this.state.jbId)} 
-                    href={filterLink(this.state.jbLink)} 
-                    className='recommendation_img'
-                    >
-                        <img 
-                            onError={this.handleImageErrored} 
-                            className="img recommended_img" 
-                            src={this.state.recommended_img}  
-                            alt="推荐位图片"
-                        />
-                    </a>
-                    <div className='like_article'>
+                <div className='right_article'>
+                    <div style={{display: !this.state.show_article?'none' : 'block',}}>
+                        <div style={{display:this.state.no_article?'block':'none', textAlign:'center',marginTop:'30px'}}>
+                            暂无相关文章
+                        </div>
+                        <div style={{display:this.state.no_article?'none':'block'}} className="article_title">{this.state.article_title}</div>
+                        <div style={{display:this.state.no_article?'none':'block'}} className="en_article_content" dangerouslySetInnerHTML={{ __html: getSimpleText(this.state.article_content)}}></div>
+                        <a 
+                            style={{display:this.state.no_article?'none':'block'}}
+                            onClick={() => this.bannerView(this.state.jbId)} 
+                            href={filterLink(this.state.jbLink)} 
+                            className='recommendation_img'
+                        >
+                            <img 
+                                onError={this.handleImageErrored} 
+                                className="img recommended_img" 
+                                src={this.state.recommended_img}  
+                                alt="推荐位图片"
+                            />
+                        </a>
+                        <div style={{display:this.state.no_article?'none':'block'}} className='like_article'>
                             <div
                                 onClick={() => this.likeHandle(this.state.jaId)} 
                                 className='like_a_box'>
-                                <div style={{display:'block',width:'32px',height:'28px',}}>
+                                <div style={{display:'block', width:'32px',height:'28px',}}>
                                 {
                                     !this.state.is_like_active?<img style={{transition:'all .1s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
                                 }
                                 </div>
                                 <div className='jaLike'>{this.state.jaLike}</div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
