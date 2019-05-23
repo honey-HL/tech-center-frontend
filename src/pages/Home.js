@@ -41,7 +41,7 @@ class TabsCard extends React.Component {
             availWidth: '',
             transWidth: '',
             types: [ // 0推荐 1发布时间 2热度
-                {name: '推荐', active: true, id: 0},
+                {name: '推荐', active: false, id: 0},
                 {name: '最新', active: false, id: 1},
                 {name: '最热', active: false, id: 2}
                 // {name: '专题', active: false, id: 4},
@@ -90,13 +90,54 @@ class TabsCard extends React.Component {
             response.data.forEach((item) => {
                 new_types.push({name: item.jacName, jacId: item.jacId, active: false})
             })
-            this.setState({
-                orderBy: this.state.types[0].id,
-                classifyId: this.state.types[0].jacId,
-                pageIndex:1,
-                types: new_types
-            })
-            this.loadData(this.state.types[0])
+            let arr = [];
+            for (let i = 0; i < new_types.length;i++){
+                let obj = {unique: i+1}
+                for (let key in new_types[i]) {
+                    obj[key] = new_types[i][key]
+                }
+                arr.push(obj)
+            }
+            new_types = arr
+            console.log(new_types)
+            console.log(this.props.history.location.state.unique)
+            if (this.props.history.location.state.unique !== '' && this.props.history.location.state.unique !== undefined) {
+                let activeItem = new_types.filter (item => {
+                    return this.props.history.location.state.unique === item.unique
+                })
+                console.log(activeItem)
+                activeItem[0].active = true;
+                this.setState({
+                    orderBy: activeItem[0].id,
+                    active_item: activeItem[0],
+                    classifyId: activeItem[0].jacId,
+                    pageIndex:1,
+                    types: new_types
+                })
+            } else {
+                new_types[0].active = true;
+                this.setState({
+                    orderBy: this.state.types[0].id,
+                    active_item: new_types[0],
+                    classifyId:this.state.types[0].jacId,
+                    pageIndex:1,
+                    types: new_types
+                })
+            }
+            console.log(this.state.active_item)
+            // this.setState({loading: true})
+            this.loadData(this.state.active_item)
+
+
+            // this.setState({
+            //     orderBy: this.state.types[0].id,
+            //     classifyId: this.state.types[0].jacId,
+            //     pageIndex:1,
+            //     types: new_types
+            // })
+            // this.loadData(this.state.types[0])
+
+
         } else {
             Toast.info(response.message, 1);
             this.setState({isLoading: false})
@@ -183,7 +224,7 @@ class TabsCard extends React.Component {
             return (
                 <Link 
                 id={rowID}
-                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/', id: rowData.jaId, scrollTop:''}}} 
+                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/', unique: this.state.active_item.unique,id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>
@@ -417,7 +458,7 @@ class Home extends Component {
                 <div className="home_container">
                     <Banner data={this.state.bannerArr}/>
                     <FourTypes/>
-                    <TabsCard ref="tabsCard"/>
+                    <TabsCard history={this.props.history} ref="tabsCard"/>
                 </div>
             </div>
         );

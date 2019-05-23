@@ -201,6 +201,8 @@ class ArticleDetail extends Component {
             this.props.history.push({
                 pathname: this.state.back,
                 state: {
+                    unique: this.props.location.state.unique || '',
+                    jacId: this.props.location.state.jacId || '',
                     from: this.state.origin,
                 }
             })

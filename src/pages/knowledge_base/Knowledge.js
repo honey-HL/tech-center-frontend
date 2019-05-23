@@ -18,7 +18,6 @@ class Knowledge extends Component {
         this.state = {
             img_error: false,
             open: true,
-            orderBy:'',
             classifyId:'',
             pageIndex: 1,
             pageSize: 10,
@@ -48,7 +47,7 @@ class Knowledge extends Component {
             pageIndex: pageIndex?pageIndex:this.state.pageIndex,
             title: '',
             pageSize: this.state.pageSize,
-            orderBy: this.state.orderBy,
+            orderBy: '',
             classifyId: item.jacId !== undefined? item.jacId: this.state.classifyId,
             type: 2, // 1问问百科 2知识库 3大师分享 4首页文章
         }
@@ -98,17 +97,30 @@ class Knowledge extends Component {
             res.data.forEach((item) => {
                 new_types.push({name: item.jacName, jacId: item.jacId, active: false})
             })
-            new_types[0].active = true;
-            this.setState({
-                orderBy:this.state.types[0].id || '',
-                classifyId:this.state.types[0].jacId,
-                pageIndex:1,
-                active_item: new_types[0],
-                types: new_types
-            }, () => {
-                this.setState({loading: true})
-                this.loadData(this.state.types[0], 1)
-            })
+            if (this.props&&this.props.location&&this.props.location.state&&this.props.location.state.jacId) {
+                let activeItem = new_types.filter (item => {
+                    return this.props.location.state.jacId === item.jacId
+                })
+                console.log(activeItem)
+                activeItem[0].active = true;
+                this.setState({
+                    active_item: activeItem[0],
+                    classifyId: activeItem[0].jacId,
+                    pageIndex:1,
+                    types: new_types
+                })
+            } else {
+                new_types[0].active = true;
+                this.setState({
+                    active_item: new_types[0],
+                    classifyId:this.state.types[0].jacId,
+                    pageIndex:1,
+                    types: new_types
+                })
+            }
+            console.log(this.state.active_item)
+            this.setState({loading: true})
+            this.loadData(this.state.active_item, 1)
         } else {
             Toast.info(res.message, 1);
             this.setState({loading: false})
@@ -136,7 +148,6 @@ class Knowledge extends Component {
             }
         })
         this.setState({
-            orderBy:info.id || '',
             classifyId:info.jacId,
             show_rf: false,
             types: items,
@@ -170,7 +181,7 @@ class Knowledge extends Component {
         const row = (rowData, sectionID, rowID) => {
             return (
                 <Link 
-                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/knowledge', id: rowData.jaId, scrollTop:''}}} 
+                to={{pathname: 'adetail/'+rowData.jaId,state:{back: '/knowledge', jacId: this.state.active_item.jacId,id: rowData.jaId, scrollTop:''}}} 
                 key={rowID} 
                 className='Card_Horizontal'>
                     <div className='Card_Horizontal_item'>
