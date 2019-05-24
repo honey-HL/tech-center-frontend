@@ -264,7 +264,7 @@ class ResultList extends Component {
                 <div className="fix_bar">
                     <div className='bar_tip'>没有找到答案？您可以</div>
                     <div className='consulting_box'>
-                        <Consulting back={'/result'} search_expert_icon={'28%'} consulting_title={'48%'} info={'提问'} history={this.props.history}/>
+                        <Consulting back={'/result'} search_expert_icon={'23%'} consulting_title={'62%'} info={'咨询专家'} history={this.props.history}/>
                     </div>
                 </div>
             </div>

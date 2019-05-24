@@ -239,11 +239,13 @@ class Article extends Component {
                         <div style={{display:this.state.no_article?'none':'block'}} className='like_article'>
                             <div
                                 onClick={() => this.likeHandle(this.state.jaId)} 
-                                className='like_a_box'>
-                                <div style={{display:'block', width:'32px',height:'28px',}}>
-                                {
-                                    !this.state.is_like_active?<img style={{transition:'all .1s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
-                                }
+                                className='like_a_box like_c_box'>
+                                <div className='like_b_box'>
+                                    <div style={{display:'block', width:'32px',height:'28px',}}>
+                                    {
+                                        !this.state.is_like_active?<img style={{transition:'all .1s'}} className="img" src={like_white}  alt="喜欢"/>:<img style={{transition:'all .2s'}} className="img" src={like_red}  alt="喜欢"/>
+                                    }
+                                    </div>
                                 </div>
                                 <div className='jaLike'>{this.state.jaLike}</div>
                             </div>

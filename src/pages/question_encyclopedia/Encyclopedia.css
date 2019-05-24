@@ -16,6 +16,16 @@
     }
 }
 
+.like_b_box {
+    display: flex;
+    justify-content: center;
+}
+
+.like_c_box {
+    display: flex;
+    flex-direction: column;
+}
+
 .recommended_img {
     -webkit-animation-name: fadeIn;
    -webkit-animation-timing-function: ease-in-out;
