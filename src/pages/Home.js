@@ -99,13 +99,11 @@ class TabsCard extends React.Component {
                 arr.push(obj)
             }
             new_types = arr
-            console.log(new_types)
-            console.log(this.props.history.location.state.unique)
-            if (this.props.history.location.state.unique !== '' && this.props.history.location.state.unique !== undefined) {
+            if (this.props&&this.props.history&&this.props.history.location&&this.props.history.location.state&&
+                this.props.history.location.state.unique !== '' && this.props.history.location.state.unique !== undefined) {
                 let activeItem = new_types.filter (item => {
                     return this.props.history.location.state.unique === item.unique
                 })
-                console.log(activeItem)
                 activeItem[0].active = true;
                 this.setState({
                     orderBy: activeItem[0].id,
