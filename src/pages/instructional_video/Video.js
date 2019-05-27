@@ -392,7 +392,7 @@ class Video extends Component {
             }}
             >
                 <div className='Baike_Header'>
-                    <div className='title_ea'>{this.props.title}</div>
+                    <div className='title_ea'>教学视频</div>
                     <div className="back_search_mennu">
                         <Link onClick={() => this.removeSession()} to="/" className="video_back">
                             <div className='back'>
@@ -418,7 +418,7 @@ class Video extends Component {
                         style={{
                             zIndex:this.state.open?'9999':'',
                             display: this.state.open?'block':'none', 
-                            height: document.documentElement.clientHeight - 70
+                            height: document.documentElement.clientHeight - 88
                          }}
                         contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                         sidebar={sidebar}

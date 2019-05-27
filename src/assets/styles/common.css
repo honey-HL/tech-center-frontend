@@ -295,7 +295,7 @@
 .back_search {
     width: 100%;
     padding: 0 12px 0 0;
-    margin-top: 12px;
+    margin-top: 10px;
     height: 35px;
     overflow: hidden;
     display: flex;
@@ -308,7 +308,7 @@
     font-size: 15px;
     text-align: center;
     font-family: PingFangSC-Regular;
-    padding-top: 20px;
+    padding-top: 12px;
 }
 /******ensyclopedia_header*****/
 
@@ -386,7 +386,7 @@
 }
 
 .Redius_Blank{
-    min-height: calc(100% - 68px);
+    min-height: calc(100% - 44px);
     /* overflow: auto; */
     background: #fff;
     border-top-left-radius: 13px;

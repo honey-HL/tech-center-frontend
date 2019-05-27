@@ -216,10 +216,10 @@ class Knowledge extends Component {
             <div className="Redius_Blank">
 
                 <div 
-                style={{height:this.state.availHeight - 68}}
+                style={{height:this.state.availHeight - 44}}
                 className="TabsCard">
                     <div 
-                     style={{minHeight:this.state.availHeight - 68}}
+                     style={{minHeight:this.state.availHeight - 44}}
                     className="tab_bar">
                         <div className="tab_bar_box">
                         {

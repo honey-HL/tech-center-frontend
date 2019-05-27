@@ -92,7 +92,7 @@
 .MyInquiry_Blank {
     display: flex;
     flex-direction: column;
-    min-height: calc(100% - 99px);
+    min-height: calc(100% - 89px);
     background:#fff;
     margin-top: 10px;
     border-top-left-radius: 13px;

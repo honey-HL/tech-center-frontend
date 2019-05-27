@@ -21,6 +21,7 @@
     display: inline-block;
     width: 100%;
     height: 35px;
+    margin-top:10px;
 }
 
 .video_back, .search_col_video, .menu_box {
@@ -214,8 +215,8 @@
 
 /**********Header*********/
 .Video_container {
-   min-height: calc(100% - 70px);
-    margin-top: 10px;
+   min-height: calc(100% - 89px);
+    margin-top: 5px;
     overflow: auto;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;

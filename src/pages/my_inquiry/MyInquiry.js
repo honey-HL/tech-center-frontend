@@ -159,7 +159,7 @@ class MyInquiry extends Component {
         return(
             <div className='MyInquiry'>
 
-                <div className='Baike_Header'>
+                <div className='header_box'>
                     <div className='title_ea'>我的咨询</div>
                     <div className="back_search">
                         <Link to="/" className="my_inquiry_back link">
