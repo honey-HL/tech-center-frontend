@@ -3,7 +3,7 @@ import './Encyclopedia.css';
 import { http } from "../../common/http.js";
 import BaikeHeader from '../../components/baike_header/baike_header';
 import { Toast } from 'antd-mobile';
-import { filterLink, getSimpleText } from '../../common/tool'
+import { filterLink } from '../../common/tool'
 import { imgPrefix } from '../../../src/app-config/config.js';
 import {like_red, like_white,cover} from '../../common/images';
 
@@ -218,11 +218,11 @@ class Article extends Component {
                 </div>
                 <div className='right_article'>
                     <div style={{display: !this.state.show_article?'none' : 'block',}}>
-                        <div style={{display:this.state.no_article?'block':'none', textAlign:'center',marginTop:'30px'}}>
+                        <div className="article_title" style={{display:this.state.no_article?'block':'none', textAlign:'center',marginTop:'30px'}}>
                             暂无相关文章
                         </div>
                         <div style={{display:this.state.no_article?'none':'block'}} className="article_title">{this.state.article_title}</div>
-                        <div style={{display:this.state.no_article?'none':'block'}} className="en_article_content" dangerouslySetInnerHTML={{ __html: getSimpleText(this.state.article_content)}}></div>
+                        <div style={{display:this.state.no_article?'none':'block'}} className="en_article_content" dangerouslySetInnerHTML={{ __html: this.state.article_content}}></div>
                         <a 
                             style={{display:this.state.no_article?'none':'block'}}
                             onClick={() => this.bannerView(this.state.jbId)} 
