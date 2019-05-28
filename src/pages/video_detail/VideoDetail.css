@@ -4,12 +4,12 @@
 
 /****相关视频****/
 .related_videos {
-    padding: 0 15px;
-    margin-top:10px;
+    padding: 10px 15px;
+    /* margin-top:10px; */
     width: 100%;
     height: auto;
     background: #fff;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 .related_title {
     font-family:PingFangSC-Regular;
