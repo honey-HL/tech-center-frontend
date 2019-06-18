@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Carousel } from 'antd';
+// import { Carousel } from 'antd';
+import { Carousel } from 'antd-mobile';
 import './banner.css';
 import { http } from "../../common/http.js";
 import { imgPrefix, onlinePrefix } from '../../../src/app-config/config.js';

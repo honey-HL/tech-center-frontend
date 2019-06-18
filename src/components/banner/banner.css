@@ -59,3 +59,44 @@
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
 }
+
+/****ant-mobile banner 底部dot切换点*****/
+.slider-frame {
+    height: 160px !important;
+}
+.am-carousel-wrap-dot {
+    background: #e6e6e6 !important;
+    position: relative;
+    display: inline-block;
+    margin: 0 2px;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+}
+.am-carousel-wrap-dot > span {
+    display: block;
+    width: 13px;
+    height: 3px;
+    padding: 0;
+    color: transparent;
+    font-size: 0;
+    background: #fff;
+    border: 0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    opacity: .3;
+    transition: all .5s;
+}
+.am-carousel-wrap-dot-active {
+    transition: all .5s;
+    background: #f35f00 !important;
+}
+.am-carousel-wrap-dot-active > span {
+    width: 24px;
+    opacity: 1;
+    background: #e46815!important;
+    border-radius: 2px;
+    transition: all .5s;
+}
+/****ant-mobile banner 底部dot切换点*****/
