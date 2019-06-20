@@ -99,4 +99,10 @@
     border-radius: 2px;
     transition: all .5s;
 }
+.slider-decorator-0 {
+    position: absolute;
+    bottom: -10px !important;
+    width: 100%;
+    text-align: center;
+}
 /****ant-mobile banner 底部dot切换点*****/

@@ -96,9 +96,10 @@ class Card_Horizontal extends Component {
                         </div>
                         <div className="Card_Horizontal_right_img">
                             <img 
-                                onError={this.handleImageErrored} 
+                                // onError={this.handleImageErrored} 
                                 className="wh_100" 
-                                src={!this.state.img_error?imgPrefix + rowData.jaImage:cover}
+                                // src={!this.state.img_error?imgPrefix + rowData.jaImage:cover}
+                                src={imgPrefix + rowData.jaImage}
                                 alt="banner" 
                             />
                         </div>

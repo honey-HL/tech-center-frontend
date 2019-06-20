@@ -213,8 +213,16 @@ class TabsCard extends React.Component {
 
     }
 
-    handleImageErrored = (e) => {
-        this.setState({img_error: true})
+    errorImgFilter (src) {
+        // console.log(src);
+        let img = new Image();
+        img.src = src;
+        if(img.filesize>0||(img.width>0&&img.height>0)){
+            return src
+         }else{
+             return cover
+         }
+        
     }
 
     render(){
@@ -241,9 +249,11 @@ class TabsCard extends React.Component {
                         </div>
                         <div className="Card_Horizontal_right_img">
                             <img  
-                                onError={this.handleImageErrored} 
+                                // onError={this.handleImageErrored} 
+                                // onError={this.handleImageErrored.bind(this)} 
                                 className="wh_100" 
-                                src={!this.state.img_error?imgPrefix + rowData.jaImage:cover} alt="banner" 
+                                src={imgPrefix + rowData.jaImage} alt="文章封面图" 
+                                // src={this.errorImgFilter(imgPrefix + rowData.jaImage)} alt="文章封面图" 
                             />
                         </div>
                     </div>

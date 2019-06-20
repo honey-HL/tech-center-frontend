@@ -50,7 +50,7 @@ class Banner extends Component {
                       <div key={index}>
                         <div onClick={() => this.bannerView(item)} className="banner_box">
                             <img className="banner_img" 
-                                onError={this.handleImageErrored} 
+                                // onError={this.handleImageErrored} 
                                 src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:!this.state.img_error?imgPrefix + item.jbImage:cover} 
                                 alt="banner" 
                             />

@@ -138,11 +138,12 @@ class MyInquiry extends Component {
                             <div className='avatar'>
                                 <img style={{display:!rowData.member?'block':'none'}} className="img" src={default_avatar}  alt="技术人员头像"/>
                                 <img 
-                                    onError={this.handleImageErrored} 
+                                    // onError={this.handleImageErrored} 
                                     style={{display:rowData.member?'block':'none'}} 
                                     className="img" 
-                                    src={!this.state.img_error?imgPrefix + rowData.member.jmHeadimage:default_avatar}  
-                                    alt="返回"
+                                    // src={!this.state.img_error?imgPrefix + rowData.member.jmHeadimage:default_avatar} 
+                                    src={imgPrefix + rowData.member.jmHeadimage}  
+                                    alt="头像"
                                 />
                             </div>
                             <div className='jmName'>

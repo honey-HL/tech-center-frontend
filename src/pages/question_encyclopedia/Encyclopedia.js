@@ -230,7 +230,7 @@ class Article extends Component {
                             className='recommendation_img'
                         >
                             <img 
-                                onError={this.handleImageErrored} 
+                                // onError={this.handleImageErrored} 
                                 className="img recommended_img" 
                                 src={this.state.recommended_img}  
                                 alt="推荐位图片"
