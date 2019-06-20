@@ -41,6 +41,8 @@ class Article extends Component {
         }
     }
     getEncyDetail = async (item) => {
+        // let scrollHeight = this.rightContent.scrollHeight;
+        setTimeout(()=>{document.getElementsByClassName('right_article')[0].scrollTop = 0}, 10);
         if (!item.isClicked) {
             let params = {
                 classifyId: item.jnId,
@@ -216,7 +218,9 @@ class Article extends Component {
                     })
                    }
                 </div>
-                <div className='right_article'>
+                <div 
+                ref={rightContent => this.rightContent = rightContent}
+                className='right_article'>
                     <div style={{display: !this.state.show_article?'none' : 'block',}}>
                         <div className="article_title" style={{display:this.state.no_article?'block':'none', textAlign:'center',marginTop:'30px'}}>
                             暂无相关文章
