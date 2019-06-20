@@ -454,7 +454,7 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className="home_container">
-                    <Banner data={this.state.bannerArr}/>
+                    <Banner history={this.props.history} from={'/'} data={this.state.bannerArr}/>
                     <FourTypes/>
                     <TabsCard history={this.props.history} ref="tabsCard"/>
                 </div>

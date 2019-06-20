@@ -147,6 +147,12 @@ class VideoDetail extends Component {
             console.log('父级跳转')
             this.props.history.goBack()
         }
+        let isBackHome = window.sessionStorage.getItem('isBackHome')?parseInt(window.sessionStorage.getItem('isBackHome')):'';
+        if (isBackHome === 1) {
+            console.log(isBackHome)
+            this.props.history.push({pathname: '/'})
+            window.sessionStorage.removeItem('isBackHome');
+        }
     }
 
     render(){

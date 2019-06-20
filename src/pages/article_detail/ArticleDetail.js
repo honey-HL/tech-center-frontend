@@ -198,15 +198,15 @@ class ArticleDetail extends Component {
            this.props.history.push({pathname: '/'})
         } else { // 有上一个页面  // 父级跳转 此页面的上级可以是home result 
             console.log('父级跳转')
-            this.props.history.push({
-                pathname: this.state.back,
-                state: {
-                    unique: this.props.location.state.unique || '',
-                    jacId: this.props.location.state.jacId || '',
-                    from: this.state.origin,
-                }
-            })
-            // this.props.history.goBack() // 如果这里用goBack 那么在点击相关文章后再点返回会由你点过的文章详情一层一层返回最初的页面  而不是一次性返回最初的页面
+            // this.props.history.push({
+            //     pathname: this.state.back,
+            //     state: {
+            //         unique: this.props.location.state.unique || '',
+            //         jacId: this.props.location.state.jacId || '',
+            //         from: this.state.origin,
+            //     }
+            // })
+            this.props.history.goBack() // 如果这里用goBack 那么在点击相关文章后再点返回会由你点过的文章详情一层一层返回最初的页面  而不是一次性返回最初的页面
         }
     }
 

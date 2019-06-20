@@ -25,6 +25,9 @@ class Banner extends Component {
                 }
             });
         } else {
+            if (this.props.from === '/') {
+                window.sessionStorage.setItem('isBackHome', 1);
+            }
             await http('/jszx/bannerview', {bannerId: item.jbId});
             window.location.href = filterLink(item.jbLink);
         }
@@ -32,6 +35,10 @@ class Banner extends Component {
 
     handleImageErrored = (e) => {
         this.setState({img_error: true})
+    }
+
+    componentDidMount () {
+        console.log(this.props.from);
     }
 
     render() {
