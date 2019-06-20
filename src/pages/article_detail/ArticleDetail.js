@@ -35,6 +35,7 @@ class ArticleDetail extends Component {
             id: '',
             jaType: '',
             jaTitle: '',
+            showStatic: false,
             title: '文章详情',
         }
     }
@@ -93,6 +94,7 @@ class ArticleDetail extends Component {
         console.log(response);
         if (response.data) {
             this.setState({
+                showStatic: true,
                 data: [],
                 is_like_active: false,
                 pageIndex: 1,
@@ -271,7 +273,9 @@ class ArticleDetail extends Component {
                     </div>
                     <div className="white"></div>
                 </div>
-                <div className="Redius_Blank">
+                <div 
+                style={{display:this.state.showStatic?'block':'none',}} 
+                className="Redius_Blank">
                     <div className='jaTitle'>{this.state.jaTitle}</div>
                     <div className='tip_box'>
                         <div className='jaPublishtime'>{this.state.jaPublishtime}</div>

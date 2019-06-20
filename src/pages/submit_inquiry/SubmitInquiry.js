@@ -373,17 +373,17 @@ class SubmitInquiry extends Component {
             Toast.info('问题内容必填', 1);
             return
         }
-        if (this.state.uploaded.length > 0) {
-            if (this.state.uploaded.length <= 1) {
-                params.jccIamges = this.state.uploaded[0]
-            } else {
-                params.jccIamges = this.state.uploaded.join(',');
-                // console.log(params.jccIamges)
-            }
-        } else {
-            Toast.info('至少上传一张图片', 1);
-            return
-        }
+        // if (this.state.uploaded.length > 0) {
+        //     if (this.state.uploaded.length <= 1) {
+        //         params.jccIamges = this.state.uploaded[0]
+        //     } else {
+        //         params.jccIamges = this.state.uploaded.join(',');
+        //         // console.log(params.jccIamges)
+        //     }
+        // } else { // 隐藏上传图片
+        //     Toast.info('至少上传一张图片', 1);
+        //     return
+        // }
         let jccType = []
         let selected = []
         this.state.q_list.forEach(item => {
@@ -490,13 +490,13 @@ class SubmitInquiry extends Component {
                             placeholder="在此输入问题......"
                         /> */}
                     </div>
-                    <ImagePicker
+                    {/* <ImagePicker
                         files={this.state.files}
                         onChange={this.uploadImages}
                         onImageClick={(index, fs) => console.log(index, fs)}
                         selectable={this.state.files.length < 3}
                         multiple={this.state.multiple}
-                    />
+                    /> */}
                     <div className="section_bar"></div>
                     <div className='question_classification'>
                         <div className='select_tag'>选择问题分类（可多选）</div>
