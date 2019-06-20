@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './MyInquiry.css';
 import Search from '../../components/search/search'
 import Consulting from '../../components/consulting/consulting'
@@ -58,7 +57,7 @@ class MyInquiry extends Component {
     }
 
     getMyQuestion = async () => {
-      //  let userId = getQuery(localStorage.getItem('query'), 'userId');
+      //  let userId = getQuery(window.localStorage.getItem('query'), 'userId');
         let userId = '419916330402451456';
         let response = await http('/jszx/myquestion', {userId: userId});
         if (response.data) {
@@ -89,7 +88,7 @@ class MyInquiry extends Component {
 
     loadData = async (item, pageIndex) => {
         console.log(item, pageIndex)
-        let userId = localStorage.getItem('query') !== 'undefined'?getQuery(localStorage.getItem('query'), 'userId'):'419916330402451456';
+        let userId = window.localStorage.getItem('query') !== 'undefined'?getQuery(window.localStorage.getItem('query'), 'userId'):'419916330402451456';
         let response = await http('/jszx/myquestion', {userId: userId});
         console.log(userId)
         console.log(response);
@@ -128,6 +127,10 @@ class MyInquiry extends Component {
         this.setState({img_error: true})
     }
 
+    handleBack = (e) => {
+        this.props.history.goBack();
+    }
+
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -163,11 +166,11 @@ class MyInquiry extends Component {
                 <div className='header_box'>
                     <div className='title_ea'>我的咨询</div>
                     <div className="back_search">
-                        <Link to="/" className="my_inquiry_back link">
+                        <div onClick={() => this.handleBack()} className="my_inquiry_back link">
                             <div className='back'>
                                 <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>
-                        </Link>
+                        </div>
                         <div className="myinquiry_search">
                             <Search history={this.props.history} back="/minquiry" getValue={this.getValue.bind(this)} />
                         </div>

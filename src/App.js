@@ -16,7 +16,7 @@ class App extends Component {
   }
   componentDidMount () {
     const query =  window.location.search.split('?')[1];
-    localStorage.setItem('query', query);
+    window.localStorage.setItem('query', query);
   }
   render() {
     return (

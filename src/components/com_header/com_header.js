@@ -9,17 +9,17 @@ class Com_Header extends Component {
     }
     handleBack = (e) => {
         // console.log('this.location.query', this.location.query);
-        this.props.history.push({
-            pathname: this.props.from,
-            state: {
-                from: 
-                    this.props && this.props.history &&
-                    this.props.history.location && 
-                    this.props.history.location.state &&
-                    this.props.history.location.state.origin?this.props.history.location.state.origin:'/',
-            }
-        }); // 会直接回到上一页
-        // this.props.history.goBack() // 会回到之前的滚动位置
+        // this.props.history.push({
+        //     pathname: this.props.from,
+        //     state: {
+        //         from: 
+        //             this.props && this.props.history &&
+        //             this.props.history.location && 
+        //             this.props.history.location.state &&
+        //             this.props.history.location.state.origin?this.props.history.location.state.origin:'/',
+        //     }
+        // }); // 会直接回到上一页
+        this.props.history.goBack() // 会回到之前的滚动位置
         // window.history.back()
     }
     componentDidMount () {

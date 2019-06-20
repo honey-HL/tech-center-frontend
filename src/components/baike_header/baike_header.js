@@ -10,8 +10,7 @@ class Baike_Header extends Component {
         this.state = {}
     }
     handleBack = (e) => {
-        // console.log('this.location.query', this.location.query);
-        // this.props.history.push({pathname: '/'});
+        this.props.history.goBack();
     }
     getValue (event){
         this.setState({search_value: event.target.value});
@@ -25,11 +24,11 @@ class Baike_Header extends Component {
             <div className='Baike_Header'>
                <div className='title_ea'>{this.props.title}</div>
                 <div className="back_search">
-                    <Link to="/" className="home-server-item link">
+                    <div onClick={() => this.handleBack()} className="home-server-item link">
                         <div className='back'>
                             <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                         </div>
-                    </Link>
+                    </div>
                     <div className="search_col">
                         <Search type={this.props.type} history={this.props.history} back="/encyclopedia" getValue={this.getValue.bind(this)} />
                     </div>

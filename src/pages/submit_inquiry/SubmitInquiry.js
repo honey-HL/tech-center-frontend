@@ -409,8 +409,8 @@ class SubmitInquiry extends Component {
     }
 
     submitAll = async (params, selected) => {
-        console.log(localStorage.getItem('query'))
-        let userId = getQuery(localStorage.getItem('query'), 'userId');
+        console.log(window.localStorage.getItem('query'))
+        let userId = getQuery(window.localStorage.getItem('query'), 'userId');
         params.jccUserid = userId;
         console.log(userId)
         let response = await http('/jszx/addquestion', params); 

@@ -324,6 +324,9 @@ class Video extends Component {
             Toast.info(response.message, 1);
         }
     }
+    handleBack = (e) => {
+        this.props.history.goBack();
+    }
     render() {
         const drag = false
         const sidebar = (<div style={{ height: document.documentElement.clientHeight - 93}} className='sidebar'>
@@ -394,11 +397,11 @@ class Video extends Component {
                 <div className='Baike_Header'>
                     <div className='title_ea'>教学视频</div>
                     <div className="back_search_mennu">
-                        <Link onClick={() => this.removeSession()} to="/" className="video_back">
+                        <div onClick={() => this.handleBack()} className="video_back">
                             <div className='back'>
                                 <img className="img" src={require('../../assets/images/back.png')}  alt="返回"/>
                             </div>
-                        </Link>
+                        </div>
                         <div className="search_col_video">
                             <Search history={this.props.history} back="/video" getValue={this.getValue.bind(this)} />
                         </div>

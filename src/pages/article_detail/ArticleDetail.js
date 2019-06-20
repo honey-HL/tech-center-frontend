@@ -175,6 +175,7 @@ class ArticleDetail extends Component {
     }
 
     componentDidMount(){
+        console.log(this.props.history);
         let back = this.props && this.props.location && this.props.location.state && this.props.location.state.back?this.props.location.state.back:'';
         let origin = this.props && this.props.location && this.props.location.state && this.props.location.state.origin?this.props.location.state.origin:'';
         console.log('componentDidMount->back', back);
