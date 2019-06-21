@@ -88,12 +88,12 @@ class QJPopup extends Component {
                 <div className='jcImage'>
                     <img className="banner_img" src={imgPrefix + this.state.jcImage} alt="" />
                 </div>
-                <div className='tc_staff_structure'>
+                {/* <div className='tc_staff_structure'>
                     <div>架构云图</div>
                     <div className='cloud_structure'>
                         <img className="banner_img" src={require('../../assets/images/qjs.png')} alt="" />
                     </div>
-                </div>
+                </div> */}
                 <div className='experts'>
                     <div className='experts_title'>专家团队</div>
                     <div className='experts_container'>

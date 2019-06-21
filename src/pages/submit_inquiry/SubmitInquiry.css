@@ -35,7 +35,8 @@
 .single_person div:nth-child(3) {
     background: #F6A772;
     color: #fff;
-    width: 80%;
+    /* width: 80%; */
+    width:90%;
     margin: 0 10%;
     padding: 1px 0;
     display: flex;

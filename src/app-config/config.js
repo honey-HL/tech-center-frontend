@@ -1,9 +1,9 @@
 export const basePath = '';
-export const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter';
-// export const imgPrefix = 'http://192.168.31.9:1024/videocenter'; // 测试环境
+// export const imgPrefix = 'https://jszx.3ceasy.com/video/videocenter';
+export const imgPrefix = 'http://192.168.31.9:1024/videocenter'; // 测试环境
 // export const imgPrefix = 'http://192.168.21.119:8888'; // 本地
-export const baseUrl = 'https://jszx.3ceasy.com/video/videocenter'; 
-// export const baseUrl = 'http://192.168.31.9:1024/videocenter'; // 测试环境
+// export const baseUrl = 'https://jszx.3ceasy.com/video/videocenter'; 
+export const baseUrl = 'http://192.168.31.9:1024/videocenter'; // 测试环境
 // export const baseUrl = 'http://192.168.21.119:8888'; // 本地
 export const onlinePrefix = 'https://jszx.3ceasy.com';
 export const onlineImg = 'https://jszx.3ceasy.com/video/videocenter/'; // 线上图片ip
