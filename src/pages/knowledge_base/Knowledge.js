@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { imgPrefix } from '../../../src/app-config/config.js';
 import { ListView, Toast } from 'antd-mobile';
 import {eye, heart, loading_img, cover} from '../../common/images';
+import { connect } from 'react-redux';
 
 
 class Knowledge extends Component {
@@ -91,15 +92,17 @@ class Knowledge extends Component {
     }
 
     getTabsNav = async () => {
+        let last_active = this.props.tiger.data
+        console.log(last_active[0]);
         let res = await http('/jszx/classify', {type: 3}); // 分类类型 1 首页展示 2热搜展示 3知识库展示
         let new_types = this.state.types;
         if (res.data) {
             res.data.forEach((item) => {
                 new_types.push({name: item.jacName, jacId: item.jacId, active: false})
             })
-            if (this.props&&this.props.location&&this.props.location.state&&this.props.location.state.jacId) {
+            if (last_active.length > 0) {
                 let activeItem = new_types.filter (item => {
-                    return this.props.location.state.jacId === item.jacId
+                    return last_active[0].jacId === item.jacId
                 })
                 console.log(activeItem)
                 activeItem[0].active = true;
@@ -147,6 +150,7 @@ class Knowledge extends Component {
                 }
             }
         })
+        this.props.getActiveTab(info);
         this.setState({
             classifyId:info.jacId,
             show_rf: false,
@@ -284,4 +288,17 @@ class Knowledge extends Component {
     }
 }
 
-export default Knowledge;
+//需要渲染什么数据
+function mapStateToProps(state) {
+    return {
+      tiger: state
+    }
+}
+//需要触发什么行为
+function mapDispatchToProps(dispatch) {
+    return {
+        getActiveTab: item => dispatch({type: 'getActiveTab', active_item: item}),
+    }
+}
+
+export default Knowledge = connect(mapStateToProps, mapDispatchToProps)(Knowledge);;

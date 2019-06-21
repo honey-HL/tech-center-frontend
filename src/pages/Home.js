@@ -8,6 +8,7 @@ import Consulting from '../components/consulting/consulting'
 import { ListView, Toast } from 'antd-mobile';
 import {eye, heart, loading_img, cover} from '../common/images';
 import { imgPrefix } from '../../src/app-config/config.js';
+import { connect } from 'react-redux';
 
 
 
@@ -65,6 +66,11 @@ class TabsCard extends React.Component {
                 }
             }
         })
+
+        // 触发父组建方法 并传参
+        this.props.toggleDispatch(info);
+        // 触发父组建方法 并传参
+
         this.setState({
             active_index: index,
             transWidth: index*-this.state.availWidth,
@@ -84,6 +90,8 @@ class TabsCard extends React.Component {
         })
     }
     getTabsNav = async () => {
+        let last_active = this.props.tiger.data
+        console.log(last_active[0]);
         let response = await http('/jszx/classify', {type: 1});
         let new_types = this.state.types;
         if (response.data) {
@@ -100,11 +108,9 @@ class TabsCard extends React.Component {
             }
             new_types = arr
             console.log(new_types);
-            console.log(this.props)
-            if (this.props&&this.props.history&&this.props.history.location&&this.props.history.location.state&&
-                this.props.history.location.state.unique !== '' && this.props.history.location.state.unique !== undefined) {
+            if (last_active.length > 0) {
                 let activeItem = new_types.filter (item => {
-                    return this.props.history.location.state.unique === item.unique
+                    return last_active[0].unique === item.unique
                 })
                 console.log(activeItem);
                 activeItem[0].active = true;
@@ -115,7 +121,6 @@ class TabsCard extends React.Component {
                     pageIndex:1,
                     types: new_types
                 })
-                console.log('zoule')
             } else {
                 new_types[0].active = true;
                 this.setState({
@@ -210,7 +215,6 @@ class TabsCard extends React.Component {
             window.$mobile.navigationShow(true);
         }
         this.getTabsNav()
-        console.log(this.props)
     }
     onScrollHandle = () => {
         // console.log(this.lv)
@@ -448,12 +452,16 @@ class Home extends Component {
             }
         })
     }
+
+   toggleDispatch =  (active_item) => {
+        this.props.getActiveTab(active_item);
+   }
     
     render() {
         return(
             <div 
             // style={{ maxHeight: this.state.availHeight, overflowY: 'scroll' }}
-            // ref={c => {this.scrollRef = c;}}
+            ref={c => {this.homeRef = c;}}
             // onScrollCapture={() => this.onScrollHandle()}
             className="Home">
                 <div className="header_box">
@@ -471,11 +479,24 @@ class Home extends Component {
                 <div className="home_container">
                     <Banner history={this.props.history} from={'/'} data={this.state.bannerArr}/>
                     <FourTypes/>
-                    <TabsCard history={this.props.history} ref="tabsCard"/>
+                    <TabsCard toggleDispatch={this.toggleDispatch.bind(this)} tiger={this.props.tiger} history={this.props.history} ref="tabsCard"/>
                 </div>
             </div>
         );
     }
 }
 
-export default Home;
+ //需要渲染什么数据
+function mapStateToProps(state) {
+    return {
+      tiger: state
+    }
+}
+//需要触发什么行为
+function mapDispatchToProps(dispatch) {
+    return {
+        getActiveTab: item => dispatch({type: 'getActiveTab', active_item: item}),
+    }
+}
+
+export default Home = connect(mapStateToProps, mapDispatchToProps)(Home);
