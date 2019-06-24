@@ -105,13 +105,23 @@ class Knowledge extends Component {
                     return last_active[0].jacId === item.jacId
                 })
                 console.log(activeItem)
-                activeItem[0].active = true;
-                this.setState({
-                    active_item: activeItem[0],
-                    classifyId: activeItem[0].jacId,
-                    pageIndex:1,
-                    types: new_types
-                })
+                if (activeItem.length <= 0) {
+                    new_types[0].active = true;
+                    this.setState({
+                        active_item: new_types[0],
+                        classifyId:this.state.types[0].jacId,
+                        pageIndex:1,
+                        types: new_types
+                    })
+                } else {
+                    activeItem[0].active = true;
+                    this.setState({
+                        active_item: activeItem[0],
+                        classifyId: activeItem[0].jacId,
+                        pageIndex:1,
+                        types: new_types
+                    })
+                }
             } else {
                 new_types[0].active = true;
                 this.setState({

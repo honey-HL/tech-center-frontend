@@ -43,4 +43,5 @@
 }
 .Detail_Article {
     height: 100%;
+    background: linear-gradient(180deg,rgba(248,175,126,1),rgba(228,103,19,1));
 }

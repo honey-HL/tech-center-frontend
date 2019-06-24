@@ -113,14 +113,25 @@ class TabsCard extends React.Component {
                     return last_active[0].unique === item.unique
                 })
                 console.log(activeItem);
-                activeItem[0].active = true;
-                this.setState({
-                    orderBy: activeItem[0].id,
-                    active_item: activeItem[0],
-                    classifyId: activeItem[0].jacId,
-                    pageIndex:1,
-                    types: new_types
-                })
+                if (activeItem.length > 0) {
+                    activeItem[0].active = true;
+                    this.setState({
+                        orderBy: activeItem[0].id,
+                        active_item: activeItem[0],
+                        classifyId: activeItem[0].jacId,
+                        pageIndex:1,
+                        types: new_types
+                    })
+                } else {
+                    new_types[0].active = true;
+                    this.setState({
+                        orderBy: this.state.types[0].id,
+                        active_item: new_types[0],
+                        classifyId:this.state.types[0].jacId,
+                        pageIndex:1,
+                        types: new_types
+                    })
+                }
             } else {
                 new_types[0].active = true;
                 this.setState({
