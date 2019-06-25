@@ -5,7 +5,8 @@ import '../../components/com_header/com_header.css';
 import { http } from "../../common/http";
 import { ListView, Toast } from 'antd-mobile';
 import { imgPrefix } from '../../app-config/config';
-import {eye, heart, loading_img, like_white, like_red, cover } from '../../common/images';
+import {eye, heart, loading_img, like_white, like_red } from '../../common/images';
+import ComImage from '../../components/image/image';
 
 
 class ArticleDetail extends Component {
@@ -213,10 +214,6 @@ class ArticleDetail extends Component {
         }
     }
 
-    handleImageErrored = (e) => {
-        this.setState({img_error: true})
-    }
-
     render(){
         const row = (rowData, sectionID, rowID) => {
             return (
@@ -240,13 +237,7 @@ class ArticleDetail extends Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img 
-                                // onError={this.handleImageErrored} 
-                                className="wh_100" 
-                                // src={!this.state.img_error?imgPrefix + rowData.jaImage:cover} 
-                                src={imgPrefix + rowData.jaImage} 
-                                alt="banner" 
-                            />
+                            <ComImage imageUrl={imgPrefix + rowData.jaImage} />
                         </div>
                     </div>
                 </Link>

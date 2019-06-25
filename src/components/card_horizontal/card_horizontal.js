@@ -4,7 +4,8 @@ import './card_horizontal.css';
 import { imgPrefix } from '../../../src/app-config/config.js';
 import { ListView, Toast } from 'antd-mobile';
 import {http} from '../../common/http'
-import {eye, heart, loading_img, cover} from '../../common/images';
+import {eye, heart, loading_img} from '../../common/images';
+import ComImage from '../../components/image/image';
 
 
 class Card_Horizontal extends Component {
@@ -95,13 +96,7 @@ class Card_Horizontal extends Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img 
-                                // onError={this.handleImageErrored} 
-                                className="wh_100" 
-                                // src={!this.state.img_error?imgPrefix + rowData.jaImage:cover}
-                                src={imgPrefix + rowData.jaImage}
-                                alt="banner" 
-                            />
+                            <ComImage imageUrl={imgPrefix + rowData.jaImage} />
                         </div>
                     </div>
                 </Link>

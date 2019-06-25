@@ -450,3 +450,5 @@
 body,html{
     -webkit-overflow-scrolling: touch;
 }
+/**Unable to preventDefault inside passive event listener due to target being treated as passive**/
+* { touch-action: pan-y; } 

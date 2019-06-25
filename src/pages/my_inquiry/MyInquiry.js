@@ -7,6 +7,7 @@ import { ListView, Toast } from 'antd-mobile';
 import { getQuery, filterDate } from '../../common/tool';
 import {loading_img, default_avatar} from '../../common/images';
 import { imgPrefix } from '../../../src/app-config/config.js';
+import ComImage from '../../components/image/image';
 
 
 class MyInquiry extends Component {
@@ -139,15 +140,7 @@ class MyInquiry extends Component {
                         <div style={{"WebkitBoxOrient": "vertical"}} className='jccContent'>{rowData.consultation.jccContent}</div>
                         <div className='detail_info'>
                             <div className='avatar'>
-                                <img style={{display:!rowData.member?'block':'none'}} className="img" src={default_avatar}  alt="技术人员头像"/>
-                                <img 
-                                    // onError={this.handleImageErrored} 
-                                    style={{display:rowData.member?'block':'none'}} 
-                                    className="img" 
-                                    // src={!this.state.img_error?imgPrefix + rowData.member.jmHeadimage:default_avatar} 
-                                    src={imgPrefix + rowData.member.jmHeadimage}  
-                                    alt="头像"
-                                />
+                            <ComImage defaultImg={default_avatar} imageUrl={rowData.member?imgPrefix + rowData.member.jmHeadimage:''} />
                             </div>
                             <div className='jmName'>
                                 <span style={{display:rowData.member?'block':'none'}}>{rowData.member.jmName}</span>

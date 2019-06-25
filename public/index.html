@@ -41,20 +41,38 @@
         var lastTouchEnd = 0;
         document.addEventListener('touchstart', function(event) {
             if (event.touches.length > 1) {
-                event.preventDefault();
+                // 判断默认行为是否可以被禁用
+                if (event.cancelable) {
+                    // 判断默认行为是否已经被禁用
+                    if (!event.defaultPrevented) {
+                        event.preventDefault();
+                    }
+                }
             }
         });
         document.addEventListener('touchend', function(event) {
             var now = (new Date()).getTime();
             if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
+               // 判断默认行为是否可以被禁用
+               if (event.cancelable) {
+                    // 判断默认行为是否已经被禁用
+                    if (!event.defaultPrevented) {
+                        event.preventDefault();
+                    }
+                }
             }
             lastTouchEnd = now;
         }, false);
 
         // 阻止双指放大
         document.addEventListener('gesturestart', function(event) {
-            event.preventDefault();
+            // 判断默认行为是否可以被禁用
+              if (event.cancelable) {
+                // 判断默认行为是否已经被禁用
+                if (!event.defaultPrevented) {
+                    event.preventDefault();
+                }
+              }
         });
     }
     </script>

@@ -6,6 +6,7 @@ import { http } from "../../common/http.js";
 import { imgPrefix, onlinePrefix } from '../../../src/app-config/config.js';
 import { filterLink } from '../../common/tool'
 import { cover } from '../../common/images';
+import ComImage from '../image/image';
 
 
 class Banner extends Component {
@@ -49,11 +50,7 @@ class Banner extends Component {
                     return (
                       <div key={index}>
                         <div onClick={() => this.bannerView(item)} className="banner_box">
-                            <img className="banner_img" 
-                                // onError={this.handleImageErrored} 
-                                src={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:!this.state.img_error?imgPrefix + item.jbImage:cover} 
-                                alt="banner" 
-                            />
+                            <ComImage defaultImg={cover} imageUrl={item.rCover?onlinePrefix+'/video/videocenter'+item.rCover:imgPrefix + item.jbImage} />
                         </div>
                       </div>
                     )

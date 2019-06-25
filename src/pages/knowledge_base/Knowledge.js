@@ -6,8 +6,9 @@ import { http } from "../../common/http.js";
 import { Link } from 'react-router-dom';
 import { imgPrefix } from '../../../src/app-config/config.js';
 import { ListView, Toast } from 'antd-mobile';
-import {eye, heart, loading_img, cover} from '../../common/images';
+import {eye, heart, loading_img} from '../../common/images';
 import { connect } from 'react-redux';
+import ComImage from '../../components/image/image'
 
 
 class Knowledge extends Component {
@@ -213,13 +214,7 @@ class Knowledge extends Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img 
-                                // onError={this.handleImageErrored} 
-                                className="wh_100" 
-                                // src={!this.state.img_error?imgPrefix + rowData.jaImage:cover} 
-                                src={imgPrefix + rowData.jaImage} 
-                                alt="banner"
-                            />
+                            <ComImage imageUrl={imgPrefix + rowData.jaImage} />
                         </div>
                     </div>
                 </Link>

@@ -5,7 +5,8 @@ import BaikeHeader from '../../components/baike_header/baike_header';
 import { Toast } from 'antd-mobile';
 import { filterLink } from '../../common/tool'
 import { imgPrefix } from '../../../src/app-config/config.js';
-import {like_red, like_white,cover} from '../../common/images';
+import {like_red, like_white} from '../../common/images';
+import ComImage from '../../components/image/image'
 
 class Article extends Component {
     constructor(props) {
@@ -182,10 +183,6 @@ class Article extends Component {
         }
     }
 
-    handleImageErrored = (e) => {
-        this.setState({recommended_img: cover})
-    }
-
     render () {
         return(
             <div className='Article'>
@@ -233,12 +230,7 @@ class Article extends Component {
                             href={filterLink(this.state.jbLink)} 
                             className='recommendation_img'
                         >
-                            <img 
-                                // onError={this.handleImageErrored} 
-                                className="img recommended_img" 
-                                src={this.state.recommended_img}  
-                                alt="推荐位图片"
-                            />
+                            <ComImage imageUrl={this.state.recommended_img} />
                         </a>
                         <div style={{display:this.state.no_article?'none':'block'}} className='like_article'>
                             <div

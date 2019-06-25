@@ -9,6 +9,7 @@ import { ListView, Toast } from 'antd-mobile';
 import {eye, heart, loading_img, cover} from '../common/images';
 import { imgPrefix } from '../../src/app-config/config.js';
 import { connect } from 'react-redux';
+import ComImage from '../components/image/image';
 
 
 
@@ -211,12 +212,6 @@ class TabsCard extends React.Component {
         } 
     }
 
-    componentWillUnmount() {
-        if (this.timer) {
-            clearTimeout(this.timer);
-        }
-    }
-    
     componentDidMount () {
         this.setState({
             show_rf: false,
@@ -231,18 +226,6 @@ class TabsCard extends React.Component {
         // console.log(this.lv)
         // console.log(this.lv.scrollHeight-window.screen.availHeight)
 
-    }
-
-    errorImgFilter (src) {
-        // console.log(src);
-        let img = new Image();
-        img.src = src;
-        if(img.filesize>0||(img.width>0&&img.height>0)){
-            return src
-         }else{
-             return cover
-         }
-        
     }
 
     render(){
@@ -268,13 +251,7 @@ class TabsCard extends React.Component {
                             </div>
                         </div>
                         <div className="Card_Horizontal_right_img">
-                            <img  
-                                // onError={this.handleImageErrored} 
-                                // onError={this.handleImageErrored.bind(this)} 
-                                className="wh_100" 
-                                src={imgPrefix + rowData.jaImage} alt="文章封面图" 
-                                // src={this.errorImgFilter(imgPrefix + rowData.jaImage)} alt="文章封面图" 
-                            />
+                            <ComImage imageUrl={imgPrefix + rowData.jaImage} />
                         </div>
                     </div>
                 </Link>
