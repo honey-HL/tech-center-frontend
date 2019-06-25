@@ -155,6 +155,10 @@
 .am-picker-popup-header-right {
     color: #E46713 !important;
 }
+
+.am-list-item .am-list-line {
+    background-color: transparent !important;
+}
  
 .am-list-item .am-list-line .am-list-extra {
     flex-basis: auto !important;
